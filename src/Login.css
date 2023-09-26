@@ -1,0 +1,109 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: Pretendard-Regular;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modira {
+    color: #87AD83;
+}
+
+.welcome {
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+}
+
+#email,
+#password {
+    width: 438px;
+    background: #F9F9F9;
+    border: none;
+    border-bottom: 1px solid #A7A7A7;
+    margin-top: 50px;
+    padding: 5px;
+}
+
+#email::placeholder,
+#password::placeholder {
+    color: #A7A7A7;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: normal;
+}
+
+.goSignup {
+    color: #87AD83;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration-line: none;
+}
+
+button {
+    width: 438px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    margin-top: 31px;
+}
+
+#loginButton {
+    height: 50px;
+    background: #F9F9F9;
+    border: 3px solid #87AD83;
+    color: #87AD83;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+#kakaoLoginButton {
+    height: 55px;
+    background: #FDDC3F;
+    border: #FDDC3F;
+    color: #2C2C2C;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px;
+}
+
+#kakaoLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    width: 513px;
+    height: 433px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: #F9F9F9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.kakaoLogo {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    margin-right: 13px;
+}
+
+.notUser {
+    margin-top: 31px;
+}
