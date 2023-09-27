@@ -1,7 +1,15 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
 /* 회원가입 컨테이너 */
 .SignUp{
+    position : relative;
     text-align: center;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Pretendard-Regular';
 }
 /* 회원가입 문구 */
 .SignUp-txt{
@@ -13,14 +21,19 @@
 
 /* 회원가입 입력 창 */
 .SignUp-Container{
-    position : relative;
-    top : -90px;
+    position : absolute;
+    top : 200px;
     left : 25%;
     width : 500px;
     background-color: #F9F9F9;
     z-index : 10000;
     text-align: left;
     padding : 100px;
+}
+
+/* 입력 폼 div */
+.formBox{
+    margin-bottom: 30px;
 }
 
 /* 입력 라벨 */
@@ -36,7 +49,7 @@
     width : 100%;
     height: 30px;
     padding : 10px 20px;
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
 }
 
 .inputBox:focus{
@@ -51,12 +64,15 @@
     border : none;
     color : #ffffff;
     font-size : medium;
+    font-weight: bold ;
     margin : 40px 150px 0px 150px;
     cursor: pointer;
 }
 
 /* 에러메세지 */
-.ErrMsg{
-    position : absolute;
-    z-index: 1000;
+.ErrMsg > p{
+    font-size: small;
+    margin : 10px;
+    color : rgb(226, 25, 25);
 }
+
