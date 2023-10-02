@@ -7,7 +7,7 @@ function Login() {
       <h2 className="welcome">
         <span className="modira">MODIRA</span>에 오신 것을 환영합니다!
       </h2>
-      <form method="POST">
+      <form method="POST" className="LoginForm">
         <input id="email" name="email" placeholder="E-MAIL"></input>
         <input
           id="password"
