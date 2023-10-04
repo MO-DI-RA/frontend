@@ -1,22 +1,42 @@
 import React from "react";
 import { useForm }  from "react-hook-form";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
+import axios from "axios";
 import "./SignUp.css";
 
 
 function SignUp() {
-
     // react-hook-form 사용
     const {register, formState: {errors},watch, handleSubmit} = useForm();
     const password = useRef();
     password.current = watch("password");
 
-    
+    // 페이지이동 navigator
+    const navigate = useNavigate();
+
     // 폼 제출
     const onSubmit = async (data) => {
         console.log(data); //콘솔 확인
+
+        const {email, password, nickname} = data;
+
+        let body = {
+            eamil : email,
+            password : password,
+            nickname : nickname,
+        }
         
+        console.log(body);
+        
+        // API 주소 입력 수정 필요
+        axios.post('https://localhost:8000', body)
+            .then((res) => { 
+                console.log(res);
+                navigate('/Login');
+            })
+            .then((err) => console.log(err));
     }
 
     return(
