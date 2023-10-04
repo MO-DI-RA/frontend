@@ -30,8 +30,8 @@ function SignUp() {
         
         console.log(body);
         
-        // API 주소 입력 수정 필요
-        axios.post('https://localhost:8000', body)
+        // API 주소 입력 수정 필요 => 수정 완료
+        axios.post('http://localhost:8000/users/register/', body)
             .then((res) => { 
                 console.log(res);
                 navigate('/Login');
