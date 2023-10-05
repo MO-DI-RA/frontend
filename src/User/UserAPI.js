@@ -34,3 +34,9 @@ UserApi.interceptors.response.use((response) => {
     }
     return Promise.reject(error);
 });
+
+/** 회원조회 API */
+export const fetchUser = async () => {
+    const response = await UserApi.get(`/api/v1/user`);
+    return response.data;
+}

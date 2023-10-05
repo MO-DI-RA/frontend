@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import axios from "axios";
 
 import "./Login.css";
@@ -16,6 +17,8 @@ function Login() {
 
   //react-hook-form 사용
   const {register,handleSubmit} = useForm();
+
+  const [cookies, setCookie] = useCookies(['id']); //쿠키
 
   //Submit
   const onSubmit = async (data) => {
@@ -41,9 +44,10 @@ function Login() {
                 })
       .then((response) => {
         localStorage.clear();
-        localStorage.setItem('tokenType', response.tokenType);
-        localStorage.setItem('accessToken', response.accessToken);
-        localStorage.setItem('refreshToken', response.refreshToken);
+        // localStorage.setItem('tokenType', response.tokenType);
+        // localStorage.setItem('accessToken', response.accessToken);
+        // localStorage.setItem('refreshToken', response.refreshToken);
+        setCookie('id', res.data.token);
         navigate('/Home');
       })
       .catch((err)=>{
