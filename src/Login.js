@@ -42,7 +42,7 @@ function Login() {
                     'Authorization' : `${TOKEN_TYPE} ${ACCESS_TOKEN}`,
                   },
                 })
-      .then((response) => {
+      .then((res) => {
         localStorage.clear();
         // localStorage.setItem('tokenType', response.tokenType);
         // localStorage.setItem('accessToken', response.accessToken);
