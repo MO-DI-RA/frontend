@@ -1,6 +1,6 @@
-import "./Mypage.css";
-import defaultImg from "./defaultImg.png";
-import editImg from "./editImg.png";
+import "../css/Mypage.css";
+import defaultImg from "../asset/defaultImg.png";
+import editImg from "../asset/editImg.png";
 
 function Mypage() {
   return (

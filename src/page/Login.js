@@ -1,5 +1,5 @@
-import "./Login.css";
-import kakaoLogo from "./kakaoLogo.png";
+import "../css/Login.css";
+import kakaoLogo from "../asset/kakaoLogo.png";
 
 function Login() {
   const handleSubmit = (e) => {
