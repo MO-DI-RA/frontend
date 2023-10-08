@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
-import "./SignUp.css";
+import "../css/SignUp.css";
 
 
 function SignUp() {
@@ -23,20 +23,26 @@ function SignUp() {
         const {email, password, nickname} = data;
 
         let body = {
-            eamil : email,
+            email : email,
             password : password,
             nickname : nickname,
-        }
+        };
         
         console.log(body);
         
         // API 주소 입력 수정 필요 => 수정 완료
-        axios.post('http://localhost:8000/users/register/', body)
+        axios.post('http://localhost:8000/users/register/', 
+                    body,
+                    {
+                        headers : {
+                            'Content-Type' : 'application/json',
+                        },
+                    })
             .then((res) => { 
                 console.log(res);
                 navigate('/Login');
             })
-            .then((err) => console.log(err));
+            .catch((err) => console.log(err));
     }
 
     return(

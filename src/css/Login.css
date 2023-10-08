@@ -67,6 +67,7 @@
     color: #87AD83;
     font-size: 18px;
     font-weight: 800;
+    cursor: pointer;
 }
 
 #kakaoLoginButton {
@@ -78,6 +79,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 40px;
+    cursor: pointer;
 }
 
 #kakaoLogin {
