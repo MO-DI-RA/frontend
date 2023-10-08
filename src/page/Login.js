@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
-import { getCookie, setCookie } from "./config/cookie";
-import "./Login.css";
-import kakaoLogo from "./kakaoLogo.png";
+import { setCookie } from "../config/cookie";
+import "../css/Login.css";
+import kakaoLogo from "../asset/kakaoLogo.png";
 
 
 function Login() {
@@ -16,7 +16,6 @@ function Login() {
     //react-hook-form 사용
     const { register, handleSubmit } = useForm();
 
-    //const [cookies, setCookie] = useCookies(["id"]); //쿠키
 
     //Submit
     const onSubmit = async data => {
@@ -40,7 +39,7 @@ function Login() {
             })
             .then(res => {
                 if(res.data.token){
-                    setCookie("accessToken", res.data.token);
+                    setCookie("accessToken", res.data.token.access);
                     navigate("/Home");
                 }
             })

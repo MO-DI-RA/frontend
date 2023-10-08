@@ -4,10 +4,7 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
-import "./SignUp.css";
-
-const TOKEN_TYPE = localStorage.getItem("tokenType");
-let ACCESS_TOKEN = localStorage.getItem("accessToken");
+import "../css/SignUp.css";
 
 
 function SignUp() {
@@ -39,7 +36,6 @@ function SignUp() {
                     {
                         headers : {
                             'Content-Type' : 'application/json',
-                            'Authorization' : `${TOKEN_TYPE} ${ACCESS_TOKEN}`,
                         },
                     })
             .then((res) => { 
