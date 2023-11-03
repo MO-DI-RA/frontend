@@ -8,6 +8,7 @@ import SignUp from "./page/SignUp";
 import Mypage from "./page/Mypage";
 import Home from "./page/Home";
 import AddQnA from "./page/QnA/AddQnA";
+import MyPost from "./page/MyPost";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/Mypage" Component={Mypage} />
         <Route path="/Home" Component={Home} />
         <Route path="/AddQnA" Component={AddQnA} />
+        <Route path="/MyPost" Component={MyPost} />
       </Routes>
     </BrowserRouter>
   );
