@@ -1,8 +1,8 @@
-.groupPage {
+.qnaPage {
     padding: 0 200px;
 }
 
-.groupPageContainer {
+.qnaPageContainer {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -14,14 +14,14 @@
     cursor: pointer;
 }
 
-.groupTitleLayout {
+.qnaTitleLayout {
     display: flex;
     align-items: center;
     gap: 30px;
     flex-grow: 1;
 }
 
-.groupState {
+.qnaState {
     background-color: #D9D9D9;
     color: #FFFFFF;
     border: none;
@@ -33,7 +33,7 @@
     transition: background-color 0.3s;
 }
 
-.groupState.recruitingComplete {
+.qnaState.resolve {
     background-color: #AEC0AC;
 }
 
@@ -43,55 +43,28 @@
     gap: 20px;
 }
 
-.groupInfo {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 16px;
-    max-width: 800px;
-
-}
-
-.rowLayout {
-    display: flex;
-    align-items: center;
-    padding: 5px 0;
-}
-
-.groupInfoLabel,
-.groupInfoValue {
-    margin: 0 5px;
-}
-
-.groupInfoLabel {
-    width: 80px;
-}
-
-
-.groupInfoValue {
-    background-color: #E5E5E5;
-    border-radius: 5px;
-    padding: 2px 8px;
-}
 
 .defaultImg {
     height: 20px;
     margin: auto 0;
 }
 
-.groupIntro {
+.qnaIntro {
     border-bottom: 1px solid #000000;
     padding: 25px 0px 15px 0px;
 }
 
-.groupContent {
-    height: 300px;
+.qnaContent {
+    height: 500px;
     width: 100%;
     border-color: #D9D9D9;
-    border-radius: 10px;
+    resize: none;
     font-size: 20px;
+    border-top: 1px solid #000000;
+    padding-top: 20px;
 }
 
-.groupEditButtons {
+.qnaEditButtons {
     display: flex;
     justify-content: right;
     align-items: center;
@@ -99,8 +72,8 @@
 
 }
 
-.groupModifyButton,
-.groupDeleteButton {
+.qnaModifyButton,
+.qnaDeleteButton {
     background-color: #AEC0AC;
     color: #FFFFFF;
     height: 36px;
@@ -113,13 +86,18 @@
     cursor: pointer;
 }
 
-.commentLayout {
+.answerTitle {
+    border-top: 1px solid #000000;
+    padding-top: 20px;
+}
+
+.answerInputLayout {
     display: flex;
     width: 100%;
     gap: 10px;
 }
 
-.commentInput {
+.answerInput {
     height: 50px;
     border-color: #D9D9D9;
     border-radius: 10px;
@@ -128,14 +106,33 @@
     flex-grow: 1;
 }
 
-.commentRegister {
+.answerRegister {
     height: 55px;
     width: 60px;
     border-radius: 10px;
     border: none;
 }
 
-.commentContent {
+.answerLayout {
+    background-color: #EAF1E9;
+    margin: 20px 0px;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.answerContent {
     margin-left: 40px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+}
+
+.CommentOnAnswer {
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
 }

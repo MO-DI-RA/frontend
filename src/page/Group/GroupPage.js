@@ -74,7 +74,7 @@ function GroupPage() {
         </div>
 
         <h3 className="groupIntro">소모임 소개</h3>
-        <textarea className="groupContent"></textarea>
+        <p className="groupContent">소모임 활동에 대한 자세한 내용</p>
 
         <div className="groupEditButtons">
           <button className="groupModifyButton">수정하기</button>
