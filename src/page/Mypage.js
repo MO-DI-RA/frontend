@@ -1,8 +1,11 @@
+import React from "react";
 import "../css/Mypage.css";
 import defaultImg from "../asset/defaultImg.png";
 import editImg from "../asset/editImg.png";
 
 function Mypage() {
+
+
   return (
     <div className="Mypage">
       <div className="info">

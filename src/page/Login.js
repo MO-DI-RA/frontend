@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
-import { setCookie } from "../config/cookie";
+import { getCookie, setCookie } from "../config/cookie";
 import "../css/Login.css";
 import kakaoLogo from "../asset/kakaoLogo.png";
+
 
 function Login() {
   //페이지이동 navigator
@@ -33,6 +34,7 @@ function Login() {
       .post("http://localhost:8000/user/login/", body, {
         headers: {
           "Content-Type": "application/json",
+          authorization : `Bearer ${getCookie("accessToken")}`
         },
       })
       .then((res) => {
