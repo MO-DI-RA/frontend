@@ -7,7 +7,6 @@ import Login from "./page/Login";
 import SignUp from "./page/SignUp";
 import Mypage from "./page/Mypage";
 import Home from "./page/Home";
-import Banner from "./component/Banner";
 
 function App() {
   return (
@@ -17,7 +16,6 @@ function App() {
         <Route path="/Signup" Component={SignUp} />
         <Route path="/Mypage" Component={Mypage} />
         <Route path="/Home" Component={Home} />
-        <Route path="/Banner" Component={Banner} />
       </Routes>
     </BrowserRouter>
   );

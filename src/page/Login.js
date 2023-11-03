@@ -1,18 +1,17 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";
-import axios from "axios";
+import { NavLink, useNavigate } from "react-router-dom";
+import { actionCreators } from "../redux/user";
 
-import { setCookie } from "../config/cookie";
 import "../css/Login.css";
 import kakaoLogo from "../asset/kakaoLogo.png";
+import { useDispatch } from "react-redux";
+
 
 function Login() {
-  //페이지이동 navigator
-  const navigate = useNavigate();
-
   //react-hook-form 사용
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
 
   //Submit
@@ -28,25 +27,9 @@ function Login() {
 
     console.log("body", body);
 
-    // API 주소 입력
-    axios
-      .post("http://localhost:8000/user/login/", body, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((res) => {
-        if (res.data.token) {
-          setCookie("accessToken", res.data.token.access);
-          navigate("/Home");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(actionCreators.loginDB(body));
+    navigate("/Home");
   };
-
-  //
 
   return (
     <div className="Login">
