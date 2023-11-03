@@ -1,9 +1,10 @@
 //Redux 모듈 내 API 통신
-import { createAction, handleAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from "redux-actions";
 import {produce} from "immer";
-import { useNavigate } from "react-router-dom";
 import {getCookie, setCookie, removeCookie} from "../config/cookie";
-const navigate = useNavigate();
+import axios from "axios";
+
+
 
 //Action
 const SET_USER = "SET_USER";
@@ -26,21 +27,20 @@ const getUser = createAction(GET_USER, (user)=> ({user}));
 
 //Login
 const loginDB = (body) => {
-    return function () {
+    return function (dispatch) {
         axios.post("http://localhost:8000/user/login/", body, {
             headers: {
                 "Content-Type": "application/json",
             },
         })
         .then((res) => {
-            const accessToken = res.data.token.access;
-            dispatchEvent(
+            dispatch(
                 setUser({
                     email : res.data.email,
                 })
             )
-            setCookie("is_login", `${accessToken}`);
-            navigate("/Home");
+            const is_login = res.data.token.access;
+            setCookie("is_login", `${is_login}`);
         })
         .catch((error) => {
             console.log(error);
@@ -54,7 +54,6 @@ const signupDB = (body) => {
         axios.post("http://localhost:8000/users/register/", body)
         .then((res) => {
             console.log(res);
-            navigate("/Home");
         })
         .catch((error) => {
             console.log(error);

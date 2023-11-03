@@ -6,6 +6,7 @@ import {actionCreators} from "../redux/user";
 
 import "../css/SignUp.css";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   // react-hook-form 사용
@@ -21,6 +22,7 @@ function SignUp() {
   const dispatch = useDispatch();
 
   // 폼 제출
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     console.log(data); //콘솔 확인
 
@@ -35,7 +37,7 @@ function SignUp() {
     console.log(body);
 
     dispatch(actionCreators.signupDB(body));
-    
+    navigate("/Home");
   };
 
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { actionCreators } from "../redux/user";
 
 import "../css/Login.css";
@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 
 function Login() {
   //react-hook-form 사용
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
 
@@ -27,7 +28,7 @@ function Login() {
     console.log("body", body);
 
     dispatch(actionCreators.loginDB(body));
-    
+    navigate("/Home");
   };
 
   return (
