@@ -1,7 +1,7 @@
 //Redux 모듈 내 API 통신
 import { createAction, handleActions } from "redux-actions";
 import {produce} from "immer";
-import {getCookie, setCookie, removeCookie} from "../config/cookie";
+import {setCookie, removeCookie} from "../config/cookie";
 import axios from "axios";
 
 
@@ -65,10 +65,21 @@ const signupDB = (body) => {
 // 로그인 유지
 const loginCheckDB = () => {
     return function() {
-        const token = getCookie("is_login");
+        const token = localStorage.getItem("refresh-token");
         console.log(token);
-        //
-        axios.post("")
+        axios.post("127.0.0.1:8000/user/refresh/",token, {
+            headers : {
+                "Content-Type": "application/json",
+                Authorization : `Bearer${token}`,
+            },
+        })
+        .then((res) => {
+            const is_login = res.data.token.access;
+            setCookie("is_login", `${is_login}`);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 }
 
