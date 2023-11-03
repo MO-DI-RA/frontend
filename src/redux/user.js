@@ -40,6 +40,7 @@ const loginDB = (body) => {
                 })
             )
             const is_login = res.data.token.access;
+            localStorage.setitem('refresh-token', res.data.token.refresh);
             setCookie("is_login", `${is_login}`);
         })
         .catch((error) => {
@@ -90,6 +91,7 @@ export default handleActions(
         
         [LOG_OUT] : (state,action) => 
             produce(state,(draft) => {
+                localStorage.removeItem("refresh-token");
                 removeCookie("is_login");
                 draft.user = null;
                 draft.accessToken = false;
