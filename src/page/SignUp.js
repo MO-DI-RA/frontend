@@ -1,10 +1,11 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import {actionCreators} from "../redux/user";
 
-import axios from "axios";
+
 import "../css/SignUp.css";
+import { useDispatch } from "react-redux";
 
 function SignUp() {
   // react-hook-form 사용
@@ -17,8 +18,7 @@ function SignUp() {
   const password = useRef();
   password.current = watch("password");
 
-  // 페이지이동 navigator
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // 폼 제출
   const onSubmit = async (data) => {
@@ -34,14 +34,8 @@ function SignUp() {
 
     console.log(body);
 
-    // API 주소 입력 수정 필요 => 수정 완료
-    axios
-      .post("http://localhost:8000/users/register/", body)
-      .then((res) => {
-        console.log(res);
-        navigate("/Login");
-      })
-      .then((err) => console.log(err));
+    dispatch(actionCreators.signupDB(body));
+    
   };
 
   return (
