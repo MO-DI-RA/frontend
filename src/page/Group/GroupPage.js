@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../css/GroupPage.css";
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
@@ -7,6 +7,10 @@ import goBack from "../../asset/goBack.png";
 
 function GroupPage() {
   const [recruiting, setRecruiting] = useState(true);
+
+  useEffect(() => {
+    console.log(recruiting ? "모집중" : "모집완료");
+  }, [recruiting]);
 
   const toggleRecruitmentStatus = () => {
     setRecruiting(!recruiting);

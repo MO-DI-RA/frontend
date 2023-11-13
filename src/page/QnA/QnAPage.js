@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../css/QnAPage.css";
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
@@ -8,9 +8,12 @@ import goBack from "../../asset/goBack.png";
 function QnAPage() {
   const [resolve, setResolve] = useState(false);
 
+  useEffect(() => {
+    console.log(resolve ? "해결" : "미해결");
+  }, [resolve]);
+
   const toggleResolveStatus = () => {
     setResolve(!resolve);
-    console.log(buttonText);
   };
 
   const buttonStyle = resolve ? "qnaState resolve" : "qnaState";
