@@ -31,6 +31,17 @@ function Login() {
     navigate("/Home");
   };
 
+  //kakao 로그인
+  const REST_API_KEY = 'e1e4af98ca9f6131da2d779f616737bc';
+  const REDIRECT_URI = 'http://127.0.0.1:3000/user/kakao/callback/';
+  const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  //kakao login
+  const kakaoLogin = () => {
+    window.location.href = link;
+  }
+
+
   return (
     <div className="Login">
       <h2 className="welcome">
@@ -56,7 +67,7 @@ function Login() {
           })}
         />
         <button id="loginButton">LOG IN</button>
-        <button id="kakaoLoginButton" type="button">
+        <button id="kakaoLoginButton" type="button" onClick={kakaoLogin}>
           <div id="kakaoLogin">
             <img src={kakaoLogo} className="kakaoLogo" alt="kakao logo" />
             카카오 계정으로 시작하기

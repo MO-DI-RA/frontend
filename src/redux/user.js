@@ -4,6 +4,7 @@ import { produce } from "immer";
 import { setCookie, removeCookie } from "../config/cookie";
 import axios from "axios";
 
+
 //Action
 const SET_USER = "SET_USER";
 const GET_USER = "GET_USER";
@@ -86,9 +87,9 @@ const loginCheckDB = () => {
 
 // logout
 const logoutDB = () => {
-    return function (dispatch, { history }) {
+    return function (dispatch) {
         dispatch(logOut());
-        history.replace("/Home");
+        window.location.href = "/Home"; //홈화면 이동
     };
 };
 
@@ -113,6 +114,29 @@ export default handleActions(
     initialState
 );
 
+//카카오 로그인
+const kakaoLogin = (code) => {
+    return function (dispatch, getState) {
+        axios({
+            method : "GET",
+            url : `user/kakao/code=${code}`,
+        })
+        .then((res) => {
+            console.log(res); //콘솔 확인
+
+            const ACCESS_TOKEN = res.data.accessToken;
+            localStorage.setItem("ACCESS_token",ACCESS_TOKEN); //로컬에 토큰 저장
+
+            window.location.href = "/Home"; //홈화면으로 이동
+        })
+        .catch((err)=> {
+            console.log("소셜로그인 에러", err);
+            // window.alert("소셜로그인 실패");
+            // window.location.href = "/login"; //로그인 화면으로 복귀
+        })
+    }
+};
+
 export const actionCreators = {
     logOut,
     getUser,
@@ -120,4 +144,5 @@ export const actionCreators = {
     signupDB,
     loginCheckDB,
     logoutDB,
+    kakaoLogin,
 };

@@ -9,6 +9,7 @@ import SignUp from "./page/SignUp";
 import Mypage from "./page/Mypage";
 import Home from "./page/Home";
 import AddGroup from "./page/Group/AddGroup";
+import Redirect from "./page/Redirect";
 // import { useDispatch } from "react-redux";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/Mypage" Component={Mypage} />
                 <Route path="/Home" Component={Home} />
                 <Route path="/AddGroup" Component={AddGroup} />
+                <Route path="/user/kakao/callback/" Component={Redirect}/>
             </Routes>
         </BrowserRouter>
     );
