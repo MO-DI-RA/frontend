@@ -10,8 +10,8 @@ const Redirect = (props) => {
     //인가 코드
     const code = new URL(window.location.href).searchParams.get("code");
 
-    React.useEffect(async () => {
-        await dispatch(userActions.kakaoLogin(code));
+    React.useEffect(() => {
+        dispatch(userActions.kakaoLogin(code));
     }, []);
 
     return(

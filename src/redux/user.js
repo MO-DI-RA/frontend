@@ -125,6 +125,7 @@ const kakaoLogin = (code) => {
             console.log(res); //콘솔 확인
 
             const ACCESS_TOKEN = res.data.accessToken;
+            console.log(ACCESS_TOKEN);
             localStorage.setItem("ACCESS_token",ACCESS_TOKEN); //로컬에 토큰 저장
 
             window.location.href = "/Home"; //홈화면으로 이동
