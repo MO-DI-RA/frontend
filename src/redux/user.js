@@ -114,28 +114,28 @@ export default handleActions(
 );
 
 //카카오 로그인
-const kakaoLogin = code => {
-    return function (dispatch, getState) {
-        axios({
-            method: "GET",
-            url: `http://localhost:8000/user/kakao/login/?code=${code}`,
-        })
-            .then(res => {
-                console.log(
-                    "--------------------------------------------------",
-                    res
-                ); //콘솔 확인
-                const ACCESS_TOKEN = res.data.accessToken;
-                localStorage.setItem("ACCESS_token", ACCESS_TOKEN); //로컬에 토큰 저장
-                window.location.href = "/Home"; //홈화면으로 이동
-            })
-            .catch(err => {
-                console.log("소셜로그인 에러", err);
-                window.alert("소셜로그인 실패");
-                window.location.href = "/login"; //로그인 화면으로 복귀
-            });
-    };
-};
+// const kakaoLogin = async code => {
+//     return async function (dispatch, getState) {
+//         await axios({
+//             method: "GET",
+//             url: `http://localhost:8000/user/kakao/login/?code=${code}`,
+//         })
+//             .then(res => {
+//                 console.log(
+//                     "--------------------------------------------------",
+//                     res
+//                 ); //콘솔 확인
+//                 const ACCESS_TOKEN = res.data.accessToken;
+//                 localStorage.setItem("ACCESS_token", ACCESS_TOKEN); //로컬에 토큰 저장
+//                 // window.location.href = "/Home"; //홈화면으로 이동
+//             })
+//             .catch(err => {
+//                 console.log("소셜로그인 에러", err);
+//                 window.alert("소셜로그인 실패");
+//                 // window.location.href = "/login"; //로그인 화면으로 복귀
+//             });
+//     };
+// };
 
 export const actionCreators = {
     logOut,
@@ -144,5 +144,5 @@ export const actionCreators = {
     signupDB,
     loginCheckDB,
     logoutDB,
-    kakaoLogin,
+    // kakaoLogin,
 };

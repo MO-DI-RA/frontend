@@ -27,7 +27,7 @@ function Login() {
         console.log("body", body);
 
         dispatch(actionCreators.loginDB(body));
-        navigate("/Home");
+        // navigate("/Home");
     };
 
     //kakao 로그인
