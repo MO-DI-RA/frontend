@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getCookie } from "../config/cookie";
+import axios from "axios";
 import "../css/Mypage.css";
 import defaultImg from "../asset/defaultImg.png";
 import editImg from "../asset/editImg.png";
@@ -6,6 +8,25 @@ import Header from "../component/Header";
 import Footer from "../component/Footer";
 
 function Mypage() {
+  const [nickname, setNickname] = useState('');
+
+  const token = getCookie("token");
+  console.log(token);
+
+  useEffect(()=>{
+    axios({
+      method: "GET",
+      url: `http://{URL}/user/mypage/`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization : `Bearer${token}`,
+      },
+    })
+    .then(res => {
+      console.log(res);
+      setNickname(res.nickname);
+    })
+  },[token]);
 
 
   return (
@@ -15,7 +36,7 @@ function Mypage() {
         <div className="info">
           <img src={defaultImg} className="defaultImg" alt="defaultImg"></img>
           <img src={editImg} className="editImg" alt="editImg"></img>
-          <h2 className="userWelcome">님 환영해요.</h2>
+          <h2 className="userWelcome">{nickname}님 환영해요.</h2>
         </div>
         <form className="profileForm">
           <label for="nickname">*닉네임</label>
