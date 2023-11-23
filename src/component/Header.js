@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import headerLogo from "../asset/headerLogo.png";
 import dropdownImg from "../asset/dropdownImg.png";
-import { useState } from "react";
 import { useAuth } from "../redux/AuthContext";
 import "../css/Header.css";
 
 function Header() {
-  
   const { isLoggedIn } = useAuth();
 
   const [isNewPostDropdownOpen, setIsNewPostDropdownOpen] = useState(false);
