@@ -6,6 +6,7 @@ import "../../css/AddQnA.css";
 function AddQnA() {
   const [qnaTitle, setQnaTitle] = useState("");
   const [questionContent, setQuestionContent] = useState("");
+  const token = localStorage.getItem("refresh-token");
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +17,7 @@ function AddQnA() {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
+        Authorization: `Bearer ${token}`,
       },
       data: {
         title: qnaTitle,
