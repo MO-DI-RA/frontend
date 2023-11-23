@@ -10,20 +10,22 @@ function AddQnA() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const url = "http://127.0.0.1:8000/qna/posts";
-
-      const postData = {
+    const options = {
+      url: "http://127.0.0.1:8000/qna/posts/",
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      data: {
         title: qnaTitle,
         content: questionContent,
-      };
+      },
+    };
 
-      const response = await axios.post(url, postData);
-
-      console.log("POST 요청 성공:", response.data);
-    } catch (error) {
-      console.error("POST 요청 실패:", error);
-    }
+    axios(options)
+      .then((response) => console.log(response))
+      .catch((error) => console.error(error));
   };
 
   return (
