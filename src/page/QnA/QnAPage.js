@@ -9,7 +9,6 @@ function QnAPage() {
   const [resolve, setResolve] = useState(false);
 
   useEffect(() => {
-    // sendStatusToServer(resolve);
   }, [resolve]);
 
   const toggleResolveStatus = () => {
