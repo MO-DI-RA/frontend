@@ -10,7 +10,7 @@ function MyPost() {
   useEffect(() => {
     const token = localStorage.getItem("access-token");
     const options = {
-      url: "http://127.0.0.1:8000/${endpoint}/posts/myposts/",
+      url: `http://127.0.0.1:8000/${endpoint}/posts/myposts/`,
       method: "GET",
       headers: {
         Accept: "application/json",
