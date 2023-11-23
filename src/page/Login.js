@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../redux/AuthContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import { actionCreators } from "../redux/user";
 
@@ -7,7 +8,8 @@ import "../css/Login.css";
 import kakaoLogo from "../asset/kakaoLogo.png";
 import { useDispatch } from "react-redux";
 
-function Login( {changeLoggedIN}) {
+function Login() {
+    const {changedLoggedIn} = useAuth();
     //react-hook-form 사용
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -27,7 +29,7 @@ function Login( {changeLoggedIN}) {
         console.log("body", body);
 
         dispatch(actionCreators.loginDB(body));
-        changeLoggedIN(true);
+        changedLoggedIn(true);
         navigate("/Home");
     };
 
