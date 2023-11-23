@@ -38,8 +38,8 @@ const loginDB = (body) => {
           })
         );
         const is_login = res.data.token.access;
-        console.log("refresh-token : ", res.data.token.refresh);
-        localStorage.setItem("refresh-token", res.data.token.refresh);
+        console.log("refresh-token : ", res.data.token.access);
+        localStorage.setItem("refresh-token", res.data.token.access);
         setCookie("is_login", `${is_login}`);
       })
       .catch((error) => {

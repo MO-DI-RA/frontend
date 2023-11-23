@@ -1,7 +1,6 @@
 import "./App.css";
-// import { actionCreators } from "./redux/user";
+import { actionCreators } from "./redux/user";
 import React, { useEffect } from "react";
-// import { getCookie } from "./config/cookie";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./page/Login";
@@ -14,17 +13,17 @@ import GroupPage from "./page/Group/GroupPage";
 import QnAPage from "./page/QnA/QnAPage";
 import AddGroup from "./page/Group/AddGroup";
 import Redirect from "./page/Redirect";
-// import { useDispatch } from "react-redux";
+import { getCookie } from "./config/cookie";
+import { useDispatch } from "react-redux";
 
 function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  // //쿠키에 저장된 액세스 토큰이 존재할 때만 서버에 검증 요청
-  //  if(getCookie("is_login")){
-  //    dispatch(actionCreators.loginCheckDB());
-  //  }
-  // }, []);
+  useEffect(() => {
+    if (getCookie("refresh-token")) {
+      dispatch(actionCreators.loginCheckDB());
+    }
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
