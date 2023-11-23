@@ -122,7 +122,7 @@ function QnAPage() {
   const deleteQuestion = () => {
     if (window.confirm("이 Q&A를 삭제하시겠습니까?")) {
       axios
-        .delete(`http://127.0.0.1:8000/qna/posts/${questionData.id}`, {
+        .delete(`http://127.0.0.1:8000/qna/posts/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
