@@ -9,7 +9,7 @@ function QnAPage() {
   const [resolve, setResolve] = useState(false);
 
   useEffect(() => {
-    console.log(resolve ? "해결" : "미해결");
+    sendStatusToServer(resolve);
   }, [resolve]);
 
   const toggleResolveStatus = () => {
