@@ -7,6 +7,9 @@
 
 /* 회원가입 컨테이너 */
 .SignUp{
+    display : flex;
+    flex-direction: column;
+    align-items: center;
     position : relative;
     text-align: center;
     font-family: 'Pretendard-Regular';
@@ -17,16 +20,13 @@
     color : #ffffff;
     background-color: #AEC0AC;
     padding : 50px 0px 100px;
+    align-self: stretch;
 }
 
 /* 회원가입 입력 창 */
 .SignUp-Container{
-    position : absolute;
-    top : 200px;
-    left : 25%;
     width : 500px;
     background-color: #F9F9F9;
-    z-index : 10000;
     text-align: left;
     padding : 100px;
 }
