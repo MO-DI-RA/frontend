@@ -6,7 +6,7 @@ import "../../css/AddQnA.css";
 function AddQnA() {
   const [qnaTitle, setQnaTitle] = useState("");
   const [questionContent, setQuestionContent] = useState("");
-  const token = localStorage.getItem("refresh-token");
+  const token = localStorage.getItem("access-token");
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
