@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Banner from "../component/Banner";
 import TypeBtn from "./Group/TypeBtn";
 import GroupContainer from "../component/GroupContainer";
+import QnAContainer from "../component/QnAContainer";
 
 import "../css/Home.css";
 
@@ -72,42 +73,52 @@ function Home() {
         <button className="group" onClick={clickGroup}> 소모임 </button>
         <button href="/" className="qna" onClick={clickQnA}> Q&A </button>
       </div>
-      <div className="search">
-        <div style={{display : "flex", gap : "30px", alignItems : "center"}}>
-          {/* 분야별 검색 */}
-          <form className="type_search" onSubmit={typeSubmit}> 
-            <label htmlFor="type" onClick={typeListDropdown}> ALL </label>
-            <div className="type-dropdown">
-              {typeDropdownOpen && (
-                    <TypeBtn id="type" handleChange={typeSearch}/>
-              )}
-            </div>
-          </form>
-          {/* 모집중 검색 */}
-          <form className="recruit_search" onSubmit={recruitSubmit}>
-            <button type="button" onClick={recruitSearch}> 모집중 </button>
-          </form>
-        </div>
-        {/* 키워드 검색 */}
-        <form className="keyword_search" onSubmit={keywordSubmit}>
-          <input 
-            id="keyword"
-            type="text"
-            className="keyword"
-            placeholder="원하는 소모임을 검색해보세요"
-          />
-        </form>
-      </div>
       <div className="groupList" style={{marginTop : "30px"}}>
         { isGroup ? 
-          (<div>
-            소모임
-            <GroupContainer url={url}/>
-          </div>
+          (
+            <div className="serach_bar">
+              <div className="search">
+                <div style={{display : "flex", gap : "30px", alignItems : "center"}}>
+                  {/* 분야별 검색 */}
+                  <form className="type_search" onSubmit={typeSubmit}> 
+                    <label htmlFor="type" onClick={typeListDropdown}> ALL </label>
+                    <div className="type-dropdown">
+                      {typeDropdownOpen && (
+                        <TypeBtn id="type" handleChange={typeSearch}/>
+                      )}
+                    </div>
+                  </form>
+                  {/* 모집중 검색 */}
+                  <form className="recruit_search" onSubmit={recruitSubmit}>
+                    <button type="button" onClick={recruitSearch}> 모집중 </button>
+                  </form>
+                </div>
+                {/* 키워드 검색 */}
+                <form className="keyword_search" onSubmit={keywordSubmit}>
+                  <input 
+                    id="keyword"
+                    type="text"
+                    className="keyword"
+                    placeholder="원하는 소모임을 검색해보세요"
+                    onClick={keywordSearch}
+                  />
+                </form>
+              </div>
+              <GroupContainer url={url}/>
+            </div>
           ) : 
           (
-            <div>
-              Q&A
+            <div className="QnAList">
+              <form className="qna_serach" onSubmit={keywordSubmit}>
+                <input 
+                    id="keyword"
+                    type="text"
+                    className="keyword"
+                    placeholder="궁금한 질문을 검색해보세요"
+                    onClick={keywordSearch}
+                  />
+              </form>
+              <QnAContainer url={url}/> 
             </div>
           )}
       </div>
