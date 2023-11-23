@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getCookie } from "../config/cookie";
 import axios from "axios";
 import "../css/Mypage.css";
 import defaultImg from "../asset/defaultImg.png";
 import editImg from "../asset/editImg.png";
-import Header from "../component/Header";
-import Footer from "../component/Footer";
 
 function Mypage() {
   const [nickname, setNickname] = useState("");
@@ -26,9 +23,9 @@ function Mypage() {
       setNickname(res.data.nickname);
     });
   }, [token]);
+
   return (
     <div>
-      <Header />
       <div className="Mypage">
         <div className="info">
           <img
@@ -55,7 +52,6 @@ function Mypage() {
           <p> 관심 설정한 Q&A가 없습니다. </p>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

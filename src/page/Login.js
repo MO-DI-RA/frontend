@@ -7,7 +7,7 @@ import "../css/Login.css";
 import kakaoLogo from "../asset/kakaoLogo.png";
 import { useDispatch } from "react-redux";
 
-function Login() {
+function Login( {changeLoggedIN}) {
     //react-hook-form 사용
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -27,6 +27,7 @@ function Login() {
         console.log("body", body);
 
         dispatch(actionCreators.loginDB(body));
+        changeLoggedIN(true);
         navigate("/Home");
     };
 

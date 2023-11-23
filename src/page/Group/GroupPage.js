@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../../css/GroupPage.css";
-import Header from "../../component/Header";
-import Footer from "../../component/Footer";
 import defaultImg from "../../asset/defaultImg.png";
 import goBack from "../../asset/goBack.png";
 
@@ -23,7 +21,6 @@ function GroupPage() {
 
   return (
     <div>
-      <Header />
       <div className="groupPage">
         <div className="groupPageContainer">
           <img src={goBack} className="goBack" alt="뒤로가기"></img>
@@ -96,7 +93,6 @@ function GroupPage() {
         </div>
         <p className="commentContent">댓글 내용</p>
       </div>
-      <Footer />
     </div>
   );
 }

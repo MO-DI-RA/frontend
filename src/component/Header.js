@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
+import {NavLink} from "react-router-dom";
 import headerLogo from "../asset/headerLogo.png";
 import dropdownImg from "../asset/dropdownImg.png";
 import "../css/Header.css";
 
-function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
+function Header({isLoggedIn}) {
   return (
     <header className="header">
-      <img src={headerLogo} alt="Header Logo" className="logo" />
+      <NavLink to={"/"}>
+        <img src={headerLogo} alt="Header Logo" className="logo" />
+      </NavLink>
       <nav>
         {isLoggedIn ? (
           // 로그인된 상태일 때

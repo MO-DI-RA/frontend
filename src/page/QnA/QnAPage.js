@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../../css/QnAPage.css";
-import Header from "../../component/Header";
-import Footer from "../../component/Footer";
 import defaultImg from "../../asset/defaultImg.png";
 import goBack from "../../asset/goBack.png";
 
@@ -20,7 +18,6 @@ function QnAPage() {
 
   return (
     <div>
-      <Header />
       <div className="qnaPage">
         <div className="qnaPageContainer">
           <img src={goBack} className="goBack" alt="뒤로가기"></img>
@@ -63,7 +60,6 @@ function QnAPage() {
           <button className="CommentOnAnswer">댓글 달기</button>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
