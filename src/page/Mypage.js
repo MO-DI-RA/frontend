@@ -6,14 +6,16 @@ import Header from "../component/Header";
 import Footer from "../component/Footer";
 
 function Mypage() {
-
-
   return (
     <div>
       <Header />
       <div className="Mypage">
         <div className="info">
-          <img src={defaultImg} className="defaultImg" alt="defaultImg"></img>
+          <img
+            src={defaultImg}
+            className="defaultImgMyPage"
+            alt="defaultImg"
+          ></img>
           <img src={editImg} className="editImg" alt="editImg"></img>
           <h2 className="userWelcome">님 환영해요.</h2>
         </div>
