@@ -38,8 +38,8 @@ const loginDB = body => {
                     })
                 );
                 const is_login = res.data.token.access;
-                console.log("refresh-token : ", res.data.token.refresh);
-                localStorage.setItem("refresh-token", res.data.token.refresh);
+                console.log("refresh-token : ", res.data.token.access);
+                localStorage.setItem("refresh-token", res.data.token.access);
                 setCookie("is_login", `${is_login}`);
             })
             .catch(error => {
@@ -52,7 +52,11 @@ const loginDB = body => {
 const signupDB = body => {
     return function () {
         axios
-            .post("http://localhost:8000/users/register/", body)
+            .post("http://localhost:8000/users/register/", body, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
             .then(res => {
                 console.log(res);
             })
@@ -64,7 +68,7 @@ const signupDB = body => {
 
 // 로그인 유지
 const loginCheckDB = () => {
-    return function () {
+    return function (dispatch, getState) {
         const token = localStorage.getItem("refresh-token");
         console.log(token);
         axios
@@ -75,8 +79,12 @@ const loginCheckDB = () => {
                 },
             })
             .then(res => {
-                const is_login = res.data.token.access;
-                setCookie("is_login", `${is_login}`);
+                dispatch(
+                    setUser({
+                        email: res.data.emil,
+                        password: res.data.password,
+                    })
+                );
             })
             .catch(error => {
                 console.log(error);
