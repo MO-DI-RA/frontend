@@ -1,11 +1,10 @@
-import React from "react";
-import {NavLink} from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import headerLogo from "../asset/headerLogo.png";
 import dropdownImg from "../asset/dropdownImg.png";
 import "../css/Header.css";
 
-function Header({isLoggedIn}) {
-  
+function Header({ isLoggedIn }) {
   const [isNewPostDropdownOpen, setIsNewPostDropdownOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
@@ -25,7 +24,7 @@ function Header({isLoggedIn}) {
     setIsNewPostDropdownOpen(false);
     setIsUserDropdownOpen(false);
   };
-  
+
   return (
     <header className="header">
       <NavLink to={"/"}>
