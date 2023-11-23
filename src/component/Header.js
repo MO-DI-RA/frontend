@@ -1,5 +1,5 @@
-import React from "react";
-import {NavLink} from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import headerLogo from "../asset/headerLogo.png";
 import dropdownImg from "../asset/dropdownImg.png";
 import { useState } from "react";
@@ -29,7 +29,7 @@ function Header() {
     setIsNewPostDropdownOpen(false);
     setIsUserDropdownOpen(false);
   };
-  
+
   return (
     <header className="header">
       <NavLink to={"/"}>
