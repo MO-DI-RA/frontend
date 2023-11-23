@@ -2,7 +2,7 @@
 // 분야 태그 내용 정하기
 
 const btnValue = [
-    {id : "분야 태그"},
+    {id : "분야태그"},
     {id : "공부"},
     {id : "맛집"},
     {id : "IT"},
@@ -10,17 +10,25 @@ const btnValue = [
     {id : "학술"},
 ]
 
+const btnStyle = {
+    borderRadius: "50px",
+    background: "#E5E5E5",
+    border : "none",
+    padding: "8px 15px",
+    margin : "5px 5px",
+}
 
-function TypeBtn({id, handleChange}){
+function TypeBtn({handleChange}){
     return(
-        <div>
+        <div style={{marginLeft : "25px"}}>
             {btnValue.map((button) => 
                 <button
                     type = "button"
                     key={button.id}
                     value={button.id}
-                    id = {id}
+                    id = {button.id}
                     onClick={handleChange}
+                    style={btnStyle}
                 >
                 #{button.id}
                 </button>

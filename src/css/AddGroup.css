@@ -5,6 +5,29 @@
 .groupTitle{
     font-size : 20px;
 }
+/* 소모임 기본 정보 */
+.infoPost {
+    display: flex;
+    align-items: center;
+}
+
+.infoPost > label {
+    margin : 15px 30px 15px 40px;
+}
+
+.infoPost > input {
+    border-radius: 50px;
+    background: #E5E5E5;
+    border : none;
+    padding: 8px 15px;
+    margin-right : 10px;
+}
+
+
+.infoPost > select{
+    width : 150px;
+}
+
 /* 소모임 소개글 */
 .groupPost{
     display : grid;

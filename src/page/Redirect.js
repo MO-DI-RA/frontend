@@ -1,22 +1,31 @@
 //카카오 로그인 리다이렉트 화면
 import React from "react";
-import { useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../redux/user";
+import axios from "axios";
 
-const Redirect = props => {
-    const dispatch = useDispatch();
-
+const Redirect = () => {
     // 인가 코드
     const code = new URL(window.location.href).searchParams.get("code");
 
     React.useEffect(() => {
-        async function fetchData() {
-            dispatch(userActions.kakaoLogin(code));
-        }
-        fetchData();
-    }, [dispatch, code]); // 의존성 배열에 dispatch와 code 추가
+        axios({
+            method: "GET",
+            url: `http://localhost:8000/user/kakao/login/?code=${code}`,
+        })
+            .then(res => {
+                console.log(res);
+                const ACCESS_TOKEN = res.data.access;
+                // console.log(A);
+                localStorage.setItem("access", ACCESS_TOKEN);
+                window.location.href = "/home";
+            })
+            .catch(err => {
+                console.log("소셜로그인 실패", err);
+                // window.alert("소셜 로그인 실패");
+                // window.location.href = "/login";
+            });
+    }, []); // 의존성 배열에 dispatch와 code 추가
 
-    return <div>카카오 로그인</div>;
+    return 0;
 };
 
 export default Redirect;

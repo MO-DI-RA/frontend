@@ -129,7 +129,7 @@ function AddGroup(){
                         <div className="infoPost">
                             {/* 분야 태그 옵션 수정 필요 */}
                             <label htmlFor="type"> 분야 </label>
-                            <TypeBtn id="type" handleChange={hadnleTypeChange}/>
+                            <TypeBtn id="type" handleChange={hadnleTypeChange} className="type"/>
                         
                         </div>
                         <div className="infoPost">
@@ -143,37 +143,39 @@ function AddGroup(){
                         </div>
                         <div className="infoPost">
                             <label htmlFor="deadline"> 모집 마감일 </label>
-                            <input id="deadline" type="date" onChange={handleDeadlineChange} value={deadline}/>
+                            <input className="deadline" id="deadline" type="date" onChange={handleDeadlineChange} value={deadline}/>
                         </div>
                     </div>
-                    <p className="groupTitle">소모임 소개글</p>
-                    <div className="groupPost">
-                        <div className="postElement" style={{gap : "80px"}}>
-                            <label htmlFor="title"> 제목 </label>
-                            <input 
-                                id="title"
-                                type="text"
-                                className="text"
-                                placeholder="제목을 입력해주세요"
-                                onChange={handleTitleChange}    
-                            />
-                        </div>
-                        <div className="postElement" style={{gap : "40px"}}>
-                            <label htmlFor="summary" > 한 줄 요약 </label>
-                            <input 
-                                id="summary"
-                                type="text"
-                                className="text"
-                                placeholder="소모임을 한 줄로 설명해주세요"
-                                onChange={handleSummaryChange}
-                            />
-                        </div>
-                        <div className="postElement" style={{gap : "20px", flexDirection:"column", alignItems: "normal"}}>
-                            <label htmlFor="introduce" > 소모임 소개 </label>
-                            <textarea 
-                                id="introduce"
-                                onChange={handleIntroduceChange}
-                            />
+                    <div>
+                        <p className="groupTitle">소모임 소개글</p>
+                        <div className="groupPost">
+                            <div className="postElement" style={{gap : "80px"}}>
+                                <label htmlFor="title"> 제목 </label>
+                                <input 
+                                    id="title"
+                                    type="text"
+                                    className="text"
+                                    placeholder="제목을 입력해주세요"
+                                    onChange={handleTitleChange}    
+                                />
+                            </div>
+                            <div className="postElement" style={{gap : "40px"}}>
+                                <label htmlFor="summary" > 한 줄 요약 </label>
+                                <input 
+                                    id="summary"
+                                    type="text"
+                                    className="text"
+                                    placeholder="소모임을 한 줄로 설명해주세요"
+                                    onChange={handleSummaryChange}
+                                />
+                            </div>
+                            <div className="postElement" style={{gap : "20px", flexDirection:"column", alignItems: "normal"}}>
+                                <label htmlFor="introduce" > 소모임 소개 </label>
+                                <textarea 
+                                    id="introduce"
+                                    onChange={handleIntroduceChange}
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className="groupBtn">
