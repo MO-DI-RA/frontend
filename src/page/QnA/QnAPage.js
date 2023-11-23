@@ -1,67 +1,238 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "../../css/QnAPage.css";
 import defaultImg from "../../asset/defaultImg.png";
 import goBack from "../../asset/goBack.png";
+import axios from "axios";
 
 function QnAPage() {
+  const [questionData, setQuestionData] = useState(null);
+  const [answer, setAnswer] = useState("");
   const [resolve, setResolve] = useState(false);
+  const token = localStorage.getItem("access-token");
+  const { id } = useParams();
+
+  const [editMode, setEditMode] = useState(false); // 수정 모드 상태
+  const [editedTitle, setEditedTitle] = useState(""); // 수정된 제목
+  const [editedContent, setEditedContent] = useState(""); // 수정된 내용
 
   useEffect(() => {
-  }, [resolve]);
+    axios
+      .get(`http://127.0.0.1:8000/qna/posts/${id}`)
+      .then((response) => {
+        setQuestionData(response.data);
+        setResolve(response.data.status); //서버에서 받은 status가 참이면 해결 상태로 설정
+      })
+      .catch((error) => console.error(error));
+  }, [id]);
+
+  const handleAnswerChange = (event) => {
+    setAnswer(event.target.value);
+  };
 
   const toggleResolveStatus = () => {
-    setResolve(!resolve);
+    const newResolveStatus = !resolve;
+    setResolve(newResolveStatus);
+
+    axios
+      .put(
+        `http://127.0.0.1:8000/qna/posts/${id}`,
+        {
+          status: newResolveStatus,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+        setResolve(resolve); // 오류 발생 시 상태 되돌리기
+      });
   };
 
   const buttonStyle = resolve ? "qnaState resolve" : "qnaState";
   const buttonText = resolve ? "해결" : "미해결";
 
-  return (
-    <div>
-      <div className="qnaPage">
-        <div className="qnaPageContainer">
-          <img src={goBack} className="goBack" alt="뒤로가기"></img>
-          <div className="qnaTitleLayout">
-            <h2>질문 제목</h2>
-            <button className={buttonStyle} onClick={toggleResolveStatus}>
-              {buttonText}
+  const startEdit = () => {
+    //수정 시작할때 초기 값(원래 내용)
+    setEditedTitle(questionData.title);
+    setEditedContent(questionData.content);
+    setEditMode(true);
+    // setEditedTitle("원래 제목");
+    // setEditedContent("원래 내용");
+    // setEditMode(true);
+  };
+
+  const submitEdit = () => {
+    const options = {
+      url: `http://127.0.0.1:8000/qna/posts/${id}`,
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        title: editedTitle,
+        content: editedContent,
+      },
+    };
+
+    axios(options)
+      .then((response) => {
+        console.log(response);
+        // 수정 후 필요한 동작 수행
+        setQuestionData({
+          ...questionData,
+          title: editedTitle,
+          content: editedContent,
+        });
+        setEditMode(false); // 수정 모드 종료
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const submitAnswer = () => {
+    const options = {
+      url: "http://127.0.0.1:8000/qna/answers/", // 답변 등록 URL
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        questionId: questionData.id,
+        content: answer,
+      },
+    };
+
+    axios(options)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const deleteQuestion = () => {
+    if (window.confirm("이 Q&A를 삭제하시겠습니까?")) {
+      axios
+        .delete(`http://127.0.0.1:8000/qna/posts/${questionData.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          window.location.href = "/Home"; // 삭제 후 홈으로
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
+  if (!questionData) {
+    return <div>Loading...</div>;
+  }
+
+  function renderContent() {
+    if (editMode) {
+      //수정모드
+      return (
+        <div className="qnaPage">
+          <div className="qnaEditContainer">
+            <input
+              className="qnaTitleEdit"
+              type="text"
+              value={editedTitle}
+              onChange={(e) => setEditedTitle(e.target.value)}
+            />
+            <textarea
+              className="qusetionContentEdit"
+              value={editedContent}
+              onChange={(e) => setEditedContent(e.target.value)}
+            ></textarea>
+            <button onClick={submitEdit} className="qnaEditCompleteButton">
+              수정완료
             </button>
           </div>
         </div>
-        <div className="userInfo">
-          <p>2023.11.04 03:52 작성</p>
-          <p>조회수 0</p>
-        </div>
-        <div className="userInfo">
-          <img src={defaultImg} className="defaultImg" alt="defaultImg"></img>
-          <p>작성자 닉네임</p>
-        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div className="qnaPage">
+            <div className="qnaEditContainer">
+              <img src={goBack} className="goBack" alt="뒤로가기"></img>
+              <div className="qnaTitleLayout">
+                <h2>{questionData.title}</h2>
+                {/* <h2>질문 제목</h2> */}
+                <button className={buttonStyle} onClick={toggleResolveStatus}>
+                  {buttonText}
+                </button>
+              </div>
+            </div>
+            <div className="userInfo">
+              <p>{questionData.created_at}</p>
+              {/* <p>작성일자</p> */}
+            </div>
+            <div className="userInfo">
+              <img
+                src={questionData.author_profile_image || defaultImg}
+                // src={defaultImg}
+                className="defaultImg"
+                alt="작성자 프로필"
+              ></img>
+              <p>{questionData.author_nickname}</p>
+              {/* <p>작성자 닉네임</p> */}
+            </div>
 
-        <p className="qnaContent">질문 내용</p>
+            <p className="qnaContent">{questionData.content}</p>
+            {/* <p className="qnaContent">질문 내용</p> */}
+            <div className="qnaEditButtons">
+              <button onClick={startEdit} className="qnaModifyButton">
+                수정하기
+              </button>
+              <button onClick={deleteQuestion} className="qnaDeleteButton">
+                삭제하기
+              </button>
+            </div>
 
-        <div className="qnaEditButtons">
-          <button className="qnaModifyButton">수정하기</button>
-          <button className="qnaDeleteButton">삭제하기</button>
-        </div>
+            <h3 className="answerTitle">답변 등록하기</h3>
+            <div className="answerInputLayout">
+              <textarea
+                className="answerInput"
+                value={answer}
+                onChange={handleAnswerChange}
+              ></textarea>
+              <button onClick={submitAnswer} className="answerRegister">
+                등록
+              </button>
+            </div>
 
-        <h3 className="answerTitle">답변 등록하기</h3>
-        <div className="answerInputLayout">
-          <textarea className="answerInput"></textarea>
-          <button className="answerRegister">등록</button>
-        </div>
-
-        <div className="answerLayout">
-          <div className="userInfo">
-            <img src={defaultImg} className="defaultImg" alt="defaultImg"></img>
-            <p>사용자 닉네임</p>
-            <p>2023.11.04 04:12</p>
+            {questionData.answers.map((answer) => (
+              <div className="answerLayout" key={answer.answer_id}>
+                <div className="userInfo">
+                  <img src={defaultImg} className="defaultImg" alt="Profile" />
+                  <p>{answer.author_nickname}</p>
+                  <p>{answer.created_at}</p>
+                </div>
+                <p className="answerContent">{answer.content}</p>
+                <button className="CommentOnAnswer">댓글 달기</button>
+              </div>
+            ))}
           </div>
-          <p className="answerContent">답변 내용</p>
-          <button className="CommentOnAnswer">댓글 달기</button>
         </div>
-      </div>
-    </div>
-  );
-}
+      );
+    }
+  }
 
+  return renderContent();
+}
 export default QnAPage;
