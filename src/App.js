@@ -1,6 +1,6 @@
 import "./App.css";
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./redux/AuthContext";
 
 import Login from "./page/Login";
@@ -18,28 +18,27 @@ import Header from "./component/Header";
 import Footer from "./component/Footer";
 
 function App() {
-
-  return (
-    <BrowserRouter>
-     <AuthProvider>
-        <Header/>
-        <Routes>
-          <Route path="/" Component={Home}/>
-          <Route path="/login" Component={Login}/>
-          <Route path="/Signup" Component={SignUp} />
-          <Route path="/Mypage" Component={Mypage} />
-          <Route path="/Home" Component={Home} />
-          <Route path="/AddGroup" Component={AddGroup} />
-          <Route path="/user/kakao/callback/" Component={Redirect} />
-          <Route path="/AddQnA" Component={AddQnA} />
-          <Route path="/MyPost" Component={MyPost} />
-          <Route path="/GroupPage" Component={GroupPage} />
-          <Route path="/QnAPage" Component={QnAPage} />
-        </Routes>
-        <Footer/>
-      </AuthProvider>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <AuthProvider>
+                <Header />
+                <Routes>
+                    <Route path="/" Component={Home} />
+                    <Route path="/login" Component={Login} />
+                    <Route path="/Signup" Component={SignUp} />
+                    <Route path="/Mypage" Component={Mypage} />
+                    <Route path="/Home" Component={Home} />
+                    <Route path="/AddGroup" Component={AddGroup} />
+                    <Route path="/user/kakao/callback/" Component={Redirect} />
+                    <Route path="/AddQnA" Component={AddQnA} />
+                    <Route path="/MyPost" Component={MyPost} />
+                    <Route path="/GroupPage" Component={GroupPage} />
+                    <Route path="/QnAPage/:id" Component={QnAPage} />
+                </Routes>
+                <Footer />
+            </AuthProvider>
+        </BrowserRouter>
+    );
 }
 
 export default App;
