@@ -1,30 +1,30 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { actionCreators } from './user';
-import { getCookie } from '../config/cookie';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { actionCreators } from "./user";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const dispatch = useDispatch();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (getCookie("refresh-token")) {
-      dispatch(actionCreators.loginCheckDB());
-    }
-  }, [dispatch]);
+    useEffect(() => {
+        if (localStorage.getItem("refresh-token")) {
+            dispatch(actionCreators.loginCheckDB());
+            setIsLoggedIn(true);
+        }
+    }, [dispatch]);
 
-  const changeLoggedIn = (value) => {
-    setIsLoggedIn(value);
-    dispatch(actionCreators.updateLoggedIn(value));
-  };
+    const changedLoggedIn = value => {
+        setIsLoggedIn(value);
+        dispatch(actionCreators.loginCheckDB());
+    };
 
-  return (
-    <AuthContext.Provider value={{ isLoggedIn, changeLoggedIn }}>
-      {children}
-    </AuthContext.Provider>
-  );
+    return (
+        <AuthContext.Provider value={{ isLoggedIn, changedLoggedIn }}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
 export const useAuth = () => useContext(AuthContext);
