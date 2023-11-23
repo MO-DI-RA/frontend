@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Header from "../../component/Header"
-import Footer from "../../component/Footer";
 import TypeBtn from "./TypeBtn";
 import "../../css/AddGroup.css";
 
@@ -85,7 +83,6 @@ function AddGroup(){
 
     return(
         <div>
-            <Header/>
             <div style={{padding : "0px 200px 20px"}}>
                 <div>
                     <p className="groupTxt"> <b>새로운 소모임</b>을 생성하고<br/>
@@ -184,7 +181,6 @@ function AddGroup(){
                     </div>
                 </form>
             </div>
-            <Footer />
         </div>
     )
 }

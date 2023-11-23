@@ -1,11 +1,8 @@
 import "../../css/AddQnA.css";
-import Header from "../../component/Header";
-import Footer from "../../component/Footer";
 
 function AddQnA() {
   return (
     <div>
-      <Header />
       <div className="addQnA">
         <p className="introQnA">
           질문을 <span className="registerQnA">등록</span>하고
@@ -26,7 +23,6 @@ function AddQnA() {
           </div>
         </form>
       </div>
-      <Footer />
     </div>
   );
 }
