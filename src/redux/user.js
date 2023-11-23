@@ -71,7 +71,7 @@ const loginCheckDB = () => {
       .post("127.0.0.1:8000/user/refresh/", token, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer${token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
@@ -103,6 +103,7 @@ export default handleActions(
 
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
+        localStorage.removeItem("access-token");
         localStorage.removeItem("refresh-token");
         removeCookie("is_login");
         draft.user = null;

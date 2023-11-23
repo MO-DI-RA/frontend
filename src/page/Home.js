@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Banner from "../component/Banner";
 import TypeBtn from "./Group/TypeBtn";
+import GroupContainer from "../component/GroupContainer";
 
 import "../css/Home.css";
 
@@ -13,6 +14,8 @@ function Home() {
   const [recruiting, setRecruiting] = useState(false); //모집중
   const [keyword, setKeyword] = useState(''); //키워드 검색
 
+  let url = "";
+
   //드롭 다운
   const typeListDropdown = () => {
     setTypeDropdownOpen(!typeDropdownOpen);
@@ -21,11 +24,13 @@ function Home() {
   //소모임 컨테이너 
   const clickGroup = () => {
     setIsGroup(true);
+    url = "http://localhost::8000/gathering/posts/";
   };
 
   // Q&A 컨테이너
   const clickQnA = () => {
     setIsGroup(false);
+    url = "http://localhost::8000/qna/posts/";
   };
 
   //분야 검색
@@ -97,6 +102,7 @@ function Home() {
         { isGroup ? 
           (<div>
             소모임
+            <GroupContainer url={url}/>
           </div>
           ) : 
           (
