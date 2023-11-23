@@ -19,7 +19,7 @@ import { useDispatch } from "react-redux";
 
 function App() {
     const dispatch = useDispatch();
-    
+    //로그인 유지
     useEffect(() => {
         if(getCookie("refresh-token")){
             dispatch(actionCreators.loginCheckDB());
