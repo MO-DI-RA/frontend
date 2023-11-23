@@ -21,7 +21,7 @@ function QnAContainer({url}) {
     useEffect(() => {
         axios({
             method : "GET",
-            url : {url},
+            url : `${url}`,
             headers : {
                 "Content-Type" : "application/json",
             },
