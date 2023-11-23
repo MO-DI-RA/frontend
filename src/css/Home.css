@@ -5,10 +5,57 @@
     align-items: center;
 }
 
-.group,
-.qna {
+.nav > .group, .qna {
     margin-left: 30px;
     text-decoration: none;
     color: black;
     font-size: 25px;
+    border: none;
+    background-color: #D1DDD0;
+}
+
+/* 검색바 */
+.home_page > .search{
+    display : flex;
+    justify-content: space-between;
+    padding : 30px 50px;
+    font-size: 20px;
+}
+
+/* 분야별 검색 */
+.home_page > .type_search{
+    cursor : pointer;
+}
+
+/* 분야 드롭다운 */
+.type-dropdown{
+    position : absolute;
+    margin-top: 10px;
+    margin-left: -25px;
+}
+
+/* 모집중 검색 */
+.recruit_search > button {
+    background-color: unset;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #B9B6B6;
+    cursor: pointer;
+}
+
+.recruit_search > button:hover{
+    color : #839182;
+}
+
+/* 키워드 검색 */
+.keyword_search > .keyword {
+    padding: 9px 50px;
+    background: #F1F1F1;
+    border: none;
+    border-radius: 50px;
+}
+
+.keyword_search > .keyword:focus{
+    outline : none;
 }
