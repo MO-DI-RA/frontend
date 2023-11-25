@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TypeBtn from "./TypeBtn";
 import "../../css/AddGroup.css";
+import axios from "axios";
 
 function AddGroup() {
   const [division, setDivision] = useState(""); //모집 구분
@@ -73,7 +74,7 @@ function AddGroup() {
   };
 
   //폼 제출
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(division);
     console.log(headcnt);
@@ -86,6 +87,39 @@ function AddGroup() {
     console.log(summary);
     console.log(introduce);
     if (division === "") alert("구분을 입력하세요");
+
+    // 토큰 가져오기
+    const token = localStorage.getItem("access-token");
+
+    const options = {
+      url: "http://127.0.0.1:8000/gathering/posts/",
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        division: division, // 모집 구분
+        max_people: headcnt, // 모집 인원
+        method: method, // 진행 방식
+        period: period, // 진행 기간
+        tag: type, // 분야
+        contact: contact, // 연락 방법
+        deadline: deadline, // 모집 마감일
+        title: title, // 소모일 제목
+        summary: summary, // 소모임 한 줄 요약
+        content: introduce, // 소모임 소개글
+      },
+    };
+
+    axios(options)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
