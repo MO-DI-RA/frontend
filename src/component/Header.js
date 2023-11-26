@@ -3,9 +3,13 @@ import { NavLink } from "react-router-dom";
 import headerLogo from "../asset/headerLogo.png";
 import dropdownImg from "../asset/dropdownImg.png";
 import { useAuth } from "../redux/AuthContext";
+import {actionCreators} from "../redux/user";
 import "../css/Header.css";
+import { useDispatch } from "react-redux";
 
 function Header() {
+
+  const dispatch = useDispatch();
   
   const { isLoggedIn } = useAuth();
 
@@ -28,6 +32,11 @@ function Header() {
     setIsNewPostDropdownOpen(false);
     setIsUserDropdownOpen(false);
   };
+
+  //로그아웃
+  const LogOut = () => {
+    dispatch(actionCreators.logoutDB());
+  }
 
   return (
     <header className="header">
@@ -81,7 +90,7 @@ function Header() {
                 >
                   내가 작성한 글
                 </a>
-                <button className="logoutButton">로그아웃</button>
+                <button className="logoutButton" onClick={LogOut}>로그아웃</button>
               </div>
             )}
           </>
