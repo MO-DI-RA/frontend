@@ -63,6 +63,7 @@
     background: #F1F1F1;
     border: none;
     border-radius: 50px;
+    margin-left : 30%;
 }
 
 .keyword_search> .keyword:focus, .qna_serach > .keyword:focus{
@@ -73,5 +74,4 @@
 .QnAList{
     display : flex;
     flex-direction: column;
-    align-items: center;
 }

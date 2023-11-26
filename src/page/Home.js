@@ -15,7 +15,7 @@ function Home() {
   const [recruiting, setRecruiting] = useState(false); //모집중
   const [keyword, setKeyword] = useState(''); //키워드 검색
 
-  let url = "";
+  const [url, setUrl] = useState("http://localhost:8000/gathering/posts/"); //url 설정
 
   //드롭 다운
   const typeListDropdown = () => {
@@ -25,13 +25,13 @@ function Home() {
   //소모임 컨테이너 
   const clickGroup = () => {
     setIsGroup(true);
-    url = "http://localhost::8000/gathering/posts/";
+    setUrl("http://localhost:8000/gathering/posts/");
   };
 
   // Q&A 컨테이너
   const clickQnA = () => {
     setIsGroup(false);
-    url = "http://localhost::8000/qna/posts/";
+    setUrl("http://localhost:8000/qna/posts/");
   };
 
   //분야 검색

@@ -10,18 +10,7 @@ function GroupPage() {
   const {id} = useParams();
 
   //소모임 상세 정보
-  const [groupInfo, setGroupInfo] = useState({
-    id : '',
-    profile : defaultImg,
-    nickname : '',
-    deadline : '',
-    title : '',
-    content : '',
-    created_at : '',
-    status : false,
-    summary : '',
-    type : '',
-  })
+  const [groupInfo, setGroupInfo] = useState([])
 
   //모집중, 모집완료 표시
   const [recruiting, setRecruiting] = useState(groupInfo.status);
