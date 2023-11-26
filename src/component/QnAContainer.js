@@ -18,7 +18,7 @@ function QnAContainer({url}) {
             },
         }).then((res) => {
             console.log(res.data);
-            setQnAList([]);
+            setQnAList(res.data);
         })
         .then((err) => {
             console.log("error : ", err);
