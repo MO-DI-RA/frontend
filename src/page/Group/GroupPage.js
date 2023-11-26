@@ -2,42 +2,83 @@ import React, { useState, useEffect } from "react";
 import "../../css/GroupPage.css";
 import defaultImg from "../../asset/defaultImg.png";
 import goBack from "../../asset/goBack.png";
+import { useNavigate, useParams } from "react-router";
+import axios from "axios";
 
 function GroupPage() {
-  const [recruiting, setRecruiting] = useState(true);
+  const navigate = useNavigate();
+  const {id} = useParams();
+
+  //소모임 상세 정보
+  const [groupInfo, setGroupInfo] = useState([])
+
+  //모집중, 모집완료 표시
+  const [recruiting, setRecruiting] = useState(groupInfo.status);
+
 
   useEffect(() => {
+    axios({
+      method : "GET",
+      url : `gathering/posts/${id}`,
+      headers : {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      console.log(res.data);
+      // 분야 추가 필요
+      const { id, title, deadline, content, summary, author_profile_image, author_nickname, created_at, status } = res.data;
+      setGroupInfo({
+        id : id,
+        profile : author_profile_image,
+        nickname : author_nickname,
+        deadline : deadline,
+        title : title,
+        content : content,
+        created_at : created_at,
+        status : status,
+        summary : summary,
+      })
+    })
+    .then((err) => {
+      console.log("error : ", err);
+    })
     console.log(recruiting ? "모집중" : "모집완료");
-  }, [recruiting]);
+  }, []);
 
   const toggleRecruitmentStatus = () => {
     setRecruiting(!recruiting);
   };
 
+  // 모집중 버튼
   const buttonStyle = recruiting
     ? "groupState"
     : "groupState recruitingComplete";
   const buttonText = recruiting ? "모집중" : "모집완료";
 
+  // 뒤로가기 버튼
+  const onBackClick=()=>{
+    navigate(-1);
+  }
+
   return (
     <div>
       <div className="groupPage">
         <div className="groupPageContainer">
-          <img src={goBack} className="goBack" alt="뒤로가기"></img>
+        <img src={goBack} className="goBack" alt="뒤로가기" onClick={onBackClick}/>
           <div className="groupTitleLayout">
-            <h2>소모임 명</h2>
+            <h2> {groupInfo.title} </h2>
             <button className={buttonStyle} onClick={toggleRecruitmentStatus}>
               {buttonText}
             </button>
           </div>
         </div>
 
-        <p>소모임 소개글</p>
+        <p> {groupInfo.summary} </p>
 
         <div className="userInfo">
-          <img src={defaultImg} className="defaultImg" alt="defaultImg"></img>
-          <p>작성자 닉네임</p>
-          <p>2023.09.26</p>
+          <img src={groupInfo.profile} className="defaultImg" alt="defaultImg"></img>
+          <p> {groupInfo.nickname} </p>
+          <p> {groupInfo.created_at} </p>
         </div>
 
         <div className="groupInfo">
@@ -48,8 +89,7 @@ function GroupPage() {
           <div className="rowLayout">
             <p className="groupInfoLabel">분야</p>
             <div className="rowLayout">
-              <p className="groupInfoValue">#학술</p>
-              <p className="groupInfoValue">#공부</p>
+              <p className="groupInfoValue"> #{groupInfo.type}</p>
             </div>
           </div>
           <div className="rowLayout">
@@ -66,7 +106,7 @@ function GroupPage() {
           </div>
           <div className="rowLayout">
             <p className="groupInfoLabel">모집 마감일</p>
-            <p className="groupInfoValue">2023.10.24</p>
+            <p className="groupInfoValue"> {groupInfo.deadline} </p>
           </div>
           <div className="rowLayout">
             <p className="groupInfoLabel">진행 기간</p>
@@ -75,7 +115,7 @@ function GroupPage() {
         </div>
 
         <h3 className="groupIntro">소모임 소개</h3>
-        <p className="groupContent">소모임 활동에 대한 자세한 내용</p>
+        <p className="groupContent"> {groupInfo.content}</p>
 
         <div className="groupEditButtons">
           <button className="groupModifyButton">수정하기</button>
