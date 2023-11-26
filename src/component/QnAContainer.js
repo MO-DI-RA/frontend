@@ -8,6 +8,8 @@ import { useState } from "react";
 function QnAContainer({url}) {
     const navigate = useNavigate();
     const [QnAList , setQnAList] = useState([]);
+    //상세페이지 id 설정
+    const [QnAID, setQnAID] = useState();
 
     useEffect(() => {
         axios({
@@ -19,15 +21,16 @@ function QnAContainer({url}) {
         }).then((res) => {
             console.log(res.data);
             setQnAList(res.data);
+            setQnAID(res.data.id);
         })
         .then((err) => {
             console.log("error : ", err);
         })
-    },[]);
+    },[url]);
 
      // 컨테이너 클릭 시 해당 컨테이너의 상세페이지로 이동
      const clickQnA= () => {
-        navigate(`/QnAPage/${QnAList.id}`);
+        navigate(`/QnAPage/${QnAID}`);
     }
 
     return(

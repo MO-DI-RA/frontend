@@ -41,7 +41,7 @@ const loginDB = body => {
                 console.log("access-token : ", res.data.token.access);
                 localStorage.setItem("access-token", res.data.token.access);
                 localStorage.setItem("refresh-token", res.data.token.refresh);
-                localStroage.setItem("user_id : ", res.data.token.user_id); //user_id 토큰 까봐야함
+                localStorage.setItem("user_id : ", res.data.token.user_id); //user_id 토큰 까봐야함
                 setCookie("is_login", `${is_login}`);
             })
             .catch(error => {

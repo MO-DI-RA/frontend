@@ -10,6 +10,7 @@ function GroupContainer({url}) {
     console.log("url" , url);
 
     const [groupList, setGroupList] = useState([]);
+    const [groupID, setGroupID] = useState(); //상세페이지 id
 
     useEffect(() => {
         axios({
@@ -21,6 +22,7 @@ function GroupContainer({url}) {
         }).then((res) => {
             console.log(res.data);
             setGroupList(res.data)
+            setGroupID(res.data.id);
         })
         .then((err) => {
             console.log('error : ',err);
@@ -29,7 +31,7 @@ function GroupContainer({url}) {
 
     // 컨테이너 클릭 시 해당 컨테이너의 상세페이지로 이동
     const clickGroup= () => {
-        navigate(`/gathering/posts/${groupList.id}`);
+        navigate(`/gathering/posts/${groupID}`);
     }
 
     return(
