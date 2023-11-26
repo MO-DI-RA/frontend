@@ -31,9 +31,9 @@ function QnAContainer({url}) {
     }
 
     return(
-        <div className="QnA_Main" style={{marginBottom : "40px"}}>
-            {QnAList.map((qna) => {
-                <div className="Main_QnA">
+        <div className="QnA_Main" style={{ marginBottom: "40px" }}>
+            {QnAList.map((qna) => (
+                <div key={qna.id} className="Main_QnA">
                     <div className="QnA_titleBox">
                         {qna.status ? (
                             <div className="stateFlase"> 미해결 </div>
@@ -44,13 +44,13 @@ function QnAContainer({url}) {
                     </div>
                     <div className="summary"> {qna.summary} </div>
                     <div className="QnA_content">
-                        <img src={qna.author_profile_image} alt="기본 이미지" className="profile"/>
+                        <img src={qna.author_profile_image} alt="기본 이미지" className="profile" />
                         <div className="nickname"> {qna.author_nickname} </div>
                         <div className="created_at"> 등록일 : {qna.created_at} </div>
                     </div>
                 </div>
-            })}
-        </div>
+            ))}
+    </div>
     )
 }
 
