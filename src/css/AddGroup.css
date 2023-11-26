@@ -5,6 +5,7 @@
 
 .groupTitle {
     font-size: 20px;
+    padding-bottom: 15px;
 }
 
 /* 소모임 기본 정보 */
@@ -88,4 +89,13 @@
     border-radius: 30px;
     border: none;
     cursor: pointer;
+}
+
+#headcnt,
+#period,
+#contact {
+    height: 30px;
+    border-color: #E5E5E5;
+    border-radius: 30px;
+    padding: 4px;
 }

@@ -223,7 +223,7 @@ function AddGroup() {
               </select>
             </div>
             <div className="infoPost">
-              <label htmlFor="deadline"> 모집 마감일 </label>
+              <label htmlFor="deadline"> 모집 마감 </label>
               <input
                 className="deadline"
                 id="deadline"
