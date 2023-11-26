@@ -3,6 +3,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { setCookie, removeCookie } from "../config/cookie";
 import axios from "axios";
+import base64 from "base-64";
 
 //Action
 const SET_USER = "SET_USER";
@@ -41,7 +42,15 @@ const loginDB = body => {
                 console.log("access-token : ", res.data.token.access);
                 localStorage.setItem("access-token", res.data.token.access);
                 localStorage.setItem("refresh-token", res.data.token.refresh);
-                localStorage.setItem("user_id : ", res.data.token.user_id); //user_id 토큰 까봐야함
+                let token = res.data.token.access;
+                let payload = token.substring(
+                    token.indexOf(".") + 1,
+                    token.lastIndexOf(".")
+                );
+                let dec = JSON.parse(base64.decode(payload));
+                console.log(dec);
+                console.log("decode : ", dec["user_id"]);
+                localStorage.setItem("user_id", dec["user_id"]); //user_id 토큰 까봐야함
                 setCookie("is_login", `${is_login}`);
             })
             .catch(error => {
