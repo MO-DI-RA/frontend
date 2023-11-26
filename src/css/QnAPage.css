@@ -136,3 +136,52 @@
     right: 20px;
     cursor: pointer;
 }
+
+
+input#qnaTitleEdit::placeholder {
+    color: #87AD83;
+    font-size: 20px;
+}
+
+.qnaTitleEdit {
+    color: #87AD83;
+    border: none;
+    border-bottom: 1px solid #87AD83;
+    margin-bottom: 30px;
+    height: 50px;
+    font-size: 20px;
+}
+
+.qusetionContentEdit {
+    height: 500px;
+    border-color: #D9D9D9;
+    border-radius: 10px;
+    resize: none;
+    font-size: 20px;
+}
+
+.qnaEditCompleteButton {
+    background-color: #AEC0AC;
+    color: #FFFFFF;
+    height: 36px;
+    width: 110px;
+    border-radius: 15px;
+    border: none;
+    font-size: 20px;
+    border-color: #AEC0AC;
+    margin: 30px 0px 80px 0px;
+    cursor: pointer;
+}
+
+.qnaEditContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.qnaTitleEdit,
+.qusetionContentEdit,
+.qnaEditCompleteButton {
+    width: 80%;
+}

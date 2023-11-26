@@ -13,25 +13,25 @@ function Header() {
   
   const { isLoggedIn } = useAuth();
 
-  const [isNewPostDropdownOpen, setIsNewPostDropdownOpen] = useState(false);
-  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+    const [isNewPostDropdownOpen, setIsNewPostDropdownOpen] = useState(false);
+    const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
-  //새글쓰기 드롭다운
-  const toggleNewPostDropdown = () => {
-    setIsNewPostDropdownOpen(!isNewPostDropdownOpen);
-    setIsUserDropdownOpen(false);
-  };
+    //새글쓰기 드롭다운
+    const toggleNewPostDropdown = () => {
+        setIsNewPostDropdownOpen(!isNewPostDropdownOpen);
+        setIsUserDropdownOpen(false);
+    };
 
-  //유저 드롭다운
-  const toggleUserDropdown = () => {
-    setIsUserDropdownOpen(!isUserDropdownOpen);
-    setIsNewPostDropdownOpen(false);
-  };
+    //유저 드롭다운
+    const toggleUserDropdown = () => {
+        setIsUserDropdownOpen(!isUserDropdownOpen);
+        setIsNewPostDropdownOpen(false);
+    };
 
-  const closeDropdowns = () => {
-    setIsNewPostDropdownOpen(false);
-    setIsUserDropdownOpen(false);
-  };
+    const closeDropdowns = () => {
+        setIsNewPostDropdownOpen(false);
+        setIsUserDropdownOpen(false);
+    };
 
   //로그아웃
   const LogOut = () => {
@@ -108,6 +108,5 @@ function Header() {
       </nav>
     </header>
   );
-}
 
 export default Header;

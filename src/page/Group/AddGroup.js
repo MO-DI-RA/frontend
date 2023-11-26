@@ -1,71 +1,80 @@
 import React, { useState } from "react";
 import TypeBtn from "./TypeBtn";
 import "../../css/AddGroup.css";
+import axios from "axios";
 
-function AddGroup(){
-    const [division, setDivision] = useState(''); //모집 구분
-    const [headcnt, setHeadcnt] = useState(''); //모집 인원
-    const [method, setMethod] = useState(''); //진행 방식
-    const [period, setPeriod] = useState(''); //진행 기간
-    const [type, setType] = useState(''); //분야
-    const [contact, setContact] = useState(''); // 연락 방법
-    const [deadline, setDeadline] = useState(''); //모집 마감일
-    const [title, setTitle] = useState(''); //소모일 제목
-    const [summary, setSummary] = useState(''); //소모임 한 줄 요악
-    const [introduce, setIntroduce] = useState(''); //소모임 소개글
+function AddGroup() {
+    const [division, setDivision] = useState(""); //모집 구분
+    const [headcnt, setHeadcnt] = useState(""); //모집 인원
+    const [method, setMethod] = useState(""); //진행 방식
+    const [period, setPeriod] = useState(""); //진행 기간
+    const [type, setType] = useState(""); //분야
+    const [contact, setContact] = useState(""); // 연락 방법
+    const [deadline, setDeadline] = useState(""); //모집 마감일
+    const [title, setTitle] = useState(""); //소모일 제목
+    const [summary, setSummary] = useState(""); //소모임 한 줄 요악
+    const [introduce, setIntroduce] = useState(""); //소모임 소개글
+
+    // 선택된 항목을 나타내기 위한 useState
+    const [activeDivision, setActiveDivision] = useState("");
+    const [activeMethod, setActiveMethod] = useState("");
+    const [activeType, setActiveType] = useState("");
 
     //모집 구분 버튼 선택
-    const handleDivisionChange = (e) => {
-        setDivision(e.target.value);  //버튼의 value 값 저장
-    }
+    const handleDivisionChange = e => {
+        setDivision(e.target.value); //버튼의 value 값 저장
+        setActiveDivision(e.target.value);
+    };
 
     //모집 인원 옵션 선택
-    const handleHeadcntChange = (e) => {
+    const handleHeadcntChange = e => {
         setHeadcnt(e.target.value); //선택한 option value 값 저장
-    }
+    };
 
     //진행 방식 버튼 선택
-    const handleMethodChange = (e) => {
+    const handleMethodChange = e => {
         setMethod(e.target.value);
-    }
+        setActiveMethod(e.target.value);
+    };
 
     //진행 기간 옵션 선택
-    const handlePeriodChange = (e) => {
+    const handlePeriodChange = e => {
         setPeriod(e.target.value); //선택한 option value 값 저장
-    }
+    };
 
     // 분야 버튼 선택
-    const hadnleTypeChange = (e) => {
+    const hadnleTypeChange = e => {
         setType(e.target.value);
-    }
+        setActiveType(e.target.value);
+    };
 
     // 연락 방법 옵션 선택
-    const handleContactChange = (e) => {
+    const handleContactChange = e => {
         setContact(e.target.value);
-    }
+    };
 
     // 모집 마감일 날짜 선택
-    const handleDeadlineChange = (e) => {
+    const handleDeadlineChange = e => {
         setDeadline(e.target.value);
-    }
+    };
 
     // 제목 저장
-    const handleTitleChange = (e) => {
+    const handleTitleChange = e => {
         setTitle(e.target.value);
-    }
+    };
 
     // 한 줄 요약 저장
-    const handleSummaryChange = (e) => {
+    const handleSummaryChange = e => {
         setSummary(e.target.value);
-    }
+    };
 
     // 소모임 소개 저장
-    const handleIntroduceChange = (e) => {
+    const handleIntroduceChange = e => {
         setIntroduce(e.target.value);
-    }
+    };
 
     //폼 제출
-    const handleSubmit = (e) => {
+    const handleSubmit = async e => {
         e.preventDefault();
         console.log(division);
         console.log(headcnt);
@@ -77,16 +86,51 @@ function AddGroup(){
         console.log(title);
         console.log(summary);
         console.log(introduce);
-        if(division === "") 
-            alert("구분을 입력하세요");
-    }
+        if (division === "") alert("구분을 입력하세요");
 
-    return(
+        // 토큰 가져오기
+        const token = localStorage.getItem("access-token");
+
+        const options = {
+            url: "http://127.0.0.1:8000/gathering/posts/",
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json;charset=UTF-8",
+                Authorization: `Bearer ${token}`,
+            },
+            data: {
+                division: division, // 모집 구분
+                max_people: headcnt[0], // 모집 인원
+                period: period[0], // 진행 기간
+                method: method, // 진행 방식
+                tag: type, // 분야
+                contact: contact, // 연락 방법
+                deadline: deadline, // 모집 마감일
+                title: title, // 소모일 제목
+                summary: summary, // 소모임 한 줄 요약
+                content: introduce, // 소모임 소개글
+            },
+        };
+
+        axios(options)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
+
+    return (
         <div>
-            <div style={{padding : "0px 200px 20px"}}>
+            <div style={{ padding: "0px 200px 20px" }}>
                 <div>
-                    <p className="groupTxt"> <b>새로운 소모임</b>을 생성하고<br/>
-                    함께 활동할 <b>팀원</b>들을 <b>모집</b>해보세요!
+                    <p className="groupTxt">
+                        {" "}
+                        <b>새로운 소모임</b>을 생성하고
+                        <br />
+                        함께 활동할 <b>팀원</b>들을 <b>모집</b>해보세요!
                     </p>
                 </div>
                 <form className="groupForm" onSubmit={handleSubmit}>
@@ -94,8 +138,30 @@ function AddGroup(){
                     <div className="groupInfo">
                         <div className="infoPost">
                             <label htmlFor="division"> 모집 구분 </label>
-                            <input type="button" id="division" value="소모임" onClick={handleDivisionChange}/>
-                            <input type="button" id="division" value="스터디" onClick={handleDivisionChange}/>
+                            <input
+                                type="button"
+                                id="division"
+                                value="소모임"
+                                onClick={handleDivisionChange}
+                                style={{
+                                    backgroundColor:
+                                        activeDivision === "소모임"
+                                            ? "#D1DDD0"
+                                            : "#E5E5E5",
+                                }}
+                            />
+                            <input
+                                type="button"
+                                id="division"
+                                value="스터디"
+                                onClick={handleDivisionChange}
+                                style={{
+                                    backgroundColor:
+                                        activeDivision === "스터디"
+                                            ? "#D1DDD0"
+                                            : "#E5E5E5",
+                                }}
+                            />
                         </div>
                         <div className="infoPost">
                             <label htmlFor="headcnt"> 모집 인원 </label>
@@ -110,8 +176,30 @@ function AddGroup(){
                         </div>
                         <div className="infoPost">
                             <label htmlFor="method"> 진행 방식 </label>
-                            <input type="button" id="method" value="온라인" onClick={handleMethodChange}/>
-                            <input type="button" id="method" value="오프라인" onClick={handleMethodChange}/>
+                            <input
+                                type="button"
+                                id="method"
+                                value="온라인"
+                                onClick={handleMethodChange}
+                                style={{
+                                    backgroundColor:
+                                        activeMethod === "온라인"
+                                            ? "#D1DDD0"
+                                            : "#E5E5E5",
+                                }}
+                            />
+                            <input
+                                type="button"
+                                id="method"
+                                value="오프라인"
+                                onClick={handleMethodChange}
+                                style={{
+                                    backgroundColor:
+                                        activeMethod === "오프라인"
+                                            ? "#D1DDD0"
+                                            : "#E5E5E5",
+                                }}
+                            />
                         </div>
                         <div className="infoPost">
                             <label htmlFor="period"> 진행 기간 </label>
@@ -126,39 +214,58 @@ function AddGroup(){
                         <div className="infoPost">
                             {/* 분야 태그 옵션 수정 필요 */}
                             <label htmlFor="type"> 분야 </label>
-                            <TypeBtn id="type" handleChange={hadnleTypeChange} className="type"/>
-                        
+                            <TypeBtn
+                                id="type"
+                                handleChange={hadnleTypeChange}
+                                activeType={activeType}
+                                className="type"
+                            />
                         </div>
                         <div className="infoPost">
                             <label htmlFor="contact"> 연락 방법 </label>
                             <select id="contact" onChange={handleContactChange}>
-                                <option value={"카카오톡 오픈채팅"}> 카카오톡 오픈채팅 </option>
+                                <option value={"카카오톡 오픈채팅"}>
+                                    {" "}
+                                    카카오톡 오픈채팅{" "}
+                                </option>
                                 <option value={"이메일"}> 이메일 </option>
                                 <option value={"네이버 폼"}> 네이버 폼 </option>
                                 <option value={"구글 폼"}> 구글 폼 </option>
                             </select>
                         </div>
                         <div className="infoPost">
-                            <label htmlFor="deadline"> 모집 마감일 </label>
-                            <input className="deadline" id="deadline" type="date" onChange={handleDeadlineChange} value={deadline}/>
+                            <label htmlFor="deadline"> 모집 마감 </label>
+                            <input
+                                className="deadline"
+                                id="deadline"
+                                type="date"
+                                onChange={handleDeadlineChange}
+                                value={deadline}
+                            />
                         </div>
                     </div>
                     <div>
                         <p className="groupTitle">소모임 소개글</p>
                         <div className="groupPost">
-                            <div className="postElement" style={{gap : "80px"}}>
+                            <div
+                                className="postElement"
+                                style={{ gap: "80px" }}
+                            >
                                 <label htmlFor="title"> 제목 </label>
-                                <input 
+                                <input
                                     id="title"
                                     type="text"
                                     className="text"
                                     placeholder="제목을 입력해주세요"
-                                    onChange={handleTitleChange}    
+                                    onChange={handleTitleChange}
                                 />
                             </div>
-                            <div className="postElement" style={{gap : "40px"}}>
-                                <label htmlFor="summary" > 한 줄 요약 </label>
-                                <input 
+                            <div
+                                className="postElement"
+                                style={{ gap: "40px" }}
+                            >
+                                <label htmlFor="summary"> 한 줄 요약 </label>
+                                <input
                                     id="summary"
                                     type="text"
                                     className="text"
@@ -166,9 +273,16 @@ function AddGroup(){
                                     onChange={handleSummaryChange}
                                 />
                             </div>
-                            <div className="postElement" style={{gap : "20px", flexDirection:"column", alignItems: "normal"}}>
-                                <label htmlFor="introduce" > 소모임 소개 </label>
-                                <textarea 
+                            <div
+                                className="postElement"
+                                style={{
+                                    gap: "20px",
+                                    flexDirection: "column",
+                                    alignItems: "normal",
+                                }}
+                            >
+                                <label htmlFor="introduce"> 소모임 소개 </label>
+                                <textarea
                                     id="introduce"
                                     onChange={handleIntroduceChange}
                                 />
@@ -176,13 +290,22 @@ function AddGroup(){
                         </div>
                     </div>
                     <div className="groupBtn">
-                        <button type="button" style={{backgroundColor : "#d9d9d9"}}> 취소하기 </button>
-                        <button style={{backgroundColor : "#aec0ac"}}> 등록하기  </button>
+                        <button
+                            type="button"
+                            style={{ backgroundColor: "#d9d9d9" }}
+                        >
+                            {" "}
+                            취소하기{" "}
+                        </button>
+                        <button style={{ backgroundColor: "#aec0ac" }}>
+                            {" "}
+                            등록하기{" "}
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
-    )
+    );
 }
 
 export default AddGroup;
