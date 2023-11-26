@@ -32,7 +32,7 @@ function App() {
                     <Route path="/user/kakao/callback/" Component={Redirect} />
                     <Route path="/AddQnA" Component={AddQnA} />
                     <Route path="/MyPost" Component={MyPost} />
-                    <Route path="/GroupPage" Component={GroupPage} />
+                    <Route path="/GroupPage/:id" Component={GroupPage} />
                     <Route path="/QnAPage/:id" Component={QnAPage} />
                 </Routes>
                 <Footer />
