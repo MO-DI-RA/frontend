@@ -10,6 +10,8 @@ function GroupContainer({url}) {
     console.log("url" , url);
 
     const [groupList, setGroupList] = useState([]);
+    const [groupID, setGroupID] = useState(); //상세페이지 id 설정
+    const [profileURL , setprofileURL] = useState(); //이미지 url 설정
 
     useEffect(() => {
         axios({
@@ -21,6 +23,8 @@ function GroupContainer({url}) {
         }).then((res) => {
             console.log(res.data);
             setGroupList(res.data)
+            setGroupID(res.data.id);
+            setprofileURL("localhost:8000"+res.data.author_profile_image);
         })
         .then((err) => {
             console.log('error : ',err);
@@ -29,7 +33,7 @@ function GroupContainer({url}) {
 
     // 컨테이너 클릭 시 해당 컨테이너의 상세페이지로 이동
     const clickGroup= () => {
-        navigate(`/gathering/posts/${groupList.id}`);
+        navigate(`/gathering/posts/${groupID}`);
     }
 
     return(
@@ -46,7 +50,7 @@ function GroupContainer({url}) {
                 </div>
                 <div className="summary"> {group.summary} </div>
                 <div className="profileINFO">
-                    <img src={group.author_profile_image} alt="profile" className="profile_IMG" />
+                    <img src={profileURL} alt="profile" className="profile_IMG" />
                     <div> {group.author_nickname} </div>
                 </div>
                 </div>

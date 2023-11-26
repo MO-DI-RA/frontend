@@ -41,7 +41,7 @@ function Home() {
   }
 
   const typeSubmit = () => {
-
+    
   }
 
   //모집중
