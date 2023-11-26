@@ -10,7 +10,8 @@ function GroupContainer({url}) {
     console.log("url" , url);
 
     const [groupList, setGroupList] = useState([]);
-    const [groupID, setGroupID] = useState(); //상세페이지 id
+    const [groupID, setGroupID] = useState(); //상세페이지 id 설정
+    const [profileURL , setprofileURL] = useState(); //이미지 url 설정
 
     useEffect(() => {
         axios({
@@ -23,6 +24,7 @@ function GroupContainer({url}) {
             console.log(res.data);
             setGroupList(res.data)
             setGroupID(res.data.id);
+            setprofileURL("localhost:8000"+res.data.author_profile_image);
         })
         .then((err) => {
             console.log('error : ',err);
@@ -48,7 +50,7 @@ function GroupContainer({url}) {
                 </div>
                 <div className="summary"> {group.summary} </div>
                 <div className="profileINFO">
-                    <img src={group.author_profile_image} alt="profile" className="profile_IMG" />
+                    <img src={profileURL} alt="profile" className="profile_IMG" />
                     <div> {group.author_nickname} </div>
                 </div>
                 </div>

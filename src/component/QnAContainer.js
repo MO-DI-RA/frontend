@@ -8,8 +8,8 @@ import { useState } from "react";
 function QnAContainer({url}) {
     const navigate = useNavigate();
     const [QnAList , setQnAList] = useState([]);
-    //상세페이지 id 설정
-    const [QnAID, setQnAID] = useState();
+    const [QnAID, setQnAID] = useState(); //상세페이지 id 설정
+    const [profileURL , setprofileURL] = useState(); //이미지 url 설정
 
     useEffect(() => {
         axios({
@@ -22,7 +22,7 @@ function QnAContainer({url}) {
             console.log(res.data);
             setQnAList(res.data);
             setQnAID(res.data.id);
-        })
+            setprofileURL("localhost:8000"+res.data.author_profile_image);        })
         .then((err) => {
             console.log("error : ", err);
         })
@@ -36,7 +36,7 @@ function QnAContainer({url}) {
     return(
         <div className="QnA_Main" style={{ marginBottom: "40px" }}>
             {QnAList.map((qna) => (
-                <div key={qna.id} className="Main_QnA">
+                <div key={qna.id} className="Main_QnA" onClick={clickQnA}>
                     <div className="QnA_titleBox">
                         {qna.status ? (
                             <div className="stateFlase"> 미해결 </div>
@@ -47,7 +47,7 @@ function QnAContainer({url}) {
                     </div>
                     <div className="summary"> {qna.summary} </div>
                     <div className="QnA_content">
-                        <img src={qna.author_profile_image} alt="기본 이미지" className="profile" />
+                        <img src={profileURL} alt="기본 이미지" className="profile" />
                         <div className="nickname"> {qna.author_nickname} </div>
                         <div className="created_at"> 등록일 : {qna.created_at} </div>
                     </div>
