@@ -126,6 +126,7 @@ function GroupPage() {
     }
   };
 
+
   return (
     <div>
       <div className="groupPage">
@@ -136,6 +137,7 @@ function GroupPage() {
             alt="뒤로가기"
             onClick={onBackClick}
           />
+
           <div className="groupTitleLayout">
             <h2> {groupInfo.title} </h2>
             <button className={buttonStyle} onClick={toggleRecruitmentStatus}>
@@ -152,6 +154,7 @@ function GroupPage() {
             className="profileImg"
             alt="profileImg"
           ></img>
+
           <p> {groupInfo.nickname} </p>
           <p> {groupInfo.created_at} </p>
         </div>
@@ -165,6 +168,7 @@ function GroupPage() {
             <p className="groupInfoLabel">분야</p>
             <div className="rowLayout">
               <p className="groupInfoValue"> #{groupInfo.tag}</p>
+
             </div>
           </div>
           <div className="rowLayout">
@@ -178,6 +182,7 @@ function GroupPage() {
           <div className="rowLayout">
             <p className="groupInfoLabel">진행 방식</p>
             <p className="groupInfoValue">{groupInfo.method}</p>
+
           </div>
           <div className="rowLayout">
             <p className="groupInfoLabel">모집 마감일</p>
@@ -186,6 +191,7 @@ function GroupPage() {
           <div className="rowLayout">
             <p className="groupInfoLabel">진행 기간</p>
             <p className="groupInfoValue">{groupInfo.period}</p>
+
           </div>
         </div>
 
@@ -199,6 +205,7 @@ function GroupPage() {
           <button className="groupDeleteButton" onClick={handleDelete}>
             삭제하기
           </button>
+
         </div>
 
         <h3 className="commentTitle">댓글</h3>

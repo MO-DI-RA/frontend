@@ -24,3 +24,7 @@
     background-color: #DFEEDB;
     color: #87AD83;
 }
+
+.myPostContent > .groupContainer{
+    margin-left : 15%;
+}

@@ -65,3 +65,10 @@
     width: 35px;
     border-radius: 50%;
 }
+
+/* 선택된 소모임 컴포넌트 */
+.groupContainer.selected {
+    /* 선택된 컴포넌트에 대한 스타일 지정 */
+    border: 2px solid #000000;
+    box-shadow: 0px 0px 10px 0px #343434;;
+}

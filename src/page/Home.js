@@ -15,7 +15,14 @@ function Home() {
   const [recruiting, setRecruiting] = useState(false); //모집중
   const [keyword, setKeyword] = useState(''); //키워드 검색
 
+  const method = "GET"; //method
   const [url, setUrl] = useState("http://localhost:8000/gathering/posts/"); //url 설정
+  const headers = {
+    "Content-Type" : "application/json",
+  }; //axios 요청 header
+
+
+
 
   //드롭 다운
   const typeListDropdown = () => {
@@ -104,7 +111,7 @@ function Home() {
                   />
                 </form>
               </div>
-              <GroupContainer url={url}/>
+              <GroupContainer method={method} url={url} headers={headers} modify={false}/>
             </div>
           ) : 
           (
@@ -118,7 +125,7 @@ function Home() {
                     onClick={keywordSearch}
                   />
               </form>
-              <QnAContainer url={url}/> 
+              <QnAContainer method={method} url={url} headers={headers} modify={false}/> 
             </div>
           )}
       </div>
