@@ -5,17 +5,23 @@ import GroupContainer from "../component/GroupContainer";
 import QnAContainer from "../component/QnAContainer";
 
 function MyPost() {
+    const token = localStorage.getItem("access-token");
     const [selectedButton, setSelectedButton] = useState("myPostGroup");
-    // const [myPosts, setMyPosts] = useState([]);
     const [endpoint, setEndpoint] = useState("gathering");
     const [isGroup, setIsGroup] = useState(true); //소모임을 선택했는지 확인
+
+    //소모임, Q&A 컨테이너 전달 Props
+    const method = "GET";
     const [url, setUrl] = useState(
         `http://127.0.0.1:8000/gathering/posts/myposts/`
     ); //컴포넌트에 전달할 url
-    const [headers, setHeaders] = useState({}); //axios 요청 header
+    const [headers, setHeaders] = useState({
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+    }); //axios 요청 header
 
     useEffect(() => {
-        const token = localStorage.getItem("access-token");
         const options = {
             url: `http://127.0.0.1:8000/${endpoint}/posts/myposts/`,
             headers: {
@@ -27,14 +33,7 @@ function MyPost() {
 
         setUrl(options.url); //컴포넌트에 전달할 url 설정
         setHeaders(options.headers); //컴포넌트에 전달할 headers 설정
-
-        //렌더링 axios 요청은 소모임/QnA 컨테이너에서 실행
-        // axios(options)
-        //   .then((response) => {
-        //     setMyPosts(response.data);
-        //   })
-        //   .catch((error) => console.error(error));
-    }, [endpoint]);
+    }, [token, endpoint]);
 
     const handleButtonClick = buttonName => {
         setSelectedButton(buttonName);
@@ -79,11 +78,21 @@ function MyPost() {
             <div className="myPostContent">
                 {isGroup ? (
                     <div className="groupContainer">
-                        <GroupContainer url={url} headers={headers} />
+                        <GroupContainer
+                            method={method}
+                            url={url}
+                            headers={headers}
+                            modify={false}
+                        />
                     </div>
                 ) : (
                     <div className="groupContainer">
-                        <QnAContainer url={url} headers={headers} />
+                        <QnAContainer
+                            method={method}
+                            url={url}
+                            headers={headers}
+                            modfiy={false}
+                        />
                     </div>
                 )}
             </div>
