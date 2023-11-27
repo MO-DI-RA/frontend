@@ -8,118 +8,22 @@ import GroupComment from "../../component/GroupComment";
 import CommentInput from "../../component/CommentInput";
 
 function GroupPage() {
-  const navigate = useNavigate();
-  const { id } = useParams();
+    const navigate = useNavigate();
+    const { id } = useParams();
 
-  //소모임 상세 정보
-  const [groupInfo, setGroupInfo] = useState({});
+    //소모임 상세 정보
+    const [groupInfo, setGroupInfo] = useState({});
 
-  //모집중, 모집완료 표시
-  const [recruiting, setRecruiting] = useState(true);
+    //모집중, 모집완료 표시
+    const [recruiting, setRecruiting] = useState(true);
 
-  useEffect(() => {
-    axios({
-      method: "GET",
-      url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        console.log(res.data);
-        // 분야 추가 필요
-        const {
-          id,
-          author_nickname,
-          author_profile_image,
-          deadline,
-          title,
-          content,
-          status,
-          tag,
-
-          created_at,
-          division,
-          max_people,
-          method,
-          contact,
-          summary,
-        } = res.data;
-        setGroupInfo({
-          id: id, //id
-          profile: author_profile_image, //작성자 프사
-          nickname: author_nickname, //작성자 닉네임
-          deadline: deadline, //마감기한
-          title: title, //제목
-          content: content, //내용
-          created_at: created_at, //작성일자
-          status: status, //상태(모집중/모집완료)
-          summary: summary, //요약
-          tag: tag, //태그
-          division: division, //모집구분
-          max_people: max_people, //모집 인원
-          method: method, //진행방식
-          contact: contact, // 연락 방법
-        });
-        setRecruiting(res.data.status); // 서버로부터 받은 status 값으로 recruiting 상태 업데이트
-      })
-      .catch((err) => {
-        console.log("error : ", err);
-      });
-    console.log(recruiting ? "모집중" : "모집완료");
-  }, [id]);
-
-  const toggleRecruitmentStatus = () => {
-    const newStatus = !recruiting;
-    setRecruiting(newStatus);
-
-    axios({
-      method: "PUT",
-      url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
-      data: {
-        status: newStatus,
-      },
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        console.log("Status updated successfully:", res);
-      })
-      .catch((err) => {
-        console.error("Error updating status:", err);
-      });
-  };
-
-  // 모집중 버튼
-  const buttonStyle = recruiting
-    ? "groupState"
-    : "groupState recruitingComplete";
-  const buttonText = recruiting ? "모집중" : "모집완료";
-
-  // 뒤로가기 버튼
-  const onBackClick = () => {
-    navigate(-1);
-  };
-
-  const handleEdit = () => {
-    navigate(`/edit-group/${id}`, { state: { groupInfo: groupInfo } });
-  };
-
-  const handleDelete = () => {
-    const confirmDelete = window.confirm("삭제하시겠습니까?");
-    if (confirmDelete) {
-      axios({
-        method: "DELETE",
-        url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => {
-          console.log("Post deleted successfully");
-          window.confirm("성공적으로 삭제되었습니다.");
-          navigate("/Home");
+    useEffect(() => {
+        axios({
+            method: "GET",
+            url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
+            headers: {
+                "Content-Type": "application/json",
+            },
         })
         .catch((err) => {
           console.error("Error during deletion:", err);
@@ -220,6 +124,7 @@ function GroupPage() {
       </div>
     </div>
   );
+
 }
 
 export default GroupPage;
