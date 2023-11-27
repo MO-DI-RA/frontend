@@ -100,6 +100,10 @@ function GroupPage() {
     navigate(-1);
   };
 
+  const handleEdit = () => {
+    navigate(`/edit-group/${id}`, { state: { groupInfo: groupInfo } });
+  };
+
   const handleDelete = () => {
     const confirmDelete = window.confirm("삭제하시겠습니까?");
     if (confirmDelete) {
@@ -189,7 +193,9 @@ function GroupPage() {
         <p className="groupContent"> {groupInfo.content}</p>
 
         <div className="groupEditButtons">
-          <button className="groupModifyButton">수정하기</button>
+          <button className="groupModifyButton" onClick={handleEdit}>
+            수정하기
+          </button>
           <button className="groupDeleteButton" onClick={handleDelete}>
             삭제하기
           </button>
