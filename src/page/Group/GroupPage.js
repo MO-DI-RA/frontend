@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../../css/GroupPage.css";
-import defaultImg from "../../asset/defaultImg.png";
 import goBack from "../../asset/goBack.png";
 import { useNavigate, useParams } from "react-router";
 import axios from "axios";
+import GroupComment from "../../component/GroupComment";
+import CommentInput from "../../component/CommentInput";
 
 function GroupPage() {
   const navigate = useNavigate();
@@ -209,18 +210,19 @@ function GroupPage() {
         </div>
 
         <h3 className="commentTitle">댓글</h3>
-        <div className="commentLayout">
+        {/* <div className="commentLayout">
           <textarea className="commentInput"></textarea>
           <button className="commentRegister">등록</button>
-        </div>
-        <div className="userInfo">
+        </div> */}
+        <CommentInput />
+        {/* <div className="userInfo">
           <img src={defaultImg} className="defaultImg" alt="defaultImg"></img>
           <p>사용자 닉네임</p>
         </div>
-        <p className="commentContent">댓글 내용</p>
+        <p className="commentContent">댓글 내용</p> */}
+        <GroupComment id={id} />
       </div>
     </div>
   );
 }
-
 export default GroupPage;
