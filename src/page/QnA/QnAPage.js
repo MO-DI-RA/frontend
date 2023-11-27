@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../css/QnAPage.css";
 import defaultImg from "../../asset/defaultImg.png";
 import goBack from "../../asset/goBack.png";
 import axios from "axios";
 
 function QnAPage() {
+    const navigate = useNavigate();
     const [questionData, setQuestionData] = useState(null);
     const [answer, setAnswer] = useState("");
     const [resolve, setResolve] = useState(false);
@@ -15,6 +16,9 @@ function QnAPage() {
     const [editMode, setEditMode] = useState(false); // 수정 모드 상태
     const [editedTitle, setEditedTitle] = useState(""); // 수정된 제목
     const [editedContent, setEditedContent] = useState(""); // 수정된 내용
+
+    //관심설정 표시
+    const [liked, setLiked] = useState(false);
 
     useEffect(() => {
         axios
@@ -143,6 +147,26 @@ function QnAPage() {
         return <div>Loading...</div>;
     }
 
+    // 관심 설정
+    const handleLikedChange = () => {
+        const token = localStorage.getItem("access-token");
+        setLiked(true);
+        axios({
+            method: "POST",
+            url: `http://127.0.0.1:8000/qna/posts/${id}/like/`,
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        alert("관심 등록되었습니다.");
+    };
+
+    // 뒤로가기 버튼
+    const onBackClick = () => {
+        navigate(-1);
+    };
+
     function renderContent() {
         if (editMode) {
             //수정모드
@@ -178,15 +202,24 @@ function QnAPage() {
                                 src={goBack}
                                 className="goBack"
                                 alt="뒤로가기"
+                                onClick={onBackClick}
                             ></img>
                             <div className="qnaTitleLayout">
                                 <h2>{questionData.title}</h2>
-                                {/* <h2>질문 제목</h2> */}
                                 <button
                                     className={buttonStyle}
                                     onClick={toggleResolveStatus}
                                 >
                                     {buttonText}
+                                </button>
+                                <button
+                                    className={
+                                        liked ? "LikedSetBtnYes" : "LikedSetBtn"
+                                    }
+                                    onClick={handleLikedChange}
+                                >
+                                    {" "}
+                                    ♥
                                 </button>
                             </div>
                         </div>

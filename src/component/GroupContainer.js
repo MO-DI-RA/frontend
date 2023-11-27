@@ -60,17 +60,21 @@ function GroupContainer({ method, url, headers, modify }) {
     // 삭제하기 버튼 클릭
     const clickDelete = () => {
         console.log("선택된 id", selectedGID);
-        axios({
-            method: "DELETE",
-            url: "127.0.0.1:8000/gathering/posts/unlike/", //url 수정 필요
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json;charset=UTF-8",
-                Authorization: `Bearer ${token}`,
-            },
-            data: selectedGID,
-        });
-        alert("삭제하시겠습니까?");
+        if (selectedGID.length === 0) {
+            alert("삭제할 목록이 없습니다.");
+        } else {
+            axios({
+                method: "DELETE",
+                url: "http://127.0.0.1:8000/gathering/posts/unlike/",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json;charset=UTF-8",
+                    Authorization: `Bearer ${token}`,
+                },
+                data: selectedGID,
+            });
+            alert("삭제하시겠습니까?");
+        }
         setModifyList(false);
     };
 
@@ -78,75 +82,84 @@ function GroupContainer({ method, url, headers, modify }) {
         <div>
             {existList ? (
                 <div className="Main_Group">
-                    {groupList.map(group => {
-                        const GroupComponent = modifyList ? "div" : Link;
+                    <div className="Liked_Group">
+                        {groupList.map(group => {
+                            const GroupComponent = modifyList ? "div" : Link;
 
-                        return (
-                            <GroupComponent
-                                key={group.id}
-                                to={`/GroupPage/${group.id}`}
-                                style={{
-                                    textDecoration: "none",
-                                    color: "#000000",
-                                }}
-                                className="Group_Link"
-                                onClick={e =>
-                                    modifyList && clickContainer(group.id, e)
-                                }
-                            >
-                                <div
-                                    className={`groupContainer ${
+                            return (
+                                <GroupComponent
+                                    key={group.id}
+                                    to={`/GroupPage/${group.id}`}
+                                    style={{
+                                        textDecoration: "none",
+                                        color: "#000000",
+                                    }}
+                                    className="Group_Link"
+                                    onClick={e =>
                                         modifyList &&
-                                        selectedGID.includes(group.id)
-                                            ? "selected"
-                                            : ""
-                                    }`}
+                                        clickContainer(group.id, e)
+                                    }
                                 >
-                                    <div className="title_INFO">
-                                        <div className="titleINFO">
-                                            <div className="title">
-                                                {" "}
-                                                {group.title}{" "}
+                                    <div
+                                        className={`groupContainer ${
+                                            modifyList &&
+                                            selectedGID.includes(group.id)
+                                                ? "selected"
+                                                : ""
+                                        }`}
+                                    >
+                                        <div className="title_INFO">
+                                            <div className="titleINFO">
+                                                <div className="title">
+                                                    {" "}
+                                                    {group.title}{" "}
+                                                </div>
+                                                <div className="deadline">
+                                                    {" "}
+                                                    {group.deadline}{" "}
+                                                </div>
                                             </div>
-                                            <div className="deadline">
+                                            <div className="type">
                                                 {" "}
-                                                {group.deadline}{" "}
+                                                {group.tag}{" "}
                                             </div>
                                         </div>
-                                        <div className="type">
+                                        <div className="summary">
                                             {" "}
-                                            {group.tag}{" "}
+                                            {group.summary}{" "}
+                                        </div>
+                                        <div className="profileINFO">
+                                            <img
+                                                src={
+                                                    "http://localhost:8000" +
+                                                        group.author_profile_image ||
+                                                    defaultImg
+                                                }
+                                                alt="profile"
+                                                className="profile_IMG"
+                                            />
+                                            <div> {group.author_nickname} </div>
                                         </div>
                                     </div>
-                                    <div className="summary">
-                                        {" "}
-                                        {group.summary}{" "}
-                                    </div>
-                                    <div className="profileINFO">
-                                        <img
-                                            src={
-                                                "http://localhost:8000" +
-                                                    group.author_profile_image ||
-                                                defaultImg
-                                            }
-                                            alt="profile"
-                                            className="profile_IMG"
-                                        />
-                                        <div> {group.author_nickname} </div>
-                                    </div>
-                                </div>
-                            </GroupComponent>
-                        );
-                    })}
+                                </GroupComponent>
+                            );
+                        })}
+                    </div>
                     {modify ? (
-                        <div>
+                        <div style={{ textAlign: "center" }}>
                             {modifyList ? (
-                                <button onClick={clickDelete}>
+                                <button
+                                    onClick={clickDelete}
+                                    className="LikeModifyBtn"
+                                >
                                     {" "}
-                                    삭제하기{" "}
+                                    관심 해제 하기{" "}
                                 </button>
                             ) : (
-                                <button onClick={clickModify}>
+                                <button
+                                    onClick={clickModify}
+                                    className="LikeModifyBtn"
+                                >
                                     {" "}
                                     수정하기{" "}
                                 </button>

@@ -60,3 +60,11 @@
     height: 30px;
     border-radius: 50%;
 }
+
+/* 선택된 소모임 컴포넌트 */
+.Main_QnA.selected {
+    /* 선택된 컴포넌트에 대한 스타일 지정 */
+    box-shadow: 0px 0px 10px 0px #343434;
+    color: #000000;
+    background-color: #dfeedc59;
+}

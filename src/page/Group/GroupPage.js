@@ -16,6 +16,9 @@ function GroupPage() {
     //모집중, 모집완료 표시
     const [recruiting, setRecruiting] = useState(true);
 
+    //관심설정 표시
+    const [liked, setLiked] = useState(false);
+
     useEffect(() => {
         axios({
             method: "GET",
@@ -105,6 +108,21 @@ function GroupPage() {
         navigate(`/AddGroup/${id}`, { state: { groupInfo: groupInfo } });
     };
 
+    // 관심 설정
+    const handleLikedChange = () => {
+        const token = localStorage.getItem("access-token");
+        setLiked(true);
+        axios({
+            method: "POST",
+            url: `http://127.0.0.1:8000/gathering/posts/${id}/like/`,
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        alert("관심 등록되었습니다.");
+    };
+
     const handleDelete = () => {
         const confirmDelete = window.confirm("삭제하시겠습니까?");
         if (confirmDelete) {
@@ -145,6 +163,13 @@ function GroupPage() {
                             onClick={toggleRecruitmentStatus}
                         >
                             {buttonText}
+                        </button>
+                        <button
+                            className={liked ? "LikedSetBtnYes" : "LikedSetBtn"}
+                            onClick={handleLikedChange}
+                        >
+                            {" "}
+                            ♥
                         </button>
                     </div>
                 </div>
@@ -211,16 +236,7 @@ function GroupPage() {
                 </div>
 
                 <h3 className="commentTitle">댓글</h3>
-                {/* <div className="commentLayout">
-          <textarea className="commentInput"></textarea>
-          <button className="commentRegister">등록</button>
-        </div> */}
                 <CommentInput />
-                {/* <div className="userInfo">
-          <img src={defaultImg} className="defaultImg" alt="defaultImg"></img>
-          <p>사용자 닉네임</p>
-        </div>
-        <p className="commentContent">댓글 내용</p> */}
                 <GroupComment id={id} />
             </div>
         </div>
