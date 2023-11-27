@@ -38,7 +38,7 @@ function GroupComment({ id }) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
-        Authorization: `Bearer ${token}`,
+        // Authorization: `Bearer ${token}`,
       },
     };
 
@@ -46,8 +46,8 @@ function GroupComment({ id }) {
       .then((response) => {
         // 서버로부터 받은 데이터로 상태를 업데이트
         setCommentData({
-          profileImg: response.data.profileImg,
-          commentContent: response.data.commentContent,
+          profileImg: response.data.profile_image,
+          commentContent: response.data.content,
           nickname: response.data.nickname,
         });
       })
@@ -59,7 +59,7 @@ function GroupComment({ id }) {
     <div className="groupComment" style={containerStyle}>
       <div className="userInfo">
         <img
-          src={profileImg}
+          src={"http://localhost:8000" + profileImg}
           className="profileImg"
           alt="profileImg"
           style={commentInputStyle}
