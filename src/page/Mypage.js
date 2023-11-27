@@ -20,7 +20,7 @@ function Mypage() {
     const [qnaUrl,setQnaUrl] = useState('http://localhost:8000/qna/posts/interest/'); //qna url
     const headers = {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
     };//Header 설정
 
 
