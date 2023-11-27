@@ -4,6 +4,8 @@ import defaultImg from "../../asset/defaultImg.png";
 import goBack from "../../asset/goBack.png";
 import { useNavigate, useParams } from "react-router";
 import axios from "axios";
+import GroupComment from "../../component/GroupComment";
+import CommentInput from "../../component/CommentInput";
 
 function GroupPage() {
   const navigate = useNavigate();
@@ -126,7 +128,6 @@ function GroupPage() {
     }
   };
 
-
   return (
     <div>
       <div className="groupPage">
@@ -168,7 +169,6 @@ function GroupPage() {
             <p className="groupInfoLabel">분야</p>
             <div className="rowLayout">
               <p className="groupInfoValue"> #{groupInfo.tag}</p>
-
             </div>
           </div>
           <div className="rowLayout">
@@ -182,7 +182,6 @@ function GroupPage() {
           <div className="rowLayout">
             <p className="groupInfoLabel">진행 방식</p>
             <p className="groupInfoValue">{groupInfo.method}</p>
-
           </div>
           <div className="rowLayout">
             <p className="groupInfoLabel">모집 마감일</p>
@@ -191,7 +190,6 @@ function GroupPage() {
           <div className="rowLayout">
             <p className="groupInfoLabel">진행 기간</p>
             <p className="groupInfoValue">{groupInfo.period}</p>
-
           </div>
         </div>
 
@@ -205,19 +203,20 @@ function GroupPage() {
           <button className="groupDeleteButton" onClick={handleDelete}>
             삭제하기
           </button>
-
         </div>
 
         <h3 className="commentTitle">댓글</h3>
-        <div className="commentLayout">
+        {/* <div className="commentLayout">
           <textarea className="commentInput"></textarea>
           <button className="commentRegister">등록</button>
-        </div>
-        <div className="userInfo">
+        </div> */}
+        <CommentInput />
+        {/* <div className="userInfo">
           <img src={defaultImg} className="defaultImg" alt="defaultImg"></img>
           <p>사용자 닉네임</p>
         </div>
-        <p className="commentContent">댓글 내용</p>
+        <p className="commentContent">댓글 내용</p> */}
+        <GroupComment id={id} />
       </div>
     </div>
   );
