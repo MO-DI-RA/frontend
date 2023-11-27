@@ -57,17 +57,42 @@ function Mypage() {
         reader.onload = event => {
             setProfile(event.target.result);
         };
+
+        if(selectedImg){
+            reader.readAsDataURL(selectedImg);
+        }
+    };
+
+    // 닉네임 변경
+    const handleNickNameChange = (e) => {
+        e.preventDefault();
+        setNickname(e.target.value);
     };
 
     //프로필 사진, 닉네임 변경 submit
     const onSubmit = e => {
+
         e.preventDefault();
+        console.log(nickname);
+        axios({
+            method : "PUT",
+            url : `http://localhost:8000/user/mypage/`,
+            header : {
+                Accept: "application/json",
+                "Content-Type": "application/json;charset=UTF-8",
+                Authorization: `Bearer ${token}`,
+            },
+            data : {
+                nickname : nickname,
+                profile_image : profile,
+            }
+        })
     };
 
     return (
         <div>
             <div className="Mypage">
-                <form className="profileForm">
+                <form className="profileForm" onSubmit={onSubmit}>
                     <div className="info">
                         <img
                             src={profile}
@@ -79,6 +104,7 @@ function Mypage() {
                             className="editImg"
                             alt="editImg"
                         ></img>
+                        <input type="file" accept="image/*" className="profileEditBtn" onChange={changeProfile} />
                         <h2 className="userWelcome">{nickname}님 환영해요.</h2>
                     </div>
                     <label for="nickname">*닉네임</label>
@@ -87,7 +113,8 @@ function Mypage() {
                         name="nickname"
                         required
                         placeholder={nickname}
-                    ></input>
+                        onChange={handleNickNameChange}
+                    />
                     <button id="profileSaveButton">프로필 저장</button>
                 </form>
 
