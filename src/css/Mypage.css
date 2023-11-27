@@ -50,6 +50,17 @@ input#nickname {
     width: 295px;
     border-radius: 15px;
     font-size: 20px;
-    border-color: #AEC0AC;
+    border : none;
     margin: 30px auto;
+    cursor: pointer;
+}
+
+
+.container > .modifyBtn {
+    padding : 10px 20px;
+    background-color: #AEC0AC;
+    color : #ffffff;
+    border-radius: 20px;
+    border : none;
+    cursor: pointer;
 }
