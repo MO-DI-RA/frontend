@@ -3,12 +3,26 @@ import axios from "axios";
 import "../css/Mypage.css";
 import defaultImg from "../asset/defaultImg.png";
 import editImg from "../asset/editImg.png";
+import QnAContainer from "../component/QnAContainer";
+import GroupContainer from "../component/GroupContainer";
 
 function Mypage() {
-    const [nickname, setNickname] = useState("");
-
     const token = localStorage.getItem("access-token");
     console.log(token);
+
+
+    const [profile, setProfile] = useState(defaultImg); //프로필 사진
+    const [nickname, setNickname] = useState(""); //닉네임
+
+    // 소모임, Q&A 컨테이너 전달 Props
+    const method = "GET"; //method
+    const [groupUrl,setgroupUrl] = useState('http://localhost:8000/gathering/posts/interest/');// group url
+    const [qnaUrl,setQnaUrl] = useState('http://localhost:8000/qna/posts/interest/'); //qna url
+    const headers = {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${token}`,
+    };//Header 설정
+
 
     useEffect(() => {
         axios({
@@ -24,32 +38,55 @@ function Mypage() {
         });
     }, [token]);
 
+     // 프로필 사진 formData 객체
+     const formData = new FormData();
+
+    //프로필 사진 변경
+    const changeProfile = (e) => {
+        e.preventDefault();
+        const selectedImg = e.target.files[0];
+        const reader = new FileReader();
+       
+        formData.append('files', selectedImg);
+
+        //이미지 미리보기
+        reader.onload = (event) => {
+            setProfile(event.target.result);
+        }
+    }
+
+    //프로필 사진, 닉네임 변경 submit
+    const onSubmit = (e) => {
+        e.preventDefault();
+    }
+
+
     return (
         <div>
             <div className="Mypage">
-                <div className="info">
-                    <img
-                        src={defaultImg}
-                        className="defaultImgMyPage"
-                        alt="defaultImg"
-                    ></img>
-                    <img src={editImg} className="editImg" alt="editImg"></img>
-                    <h2 className="userWelcome">{nickname}님 환영해요.</h2>
-                </div>
                 <form className="profileForm">
+                    <div className="info">
+                        <img
+                            src={profile}
+                            className="defaultImgMyPage"
+                            alt="defaultImg"
+                        ></img>
+                        <img src={editImg} className="editImg" alt="editImg"></img>
+                        <h2 className="userWelcome">{nickname}님 환영해요.</h2>
+                    </div>
                     <label for="nickname">*닉네임</label>
-                    <input id="nickname" name="nickname" required></input>
+                    <input id="nickname" name="nickname" required placeholder={nickname}></input>
                     <button id="profileSaveButton">프로필 저장</button>
                 </form>
 
                 <h2 className="GIList">소모임 관심 목록</h2>
                 <div className="container">
-                    <p> 관심 설정한 소모임이 없습니다. </p>
+                    <GroupContainer method={method} url={groupUrl} headers={headers} modify={true}/>
                 </div>
 
                 <h2 className="QnAIList">Q&A 관심 목록</h2>
                 <div className="container">
-                    <p> 관심 설정한 Q&A가 없습니다. </p>
+                    <QnAContainer method={method} url={qnaUrl} headers={headers} modify={true}/>
                 </div>
             </div>
         </div>
