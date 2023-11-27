@@ -7,46 +7,86 @@ import axios from "axios";
 
 function GroupPage() {
   const navigate = useNavigate();
-  const {id} = useParams();
+  const { id } = useParams();
 
   //소모임 상세 정보
-  const [groupInfo, setGroupInfo] = useState([])
+  const [groupInfo, setGroupInfo] = useState({});
 
   //모집중, 모집완료 표시
-  const [recruiting, setRecruiting] = useState(groupInfo.status);
-
+  const [recruiting, setRecruiting] = useState(true);
 
   useEffect(() => {
     axios({
-      method : "GET",
-      url : `gathering/posts/${id}`,
-      headers : {
+      method: "GET",
+      url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
+      headers: {
         "Content-Type": "application/json",
       },
-    }).then((res) => {
-      console.log(res.data);
-      // 분야 추가 필요
-      const { id, title, deadline, content, summary, author_profile_image, author_nickname, created_at, status } = res.data;
-      setGroupInfo({
-        id : id,
-        profile : author_profile_image,
-        nickname : author_nickname,
-        deadline : deadline,
-        title : title,
-        content : content,
-        created_at : created_at,
-        status : status,
-        summary : summary,
+    })
+      .then((res) => {
+        console.log(res.data);
+        // 분야 추가 필요
+        const {
+          id,
+          author_nickname,
+          author_profile_image,
+          deadline,
+          title,
+          content,
+          status,
+          tag,
+
+          created_at,
+          division,
+          max_people,
+          method,
+          contact,
+          summary,
+        } = res.data;
+        setGroupInfo({
+          id: id, //id
+          profile: author_profile_image, //작성자 프사
+          nickname: author_nickname, //작성자 닉네임
+          deadline: deadline, //마감기한
+          title: title, //제목
+          content: content, //내용
+          created_at: created_at, //작성일자
+          status: status, //상태(모집중/모집완료)
+          summary: summary, //요약
+          tag: tag, //태그
+          division: division, //모집구분
+          max_people: max_people, //모집 인원
+          method: method, //진행방식
+          contact: contact, // 연락 방법
+        });
+        setRecruiting(res.data.status); // 서버로부터 받은 status 값으로 recruiting 상태 업데이트
       })
-    })
-    .then((err) => {
-      console.log("error : ", err);
-    })
+      .catch((err) => {
+        console.log("error : ", err);
+      });
     console.log(recruiting ? "모집중" : "모집완료");
-  }, [id, recruiting]);
+  }, [id]);
 
   const toggleRecruitmentStatus = () => {
-    setRecruiting(!recruiting);
+    const newStatus = !recruiting;
+    setRecruiting(newStatus);
+
+    axios({
+      method: "PUT",
+      url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
+      data: {
+        status: newStatus,
+      },
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        console.log("Status updated successfully:", res);
+      })
+      .catch((err) => {
+        console.error("Error updating status:", err);
+      });
   };
 
   // 모집중 버튼
@@ -56,15 +96,48 @@ function GroupPage() {
   const buttonText = recruiting ? "모집중" : "모집완료";
 
   // 뒤로가기 버튼
-  const onBackClick=()=>{
+  const onBackClick = () => {
     navigate(-1);
-  }
+  };
+
+  const handleEdit = () => {
+    navigate(`/edit-group/${id}`, { state: { groupInfo: groupInfo } });
+  };
+
+  const handleDelete = () => {
+    const confirmDelete = window.confirm("삭제하시겠습니까?");
+    if (confirmDelete) {
+      axios({
+        method: "DELETE",
+        url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          console.log("Post deleted successfully");
+          window.confirm("성공적으로 삭제되었습니다.");
+          navigate("/Home");
+        })
+        .catch((err) => {
+          console.error("Error during deletion:", err);
+          window.confirm("삭제 실패!ㅋㅋ");
+        });
+    }
+  };
+
 
   return (
     <div>
       <div className="groupPage">
         <div className="groupPageContainer">
-        <img src={goBack} className="goBack" alt="뒤로가기" onClick={onBackClick}/>
+          <img
+            src={goBack}
+            className="goBack"
+            alt="뒤로가기"
+            onClick={onBackClick}
+          />
+
           <div className="groupTitleLayout">
             <h2> {groupInfo.title} </h2>
             <button className={buttonStyle} onClick={toggleRecruitmentStatus}>
@@ -76,7 +149,12 @@ function GroupPage() {
         <p> {groupInfo.summary} </p>
 
         <div className="userInfo">
-          <img src={groupInfo.profile} className="defaultImg" alt="defaultImg"></img>
+          <img
+            src={groupInfo.profile}
+            className="profileImg"
+            alt="profileImg"
+          ></img>
+
           <p> {groupInfo.nickname} </p>
           <p> {groupInfo.created_at} </p>
         </div>
@@ -84,25 +162,27 @@ function GroupPage() {
         <div className="groupInfo">
           <div className="rowLayout">
             <p className="groupInfoLabel">모집 구분</p>
-            <p className="groupInfoValue">소모임</p>
+            <p className="groupInfoValue">{groupInfo.division}</p>
           </div>
           <div className="rowLayout">
             <p className="groupInfoLabel">분야</p>
             <div className="rowLayout">
-              <p className="groupInfoValue"> #{groupInfo.type}</p>
+              <p className="groupInfoValue"> #{groupInfo.tag}</p>
+
             </div>
           </div>
           <div className="rowLayout">
             <p className="groupInfoLabel">모집 인원</p>
-            <p className="groupInfoValue">5명</p>
+            <p className="groupInfoValue">{groupInfo.max_people}</p>
           </div>
           <div className="rowLayout">
             <p className="groupInfoLabel">연락 방법</p>
-            <p className="groupInfoValue">카카오톡 오픈채팅</p>
+            <p className="groupInfoValue">{groupInfo.contact}</p>
           </div>
           <div className="rowLayout">
             <p className="groupInfoLabel">진행 방식</p>
-            <p className="groupInfoValue">오프라인</p>
+            <p className="groupInfoValue">{groupInfo.method}</p>
+
           </div>
           <div className="rowLayout">
             <p className="groupInfoLabel">모집 마감일</p>
@@ -110,7 +190,8 @@ function GroupPage() {
           </div>
           <div className="rowLayout">
             <p className="groupInfoLabel">진행 기간</p>
-            <p className="groupInfoValue">6개월</p>
+            <p className="groupInfoValue">{groupInfo.period}</p>
+
           </div>
         </div>
 
@@ -118,8 +199,13 @@ function GroupPage() {
         <p className="groupContent"> {groupInfo.content}</p>
 
         <div className="groupEditButtons">
-          <button className="groupModifyButton">수정하기</button>
-          <button className="groupDeleteButton">삭제하기</button>
+          <button className="groupModifyButton" onClick={handleEdit}>
+            수정하기
+          </button>
+          <button className="groupDeleteButton" onClick={handleDelete}>
+            삭제하기
+          </button>
+
         </div>
 
         <h3 className="commentTitle">댓글</h3>
