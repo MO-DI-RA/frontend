@@ -73,9 +73,19 @@ const signupDB = body => {
     };
 };
 
+// logout
+const logoutDB = () => {
+    return function (dispatch) {
+        dispatch(logOut());
+        window.localStorage.clear();
+        removeCookie("is_login");
+        window.location.href = "/Home"; //홈화면 이동
+    };
+};
+
 // 로그인 유지
 const loginCheckDB = () => {
-    return function () {
+    return function (dispatch) {
         const token = localStorage.getItem("access-token");
         console.log(token);
         const body = { token: token };
@@ -91,18 +101,16 @@ const loginCheckDB = () => {
                 console.log("0-------------------");
             })
             .catch(error => {
-                console.log(error);
+                if (error.response && error.response.status === 401) {
+                    dispatch(logOut());
+                    window.localStorage.clear();
+                    removeCookie("is_login");
+                    window.location.href = "/Home";
+                } else {
+                    // Handle other types of errors or log them
+                    console.error("Error occurred:", error);
+                }
             });
-    };
-};
-
-// logout
-const logoutDB = () => {
-    return function (dispatch) {
-        dispatch(logOut());
-        window.localStorage.clear();
-        removeCookie("is_login");
-        window.location.href = "/Home"; //홈화면 이동
     };
 };
 
