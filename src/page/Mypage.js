@@ -24,7 +24,9 @@ function Mypage() {
     const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
-    }; //Header 설정
+    };//Header 설정
+
+
 
     useEffect(() => {
         axios({

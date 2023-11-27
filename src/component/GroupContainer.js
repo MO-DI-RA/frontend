@@ -61,8 +61,8 @@ function GroupContainer({ method, url, headers, modify }) {
     const clickDelete = () => {
         console.log("선택된 id", selectedGID);
         axios({
-            method: "POST",
-            url: "http://127.0.0.1:8000/gathering/posts/:id/like/", //url 수정 필요
+            method: "DELETE",
+            url: "127.0.0.1:8000/gathering/posts/unlike/", //url 수정 필요
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json;charset=UTF-8",
