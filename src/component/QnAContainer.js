@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import defaultImg from "../asset/defaultImg.png";
 
-function QnAContainer({ method,  url , headers, modify}) {
+function QnAContainer({ method, url, headers, modify }) {
     const [QnAList, setQnAList] = useState([]);
     const [existList, setExistList] = useState(true); //관심 설정한 Q&A가 있을때
 
@@ -21,10 +21,9 @@ function QnAContainer({ method,  url , headers, modify}) {
             .then(res => {
                 console.log(res.data);
                 // 데이터가 없으면 setExistList == false
-                if(res.data == null){
+                if (res.data.length === 0) {
                     setExistList(false);
-                }
-                else{
+                } else {
                     setQnAList(res.data);
                 }
             })
@@ -36,13 +35,12 @@ function QnAContainer({ method,  url , headers, modify}) {
     // 수정하기 버튼 클릭
     const clickModify = () => {
         setModifyList(true);
-    }
+    };
 
     // 삭제하기 버튼 클릭
     const clickDelete = () => {
         setModifyList(false);
-    }
-
+    };
 
     return (
         <div>
@@ -56,7 +54,10 @@ function QnAContainer({ method,  url , headers, modify}) {
                             <div key={qna.id} className="Main_QnA">
                                 <div className="QnA_titleBox">
                                     {qna.status ? (
-                                        <div className="stateFalse"> 미해결 </div>
+                                        <div className="stateFalse">
+                                            {" "}
+                                            미해결{" "}
+                                        </div>
                                     ) : (
                                         <div className="stateTrue"> 해결 </div>
                                     )}
@@ -67,7 +68,8 @@ function QnAContainer({ method,  url , headers, modify}) {
                                     <img
                                         src={
                                             "http://localhost:8000" +
-                                                qna.author_profile_image || defaultImg
+                                                qna.author_profile_image ||
+                                            defaultImg
                                         }
                                         alt="기본 이미지"
                                         className="profile"
@@ -87,17 +89,23 @@ function QnAContainer({ method,  url , headers, modify}) {
                     {modify ? (
                         <div>
                             {modifyList ? (
-                                <button onClick={clickDelete}> 삭제하기 </button>
+                                <button onClick={clickDelete}>
+                                    {" "}
+                                    삭제하기{" "}
+                                </button>
                             ) : (
-                                <button onClick={clickModify}> 수정하기 </button>
+                                <button onClick={clickModify}>
+                                    {" "}
+                                    수정하기{" "}
+                                </button>
                             )}
                         </div>
-                         ) : (
+                    ) : (
                         <div></div>
                     )}
                 </div>
             ) : (
-                <p> 관심 설정한 Q&A가 없습니다. </p> 
+                <p> 관심 설정한 Q&A가 없습니다. </p>
             )}
         </div>
     );
