@@ -10,10 +10,10 @@ function GroupPage() {
   const { id } = useParams();
 
   //소모임 상세 정보
-  const [groupInfo, setGroupInfo] = useState([]);
+  const [groupInfo, setGroupInfo] = useState({});
 
   //모집중, 모집완료 표시
-  const [recruiting, setRecruiting] = useState(groupInfo.status);
+  const [recruiting, setRecruiting] = useState(true);
 
   useEffect(() => {
     axios({
@@ -41,6 +41,7 @@ function GroupPage() {
           max_people,
           method,
           contact,
+          summary,
         } = res.data;
         setGroupInfo({
           id: id, //id
@@ -51,21 +52,41 @@ function GroupPage() {
           content: content, //내용
           created_at: created_at, //작성일자
           status: status, //상태(모집중/모집완료)
+          summary: summary, //요약
           tag: tag, //태그
           division: division, //모집구분
           max_people: max_people, //모집 인원
           method: method, //진행방식
           contact: contact, // 연락 방법
         });
+        setRecruiting(res.data.status); // 서버로부터 받은 status 값으로 recruiting 상태 업데이트
       })
-      .then((err) => {
+      .catch((err) => {
         console.log("error : ", err);
       });
     console.log(recruiting ? "모집중" : "모집완료");
-  }, []);
+  }, [id]);
 
   const toggleRecruitmentStatus = () => {
-    setRecruiting(!recruiting);
+    const newStatus = !recruiting;
+    setRecruiting(newStatus);
+
+    axios({
+      method: "PUT",
+      url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
+      data: {
+        status: newStatus,
+      },
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        console.log("Status updated successfully:", res);
+      })
+      .catch((err) => {
+        console.error("Error updating status:", err);
+      });
   };
 
   // 모집중 버튼
@@ -77,6 +98,28 @@ function GroupPage() {
   // 뒤로가기 버튼
   const onBackClick = () => {
     navigate(-1);
+  };
+
+  const handleDelete = () => {
+    const confirmDelete = window.confirm("삭제하시겠습니까?");
+    if (confirmDelete) {
+      axios({
+        method: "DELETE",
+        url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          console.log("Post deleted successfully");
+          window.confirm("성공적으로 삭제되었습니다.");
+          navigate("/Home");
+        })
+        .catch((err) => {
+          console.error("Error during deletion:", err);
+          window.confirm("삭제 실패!ㅋㅋ");
+        });
+    }
   };
 
   return (
@@ -147,7 +190,9 @@ function GroupPage() {
 
         <div className="groupEditButtons">
           <button className="groupModifyButton">수정하기</button>
-          <button className="groupDeleteButton">삭제하기</button>
+          <button className="groupDeleteButton" onClick={handleDelete}>
+            삭제하기
+          </button>
         </div>
 
         <h3 className="commentTitle">댓글</h3>
