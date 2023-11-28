@@ -300,6 +300,7 @@ function QnAPage() {
                 {commentInputs[answer.answer_id] && (
                   <CommentInput
                     postUrl={`http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/${answer.answer_id}/reply/`}
+                    type="qna"
                   /> // 댓글 입력 컴포넌트
                 )}
                 <Comment

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function Comment({ url }) {
+function Comment({ url, type }) {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -20,12 +20,25 @@ function Comment({ url }) {
       .catch((error) => console.error(error));
   }, [url]);
 
+  //소모임인지 Q&A인지에 따라 다르게
+  const getBackgroundColor = () => {
+    switch (type) {
+      case "group":
+        return "#FFFFFF";
+      case "qna":
+        return "#E5E5E5";
+      default:
+        return "white";
+    }
+  };
+
   const containerStyle = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "100%", // .commentLayout의 width 스타일
-    gap: "10px", // .commentLayout의 gap 스타일
+    width: "100%",
+    gap: "10px",
+    backgroundColor: getBackgroundColor(),
   };
 
   const commentInputStyle = {
@@ -34,7 +47,7 @@ function Comment({ url }) {
     borderRadius: "10px",
     resize: "none",
     fontSize: "20px",
-    flexGrow: 1, // flex-grow 속성
+    flexGrow: 1,
   };
 
   const commentContentStyle = {

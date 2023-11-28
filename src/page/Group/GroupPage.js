@@ -234,6 +234,7 @@ function GroupPage() {
         <CommentInput postUrl={commentUrl} />
         <Comment
           url={`http://127.0.0.1:8000/gathering/posts/${id}/comments/`}
+          type="group"
         />
       </div>
     </div>
