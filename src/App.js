@@ -18,7 +18,6 @@ import Header from "./component/Header";
 import Footer from "./component/Footer";
 
 function App() {
-
     //로그인 모달창
     const [modalOpen, setModalOpen] = useState(false);
 
@@ -26,23 +25,24 @@ function App() {
     const openLoginModal = () => {
         console.log("모달 on");
         setModalOpen(true);
-    }
+    };
 
     //모달 close
     const closeLoginModal = () => {
         setModalOpen(false);
-    }
+    };
 
     return (
         <BrowserRouter>
             <AuthProvider>
-                <Header openLoginModal={openLoginModal}/>
+                <Header openLoginModal={openLoginModal} />
                 <Routes>
                     <Route path="/" Component={Home} />
                     <Route path="/login" Component={Login} />
                     <Route path="/signup" Component={SignUp} />
                     <Route path="/mypage" Component={Mypage} />
                     <Route path="/home" Component={Home} />
+                    <Route path="/AddGroup" Component={AddGroup} />
                     <Route path="/AddGroup/:id" Component={AddGroup} />
                     <Route path="/user/kakao/callback/" Component={Redirect} />
                     <Route path="/addqna" Component={AddQnA} />
@@ -50,7 +50,7 @@ function App() {
                     <Route path="/grouppage/:id" Component={GroupPage} />
                     <Route path="/qnapage/:id" Component={QnAPage} />
                 </Routes>
-                {modalOpen && <Login onClose={closeLoginModal}/>}
+                {modalOpen && <Login onClose={closeLoginModal} />}
                 <Footer />
             </AuthProvider>
         </BrowserRouter>

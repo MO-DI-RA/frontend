@@ -123,7 +123,7 @@ function AddGroup() {
         console.log(method);
         console.log(period);
         console.log(type);
-        console.log(contact);
+        console.log("여기 ", contact);
         console.log(deadline);
         console.log(title);
         console.log(summary);
