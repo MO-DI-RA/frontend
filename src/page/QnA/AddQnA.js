@@ -5,6 +5,7 @@ import "../../css/AddQnA.css";
 
 function AddQnA() {
   const [qnaTitle, setQnaTitle] = useState("");
+  const [qnaSummary, setQnaSummary] = useState("");
   const [questionContent, setQuestionContent] = useState("");
   const token = localStorage.getItem("access-token");
 
@@ -21,6 +22,7 @@ function AddQnA() {
       },
       data: {
         title: qnaTitle,
+        summary : qnaSummary,
         content: questionContent,
       },
     };
@@ -47,6 +49,14 @@ function AddQnA() {
             value={qnaTitle}
             onChange={(e) => setQnaTitle(e.target.value)}
           ></input>
+          <input
+            id="qnaSummary"
+            name="qnaSummary"
+            placeholder="Q&A의 내용을 한 줄로 요약해주세요"
+            required
+            value={qnaSummary}
+            onChange={(e) => setQnaSummary(e.target.value)}
+          />
           <textarea
             className="qusetionContent"
             required
