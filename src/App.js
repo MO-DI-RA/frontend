@@ -25,15 +25,15 @@ function App() {
                 <Routes>
                     <Route path="/" Component={Home} />
                     <Route path="/login" Component={Login} />
-                    <Route path="/Signup" Component={SignUp} />
-                    <Route path="/Mypage" Component={Mypage} />
-                    <Route path="/Home" Component={Home} />
-                    <Route path="/AddGroup" Component={AddGroup} />
+                    <Route path="/signup" Component={SignUp} />
+                    <Route path="/mypage" Component={Mypage} />
+                    <Route path="/home" Component={Home} />
+                    <Route path="/AddGroup/:id" Component={AddGroup} />
                     <Route path="/user/kakao/callback/" Component={Redirect} />
-                    <Route path="/AddQnA" Component={AddQnA} />
-                    <Route path="/MyPost" Component={MyPost} />
-                    <Route path="/GroupPage/:id" Component={GroupPage} />
-                    <Route path="/QnAPage/:id" Component={QnAPage} />
+                    <Route path="/addqna" Component={AddQnA} />
+                    <Route path="/mypost" Component={MyPost} />
+                    <Route path="/grouppage/:id" Component={GroupPage} />
+                    <Route path="/qnapage/:id" Component={QnAPage} />
                 </Routes>
                 <Footer />
             </AuthProvider>

@@ -14,6 +14,7 @@
 }
 
 .info {
+    position : relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,3 +65,19 @@ input#nickname {
     border : none;
     cursor: pointer;
 }
+
+/* 프로필 이미지 변경 버튼 */
+.profileEditBtn{
+    width: 44px;
+    position: absolute;
+    top: 180px;
+    right: 370px;
+    padding: 50px;
+    cursor: pointer;
+    opacity: 0;
+} 
+
+/* 프로필 이미지 */
+.info > .defaultImgMyPage{
+    border-radius: 50%;
+} 

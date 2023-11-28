@@ -22,8 +22,8 @@
 }
 
 .groupState {
-    background-color: #D9D9D9;
-    color: #FFFFFF;
+    background-color: #d9d9d9;
+    color: #ffffff;
     border: none;
     border-radius: 15px;
     padding: 10px 20px;
@@ -34,12 +34,13 @@
 }
 
 .groupState.recruitingComplete {
-    background-color: #AEC0AC;
+    background-color: #aec0ac;
 }
 
 .userInfo {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     gap: 20px;
 }
 
@@ -48,7 +49,6 @@
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 16px;
     max-width: 800px;
-
 }
 
 .rowLayout {
@@ -66,9 +66,8 @@
     width: 80px;
 }
 
-
 .groupInfoValue {
-    background-color: #E5E5E5;
+    background-color: #e5e5e5;
     border-radius: 5px;
     padding: 2px 8px;
 }
@@ -86,7 +85,7 @@
 .groupContent {
     height: 300px;
     width: 100%;
-    border-color: #D9D9D9;
+    border-color: #d9d9d9;
     border-radius: 10px;
     font-size: 20px;
 }
@@ -96,19 +95,18 @@
     justify-content: right;
     align-items: center;
     gap: 10px;
-
 }
 
 .groupModifyButton,
 .groupDeleteButton {
-    background-color: #AEC0AC;
-    color: #FFFFFF;
+    background-color: #aec0ac;
+    color: #ffffff;
     height: 36px;
     width: 110px;
     border-radius: 15px;
     border: none;
     font-size: 20px;
-    border-color: #AEC0AC;
+    border-color: #aec0ac;
     margin: 50px 0px 80px 30px;
     cursor: pointer;
 }
@@ -117,29 +115,36 @@
     margin-bottom: 30px;
 }
 
-/* .commentLayout {
-    display: flex;
-    width: 100%;
-    gap: 10px;
+.userInfo > .profileImg {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
-.commentInput {
-    height: 50px;
-    border-color: #D9D9D9;
-    border-radius: 10px;
-    resize: none;
-    font-size: 20px;
-    flex-grow: 1;
+/* 관심설정 버튼 -> 관심 설정 X*/
+.LikedSetBtn {
+    position: absolute;
+    right: 220px;
+    top: 125px;
+    font-size: 30px;
+    border-radius: 18px;
+    border: 1px solid #959798;
+    color: #959798;
+    padding: 10px 15px;
+    cursor: pointer;
 }
 
-.commentRegister {
-    height: 55px;
-    width: 60px;
-    border-radius: 10px;
-    border: none;
+/* 관심설정 버튼 -> 관심 설정 O */
+.LikedSetBtnYes {
+    position: absolute;
+    right: 220px;
+    top: 125px;
+    font-size: 30px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 203, 203, 0.33);
+    background-color: rgba(255, 203, 203, 0.33);
+    color: #ff7373;
+    padding: 10px 15px;
+    cursor: pointer;
 }
-
-.commentContent {
-    margin-left: 40px;
-    margin-bottom: 50px;
-} */

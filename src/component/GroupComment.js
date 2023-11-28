@@ -7,7 +7,8 @@ function GroupComment({ id }) {
     commentContent: "",
     nickname: "",
   });
-  const token = localStorage.getItem("access-token");
+
+  // const [commentData, setCommentData] = useState([]); //댓글 정보
 
   const containerStyle = {
     display: "flex",
@@ -32,42 +33,42 @@ function GroupComment({ id }) {
   };
 
   useEffect(() => {
-    const options = {
-      url: `http://127.0.0.1:8000/gathering/posts/${id}/comments/`,
+    console.log("아이디: ", id);
+    axios({
       method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-        // Authorization: `Bearer ${token}`,
-      },
-    };
+      url: `http://127.0.0.1:8000/gathering/posts/${id}/comments/`,
 
-    axios(options)
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => {
         // 서버로부터 받은 데이터로 상태를 업데이트
+        console.log("데이터 : ", response.data);
         setCommentData({
-          profileImg: response.data.profile_image,
-          commentContent: response.data.content,
-          nickname: response.data.nickname,
+          profileImg: response.data[0].author_profile_image,
+          commentContent: response.data[0].content,
+          nickname: response.data[0].writer,
         });
+        console.log("댓글 내용: ", commentData);
       })
       .catch((error) => console.error(error));
-  }, [token, id]);
-  const { profileImg, commentContent, nickname } = commentData;
+  }, [id]);
+  // const { profileImg, commentContent, nickname } = commentData;
 
   return (
     <div className="groupComment" style={containerStyle}>
       <div className="userInfo">
         <img
-          src={"http://localhost:8000" + profileImg}
+          src={"http://localhost:8000" + commentData.profileImg}
           className="profileImg"
           alt="profileImg"
           style={commentInputStyle}
         ></img>
-        <p>{nickname}</p>
+        <p>{commentData.nickname}</p>
       </div>
       <p className="commentContent" style={commentContentStyle}>
-        {commentContent}
+        {commentData.commentContent}
       </p>
     </div>
   );
