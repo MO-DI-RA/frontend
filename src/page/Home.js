@@ -21,9 +21,6 @@ function Home() {
     "Content-Type" : "application/json",
   }; //axios 요청 header
 
-
-
-
   //드롭 다운
   const typeListDropdown = () => {
     setTypeDropdownOpen(!typeDropdownOpen);
@@ -48,7 +45,7 @@ function Home() {
   }
 
   const typeSubmit = () => {
-    
+    setUrl(`http://localhost:8000/gathering/search?title=&tag=${type}&status=`);
   }
 
   //모집중
@@ -58,7 +55,7 @@ function Home() {
   }
 
   const recruitSubmit = () => {
-
+    setUrl(`http://localhost:8000/gathering/search?title=&tag=&status=${recruiting}`);
   }
 
   //키워드 검색
@@ -69,7 +66,7 @@ function Home() {
 
 
   const keywordSubmit = () => {
-
+    setUrl(`http://localhost:8000/gathering/search?title=${keyword}&tag=&status=`);
   }
 
 
@@ -97,7 +94,7 @@ function Home() {
                   </form>
                   {/* 모집중 검색 */}
                   <form className="recruit_search" onSubmit={recruitSubmit}>
-                    <button type="button" onClick={recruitSearch}> 모집중 </button>
+                    <button type="button" onClick={recruitSearch} className={recruiting ? "true" : "false"}> 모집중 </button>
                   </form>
                 </div>
                 {/* 키워드 검색 */}
