@@ -17,7 +17,7 @@ function GroupPage() {
     const [recruiting, setRecruiting] = useState(true);
 
     //관심설정 표시
-    const [liked, setLiked] = useState(false);
+    // const [liked, setLiked] = useState(false);
 
     useEffect(() => {
         axios({
@@ -39,13 +39,13 @@ function GroupPage() {
                     content,
                     status,
                     tag,
-
                     created_at,
                     division,
                     max_people,
                     method,
                     contact,
                     summary,
+                    like_status,
                 } = res.data;
                 setGroupInfo({
                     id: id, //id
@@ -62,6 +62,7 @@ function GroupPage() {
                     max_people: max_people, //모집 인원
                     method: method, //진행방식
                     contact: contact, // 연락 방법
+                    like_status : like_status, //관심등록
                 });
                 setRecruiting(res.data.status); // 서버로부터 받은 status 값으로 recruiting 상태 업데이트
             })
@@ -165,7 +166,7 @@ function GroupPage() {
                             {buttonText}
                         </button>
                         <button
-                            className={liked ? "LikedSetBtnYes" : "LikedSetBtn"}
+                            className={groupInfo.like_status ? "LikedSetBtnYes" : "LikedSetBtn"}
                             onClick={handleLikedChange}
                         >
                             {" "}
