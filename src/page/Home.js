@@ -44,8 +44,10 @@ function Home() {
     console.log(type);
   }
 
-  const typeSubmit = () => {
+  const typeSubmit = (e) => {
+    e.preventDefault();
     setUrl(`http://localhost:8000/gathering/search?title=&tag=${type}&status=`);
+    
   }
 
   //모집중
@@ -54,8 +56,10 @@ function Home() {
     console.log(recruiting);
   }
 
-  const recruitSubmit = () => {
+  const recruitSubmit = (e) => {
+    e.preventDefault();
     setUrl(`http://localhost:8000/gathering/search?title=&tag=&status=${recruiting}`);
+    console.log(url);
   }
 
   //키워드 검색
@@ -65,8 +69,15 @@ function Home() {
   }
 
 
-  const keywordSubmit = () => {
-    setUrl(`http://localhost:8000/gathering/search?title=${keyword}&tag=&status=`);
+  const keywordSubmit = (e) => {
+    e.preventDefault();
+    if(isGroup === true){
+      setUrl(`http://localhost:8000/gathering/search?title=${keyword}&tag=&status=`);
+    }
+    else{
+      setUrl(`http://localhost:8000/qna/search?title=${keyword}&tag=&status=`);
+    }
+    console.log(url);
   }
 
 
@@ -84,18 +95,18 @@ function Home() {
               <div className="search">
                 <div style={{display : "flex", gap : "30px", alignItems : "center"}}>
                   {/* 분야별 검색 */}
-                  <form className="type_search" onSubmit={typeSubmit}> 
+                  <button className="type_search" onClick={typeSubmit}> 
                     <label htmlFor="type" onClick={typeListDropdown}> ALL </label>
                     <div className="type-dropdown">
                       {typeDropdownOpen && (
                         <TypeBtn id="type" handleChange={typeSearch}/>
                       )}
                     </div>
-                  </form>
+                  </button>
                   {/* 모집중 검색 */}
-                  <form className="recruit_search" onSubmit={recruitSubmit}>
+                  <button className="recruit_search" onClick={recruitSubmit}>
                     <button type="button" onClick={recruitSearch} className={recruiting ? "true" : "false"}> 모집중 </button>
-                  </form>
+                  </button>
                 </div>
                 {/* 키워드 검색 */}
                 <form className="keyword_search" onSubmit={keywordSubmit}>
