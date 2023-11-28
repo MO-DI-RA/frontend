@@ -24,9 +24,7 @@ function Mypage() {
     const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
-    };//Header 설정
-
-
+    }; //Header 설정
 
     useEffect(() => {
         axios({
@@ -58,35 +56,34 @@ function Mypage() {
             setProfile(event.target.result);
         };
 
-        if(selectedImg){
+        if (selectedImg) {
             reader.readAsDataURL(selectedImg);
         }
     };
 
     // 닉네임 변경
-    const handleNickNameChange = (e) => {
+    const handleNickNameChange = e => {
         e.preventDefault();
         setNickname(e.target.value);
     };
 
     //프로필 사진, 닉네임 변경 submit
     const onSubmit = e => {
-
         e.preventDefault();
         console.log(nickname);
         axios({
-            method : "PUT",
-            url : `http://localhost:8000/user/mypage/`,
-            header : {
-                Accept: "application/json",
-                "Content-Type": "application/json;charset=UTF-8",
+            method: "PUT",
+            url: `http://localhost:8000/user/mypage/`,
+            headers: {
+                // Accept: "application/json",
+                "Content-Type": "multipart/form-data",
                 Authorization: `Bearer ${token}`,
             },
-            data : {
-                nickname : nickname,
-                profile_image : profile,
-            }
-        })
+            data: {
+                nickname: nickname,
+                profile_image: profile,
+            },
+        });
     };
 
     return (
@@ -104,7 +101,12 @@ function Mypage() {
                             className="editImg"
                             alt="editImg"
                         ></img>
-                        <input type="file" accept="image/*" className="profileEditBtn" onChange={changeProfile} />
+                        <input
+                            type="file"
+                            accept="image/*"
+                            className="profileEditBtn"
+                            onChange={changeProfile}
+                        />
                         <h2 className="userWelcome">{nickname}님 환영해요.</h2>
                     </div>
                     <label for="nickname">*닉네임</label>
