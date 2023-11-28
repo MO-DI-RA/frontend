@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./redux/AuthContext";
 
@@ -18,10 +18,25 @@ import Header from "./component/Header";
 import Footer from "./component/Footer";
 
 function App() {
+
+    //로그인 모달창
+    const [modalOpen, setModalOpen] = useState(false);
+
+    //모달 open
+    const openLoginModal = () => {
+        console.log("모달 on");
+        setModalOpen(true);
+    }
+
+    //모달 close
+    const closeLoginModal = () => {
+        setModalOpen(false);
+    }
+
     return (
         <BrowserRouter>
             <AuthProvider>
-                <Header />
+                <Header openLoginModal={openLoginModal}/>
                 <Routes>
                     <Route path="/" Component={Home} />
                     <Route path="/login" Component={Login} />
@@ -35,6 +50,7 @@ function App() {
                     <Route path="/grouppage/:id" Component={GroupPage} />
                     <Route path="/qnapage/:id" Component={QnAPage} />
                 </Routes>
+                {modalOpen && <Login onClose={closeLoginModal}/>}
                 <Footer />
             </AuthProvider>
         </BrowserRouter>

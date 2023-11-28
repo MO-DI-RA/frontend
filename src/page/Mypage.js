@@ -109,7 +109,7 @@ function Mypage() {
                         />
                         <h2 className="userWelcome">{nickname}님 환영해요.</h2>
                     </div>
-                    <label for="nickname">*닉네임</label>
+                    <label htmlFor="nickname">*닉네임</label>
                     <input
                         id="nickname"
                         name="nickname"

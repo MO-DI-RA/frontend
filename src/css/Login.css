@@ -11,8 +11,16 @@
 
 .Login {
     display: flex;
+    background-color: #ffffff;
     flex-direction: column;
     align-items: center;
+    width: fit-content;
+    position: relative;
+    left: 33%;
+    box-shadow: 0px 0px 0px 1000000px #00000075;
+    border-radius: 10%;
+    padding: 30px 50px;
+    z-index: 10000;
 }
 
 .modira {
@@ -108,4 +116,12 @@
 
 .notUser {
     margin-top: 31px;
+}
+
+.closeBtn{
+    margin: 20px;
+    border-radius: 10px;
+    border: solid 1px #979292;
+    padding: 5px;
+    cursor: pointer
 }
