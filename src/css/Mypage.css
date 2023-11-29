@@ -79,5 +79,7 @@ input#nickname {
 
 /* 프로필 이미지 */
 .info > .defaultImgMyPage{
+    width : 300px;
+    height: 300px;
     border-radius: 50%;
 } 
