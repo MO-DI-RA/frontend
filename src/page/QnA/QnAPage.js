@@ -142,6 +142,12 @@ function QnAPage() {
   };
 
   const submitAnswer = () => {
+    const token = localStorage.getItem("access-token");
+    if (!token) {
+      // 토큰이 없으면 로그인하지 않은 것 -> 모달을 열어 로그인을 유도
+      openModal();
+      return; // 함수 실행 중단
+    }
     const options = {
       url: "http://127.0.0.1:8000/qna/answers/", // 답변 등록 URL
       method: "POST",
@@ -250,7 +256,8 @@ function QnAPage() {
             <textarea
               className="qusetionContentEdit"
               value={editedContent}
-              onChange={(e) => setEditedContent(e.target.value)}></textarea>
+              onChange={(e) => setEditedContent(e.target.value)}
+            ></textarea>
             <button onClick={submitEdit} className="qnaEditCompleteButton">
               수정완료
             </button>
@@ -274,18 +281,21 @@ function QnAPage() {
                 src={goBack}
                 className="goBack"
                 alt="뒤로가기"
-                onClick={onBackClick}></img>
+                onClick={onBackClick}
+              ></img>
               <div className="qnaTitleLayout">
                 <h2>{questionData.title}</h2>
                 <button
                   className={buttonStyle}
                   onClick={toggleResolveStatus}
-                  disabled={!isAuthor ? true : false}>
+                  disabled={!isAuthor ? true : false}
+                >
                   {buttonText}
                 </button>
                 <button
                   className={liked ? "LikedSetBtnYes" : "LikedSetBtn"}
-                  onClick={handleLikedChange}>
+                  onClick={handleLikedChange}
+                >
                   {" "}
                   ♥
                 </button>
@@ -303,7 +313,8 @@ function QnAPage() {
                 }
                 // src={defaultImg}
                 className="defaultImg"
-                alt="작성자 프로필"></img>
+                alt="작성자 프로필"
+              ></img>
               <p>{questionData.author_nickname}</p>
               {/* <p>작성자 닉네임</p> */}
             </div>
@@ -324,13 +335,9 @@ function QnAPage() {
               <textarea
                 className="answerInput"
                 value={answer}
-                onChange={handleAnswerChange}></textarea>
-              <button
-                onClick={() => {
-                  submitAnswer();
-                  openModal();
-                }}
-                className="answerRegister">
+                onChange={handleAnswerChange}
+              ></textarea>
+              <button onClick={submitAnswer} className="answerRegister">
                 등록
               </button>
             </div>
@@ -352,7 +359,8 @@ function QnAPage() {
                 <p className="answerContent">{answer.content}</p>
                 <button
                   className="CommentOnAnswer"
-                  onClick={() => toggleCommentInput(answer.answer_id)}>
+                  onClick={() => toggleCommentInput(answer.answer_id)}
+                >
                   댓글 달기
                 </button>
                 {commentInputs[answer.answer_id] && (
