@@ -179,7 +179,9 @@ function AddGroup() {
 
       axios(options)
         .then((response) => {
+          // 서버가 준 새 소모임의 ID
           console.log(response);
+          navigate(`/GroupPage/${response.data.id}/`); // 새 소모임의 상세 페이지로 이동
         })
         .catch((error) => {
           console.error(error);
