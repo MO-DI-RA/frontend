@@ -58,14 +58,6 @@ function AddQnA() {
             value={qnaTitle}
             onChange={(e) => setQnaTitle(e.target.value)}
           ></input>
-          <input
-            id="qnaSummary"
-            name="qnaSummary"
-            placeholder="Q&A의 내용을 한 줄로 요약해주세요"
-            required
-            value={qnaSummary}
-            onChange={(e) => setQnaSummary(e.target.value)}
-          />
           <textarea
             className="qusetionContent"
             required

@@ -363,6 +363,7 @@ function AddGroup() {
                 <label htmlFor="introduce"> 소모임 소개 </label>
                 <textarea
                   id="introduce"
+                  placeholder="소모임을 소개해주세요"
                   value={introduce}
                   onChange={handleIntroduceChange}
                 />
