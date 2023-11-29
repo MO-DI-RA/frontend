@@ -55,7 +55,7 @@ function QnAPage() {
 
     axios
       .put(
-        `http://127.0.0.1:8000/qna/posts/${id}/`,
+        `http://127.0.0.1:8000/qna/posts/${id}/toggle/`,
         {
           title: questionData.title,
           content: questionData.content,
