@@ -19,7 +19,7 @@ function GroupPage() {
     const [recruiting, setRecruiting] = useState(true);
 
     //관심설정 표시
-    const [liked, setLiked] = useState(false);
+    const [liked, setLiked] = useState();
 
     useEffect(() => {
         axios({
@@ -74,7 +74,7 @@ function GroupPage() {
             .catch(err => {
                 console.log("error : ", err);
             });
-        console.log("관심 등록:", groupInfo.like_status);
+        console.log("관심 등록:", liked);
         console.log(recruiting ? "모집중" : "모집완료");
     }, [id, recruiting, token, liked]);
 
@@ -117,7 +117,14 @@ function GroupPage() {
 
     // 관심 설정
     const handleLikedChange = () => {
-        setLiked(true);
+        if(liked){
+            setLiked(false);
+            alert("관심 해제 되었습니다.");
+        }
+        else{
+            setLiked(true);
+            alert("관심 등록 되었습니다.");
+        }
         axios({
             method: "POST",
             url: `http://127.0.0.1:8000/gathering/posts/${id}/like/`,
@@ -126,7 +133,7 @@ function GroupPage() {
                 Authorization: `Bearer ${token}`,
             },
         });
-        alert("관심 등록되었습니다.");
+        
     };
 
     const handleDelete = () => {
@@ -172,7 +179,7 @@ function GroupPage() {
                         </button>
                         <button
                             className={
-                                !groupInfo.like_status
+                                liked
                                     ? "LikedSetBtnYes"
                                     : "LikedSetBtn"
                             }
