@@ -320,7 +320,13 @@ function QnAPage() {
                 value={answer}
                 onChange={handleAnswerChange}
               ></textarea>
-              <button onClick={submitAnswer} className="answerRegister">
+              <button
+                onClick={() => {
+                  submitAnswer();
+                  openModal();
+                }}
+                className="answerRegister"
+              >
                 등록
               </button>
             </div>
