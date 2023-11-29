@@ -220,8 +220,7 @@ function GroupPage() {
             </button>
             <button
               className={liked ? "LikedSetBtnYes" : "LikedSetBtn"}
-              onClick={handleLikedChange}
-            >
+              onClick={handleLikedChange}>
               {" "}
               ♥
             </button>
@@ -234,8 +233,7 @@ function GroupPage() {
           <img
             src={"http://localhost:8000" + groupInfo.profile}
             className="profileImg"
-            alt="profileImg"
-          ></img>
+            alt="profileImg"></img>
 
           <p> {groupInfo.nickname} </p>
           <p> {groupInfo.created_at} </p>
