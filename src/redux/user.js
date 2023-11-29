@@ -63,12 +63,14 @@ const loginDB = body => {
 const signupDB = body => {
     return function () {
         axios
-            .post("http://localhost:8000/users/register/", body)
+            .post("http://localhost:8000/user/signup/", body)
             .then(res => {
                 console.log(res);
+                console.log("body : ", body);
             })
             .catch(error => {
                 console.log(error);
+                console.log("body :" , body);
             });
     };
 };

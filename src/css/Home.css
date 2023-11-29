@@ -35,7 +35,7 @@
 }
 
 /* 모집중 검색 */
-.recruit_search > button {
+.recruit_search > .false {
     background-color: unset;
     border: none;
     font-size: 20px;
@@ -44,8 +44,17 @@
     cursor: pointer;
 }
 
-.recruit_search > button:hover{
+.recruit_search > .false:hover{
     color : #839182;
+}
+
+.recruit_search > .true {
+    background-color: unset;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #839182;
+    cursor: pointer;
 }
 
 /* 키워드 검색 */

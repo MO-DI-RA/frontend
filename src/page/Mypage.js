@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../css/Mypage.css";
-import defaultImg from "../asset/defaultImg.png";
 import editImg from "../asset/editImg.png";
 import QnAContainer from "../component/QnAContainer";
 import GroupContainer from "../component/GroupContainer";
@@ -10,7 +9,7 @@ function Mypage() {
     const token = localStorage.getItem("access-token");
     console.log(token);
 
-    const [profile, setProfile] = useState(defaultImg); //프로필 사진
+    const [profile, setProfile] = useState(); //프로필 사진
     const [nickname, setNickname] = useState(""); //닉네임
 
     // 소모임, Q&A 컨테이너 전달 Props
@@ -36,6 +35,7 @@ function Mypage() {
             },
         }).then(res => {
             console.log(res.data);
+            setProfile(res.data.profile_image);
             setNickname(res.data.nickname);
         });
     }, [token]);
@@ -92,7 +92,7 @@ function Mypage() {
                 <form className="profileForm" onSubmit={onSubmit}>
                     <div className="info">
                         <img
-                            src={profile}
+                            src={"http://localhost:8000" + profile}
                             className="defaultImgMyPage"
                             alt="defaultImg"
                         ></img>
@@ -109,7 +109,7 @@ function Mypage() {
                         />
                         <h2 className="userWelcome">{nickname}님 환영해요.</h2>
                     </div>
-                    <label for="nickname">*닉네임</label>
+                    <label htmlFor="nickname">*닉네임</label>
                     <input
                         id="nickname"
                         name="nickname"

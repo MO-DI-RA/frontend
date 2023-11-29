@@ -7,6 +7,7 @@ import GroupComment from "../../component/GroupComment";
 import CommentInput from "../../component/CommentInput";
 
 function GroupPage() {
+    const token = localStorage.getItem("access-token");
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -25,6 +26,7 @@ function GroupPage() {
             url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
             headers: {
                 "Content-Type": "application/json",
+                Authorization : `Bearer ${token}`,
             },
         })
             .then(res => {
@@ -39,13 +41,13 @@ function GroupPage() {
                     content,
                     status,
                     tag,
-
                     created_at,
                     division,
                     max_people,
                     method,
                     contact,
                     summary,
+                    like_status,
                 } = res.data;
                 setGroupInfo({
                     id: id, //id
@@ -62,14 +64,18 @@ function GroupPage() {
                     max_people: max_people, //모집 인원
                     method: method, //진행방식
                     contact: contact, // 연락 방법
+                    like_status : like_status, //관심등록
                 });
                 setRecruiting(res.data.status); // 서버로부터 받은 status 값으로 recruiting 상태 업데이트
+                setLiked(res.data.like_status);
+                console.log("관심등록 상태: " , res.data.like_status);
             })
             .catch(err => {
                 console.log("error : ", err);
             });
+        console.log("관심 등록:", groupInfo.like_status);
         console.log(recruiting ? "모집중" : "모집완료");
-    }, [id, recruiting]);
+    }, [id, recruiting, token, liked]);
 
     const toggleRecruitmentStatus = () => {
         const newStatus = !recruiting;
@@ -110,7 +116,6 @@ function GroupPage() {
 
     // 관심 설정
     const handleLikedChange = () => {
-        const token = localStorage.getItem("access-token");
         setLiked(true);
         axios({
             method: "POST",
@@ -119,6 +124,7 @@ function GroupPage() {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
             },
+            
         });
         alert("관심 등록되었습니다.");
     };
@@ -165,7 +171,7 @@ function GroupPage() {
                             {buttonText}
                         </button>
                         <button
-                            className={liked ? "LikedSetBtnYes" : "LikedSetBtn"}
+                            className={!groupInfo.like_status ? "LikedSetBtnYes" : "LikedSetBtn"}
                             onClick={handleLikedChange}
                         >
                             {" "}
@@ -200,7 +206,7 @@ function GroupPage() {
                     </div>
                     <div className="rowLayout">
                         <p className="groupInfoLabel">모집 인원</p>
-                        <p className="groupInfoValue">{groupInfo.max_people}</p>
+                        <p className="groupInfoValue">{groupInfo.max_people}명</p>
                     </div>
                     <div className="rowLayout">
                         <p className="groupInfoLabel">연락 방법</p>

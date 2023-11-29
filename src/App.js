@@ -18,16 +18,18 @@ import Header from "./component/Header";
 import Footer from "./component/Footer";
 
 function App() {
+
     return (
         <BrowserRouter>
             <AuthProvider>
-                <Header />
+                <Header/>
                 <Routes>
                     <Route path="/" Component={Home} />
                     <Route path="/login" Component={Login} />
                     <Route path="/signup" Component={SignUp} />
                     <Route path="/mypage" Component={Mypage} />
                     <Route path="/home" Component={Home} />
+                    <Route path="/AddGroup" Component={AddGroup} />
                     <Route path="/AddGroup/:id" Component={AddGroup} />
                     <Route path="/user/kakao/callback/" Component={Redirect} />
                     <Route path="/addqna" Component={AddQnA} />
@@ -35,6 +37,7 @@ function App() {
                     <Route path="/grouppage/:id" Component={GroupPage} />
                     <Route path="/qnapage/:id" Component={QnAPage} />
                 </Routes>
+                
                 <Footer />
             </AuthProvider>
         </BrowserRouter>

@@ -168,7 +168,7 @@ function GroupContainer({ method, url, headers, modify }) {
                     ) : null}
                 </div>
             ) : (
-                <p> 관심 설정한 소모임이 없습니다.</p>
+                <p style={{textAlign : "center", margin : "100px 0px", fontSize:"20px"}}> 등록된 소모임이 없습니다.</p>
             )}
         </div>
     );
