@@ -11,7 +11,7 @@ function GroupPage() {
     const navigate = useNavigate();
     const { id } = useParams();
     const commentUrl = `http://127.0.0.1:8000/gathering/posts/${id}/comments/`;
-
+    let headersString = token ? `Bearer ${token}` : "";
     //소모임 상세 정보
     const [groupInfo, setGroupInfo] = useState({});
 
@@ -27,7 +27,7 @@ function GroupPage() {
             url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                Authorization: headersString,
             },
         })
             .then(res => {
