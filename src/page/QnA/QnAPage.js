@@ -265,7 +265,7 @@ function QnAPage() {
             </div>
 
             <h3 className="answerTitle">답변 등록하기</h3>
-            <div className="answerInputLayout">
+            <div className="answerInputLayout" style={{ marginBottom: "50px" }}>
               <textarea
                 className="answerInput"
                 value={answer}
