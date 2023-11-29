@@ -3,13 +3,14 @@ import "../../css/GroupPage.css";
 import goBack from "../../asset/goBack.png";
 import { useNavigate, useParams } from "react-router";
 import axios from "axios";
-import GroupComment from "../../component/GroupComment";
+import Comment from "../../component/Comment";
 import CommentInput from "../../component/CommentInput";
 
 function GroupPage() {
     const token = localStorage.getItem("access-token");
     const navigate = useNavigate();
     const { id } = useParams();
+    const commentUrl = `http://127.0.0.1:8000/gathering/posts/${id}/comments/`;
 
     //소모임 상세 정보
     const [groupInfo, setGroupInfo] = useState({});
@@ -26,7 +27,7 @@ function GroupPage() {
             url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
             headers: {
                 "Content-Type": "application/json",
-                Authorization : `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
             },
         })
             .then(res => {
@@ -64,11 +65,11 @@ function GroupPage() {
                     max_people: max_people, //모집 인원
                     method: method, //진행방식
                     contact: contact, // 연락 방법
-                    like_status : like_status, //관심등록
+                    like_status: like_status, //관심등록
                 });
                 setRecruiting(res.data.status); // 서버로부터 받은 status 값으로 recruiting 상태 업데이트
                 setLiked(res.data.like_status);
-                console.log("관심등록 상태: " , res.data.like_status);
+                console.log("관심등록 상태: ", res.data.like_status);
             })
             .catch(err => {
                 console.log("error : ", err);
@@ -124,7 +125,6 @@ function GroupPage() {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
             },
-            
         });
         alert("관심 등록되었습니다.");
     };
@@ -171,7 +171,11 @@ function GroupPage() {
                             {buttonText}
                         </button>
                         <button
-                            className={!groupInfo.like_status ? "LikedSetBtnYes" : "LikedSetBtn"}
+                            className={
+                                !groupInfo.like_status
+                                    ? "LikedSetBtnYes"
+                                    : "LikedSetBtn"
+                            }
                             onClick={handleLikedChange}
                         >
                             {" "}
@@ -206,7 +210,7 @@ function GroupPage() {
                     </div>
                     <div className="rowLayout">
                         <p className="groupInfoLabel">모집 인원</p>
-                        <p className="groupInfoValue">{groupInfo.max_people}명</p>
+                        <p className="groupInfoValue">{groupInfo.max_people}</p>
                     </div>
                     <div className="rowLayout">
                         <p className="groupInfoLabel">연락 방법</p>
@@ -242,8 +246,11 @@ function GroupPage() {
                 </div>
 
                 <h3 className="commentTitle">댓글</h3>
-                <CommentInput />
-                <GroupComment id={id} />
+                <CommentInput postUrl={commentUrl} />
+                <Comment
+                    url={`http://127.0.0.1:8000/gathering/posts/${id}/comments/`}
+                    type="group"
+                />
             </div>
         </div>
     );
