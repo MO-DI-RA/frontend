@@ -172,7 +172,7 @@ function QnAContainer({ method, url, headers, modify }) {
                     ) : null}
                 </div>
             ) : (
-                <p> 관심 설정한 Q&A가 없습니다. </p>
+                <p> 등록된 Q&A가 없습니다. </p>
             )}
         </div>
     );

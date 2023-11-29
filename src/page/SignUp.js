@@ -24,7 +24,7 @@ function SignUp() {
   // 폼 제출
   const navigate = useNavigate();
   const onSubmit = async (data) => {
-    console.log(data); //콘솔 확인
+    console.log("data: ", data); //콘솔 확인
 
     const { email, password, nickname } = data;
 
@@ -34,7 +34,7 @@ function SignUp() {
       nickname: nickname,
     };
 
-    console.log(body);
+    console.log("전송할 body : " ,body);
 
     dispatch(actionCreators.signupDB(body));
     navigate("/Home");
