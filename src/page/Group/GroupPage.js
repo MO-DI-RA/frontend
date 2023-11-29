@@ -215,13 +215,15 @@ function GroupPage() {
 
           <div className="groupTitleLayout">
             <h2> {groupInfo.title} </h2>
-            <button className={buttonStyle} onClick={toggleRecruitmentStatus}>
+            <button
+              className={buttonStyle}
+              onClick={toggleRecruitmentStatus}
+              disabled={!isAuthor ? true : false}>
               {buttonText}
             </button>
             <button
               className={liked ? "LikedSetBtnYes" : "LikedSetBtn"}
-              onClick={handleLikedChange}
-            >
+              onClick={handleLikedChange}>
               {" "}
               ♥
             </button>
@@ -234,8 +236,7 @@ function GroupPage() {
           <img
             src={"http://localhost:8000" + groupInfo.profile}
             className="profileImg"
-            alt="profileImg"
-          ></img>
+            alt="profileImg"></img>
 
           <p> {groupInfo.nickname} </p>
           <p> {groupInfo.created_at} </p>

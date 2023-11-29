@@ -250,8 +250,7 @@ function QnAPage() {
             <textarea
               className="qusetionContentEdit"
               value={editedContent}
-              onChange={(e) => setEditedContent(e.target.value)}
-            ></textarea>
+              onChange={(e) => setEditedContent(e.target.value)}></textarea>
             <button onClick={submitEdit} className="qnaEditCompleteButton">
               수정완료
             </button>
@@ -259,6 +258,13 @@ function QnAPage() {
         </div>
       );
     } else {
+      const isAuthor =
+        Number(localStorage.getItem("user_id")) === questionData.author_id;
+      console.log(localStorage.getItem("user_id"), questionData.author_id);
+      console.log("-------", questionData);
+      console.log("제발", isAuthor);
+      // const disableButton = isAuthor ? {} : { disabled: "disabled" };
+      const editButtonStyle = isAuthor ? {} : { display: "none" };
       return (
         <div>
           {isModalOpen && <Modal closeModal={closeModal} />}
@@ -268,17 +274,18 @@ function QnAPage() {
                 src={goBack}
                 className="goBack"
                 alt="뒤로가기"
-                onClick={onBackClick}
-              ></img>
+                onClick={onBackClick}></img>
               <div className="qnaTitleLayout">
                 <h2>{questionData.title}</h2>
-                <button className={buttonStyle} onClick={toggleResolveStatus}>
+                <button
+                  className={buttonStyle}
+                  onClick={toggleResolveStatus}
+                  disabled={!isAuthor ? true : false}>
                   {buttonText}
                 </button>
                 <button
                   className={liked ? "LikedSetBtnYes" : "LikedSetBtn"}
-                  onClick={handleLikedChange}
-                >
+                  onClick={handleLikedChange}>
                   {" "}
                   ♥
                 </button>
@@ -296,15 +303,14 @@ function QnAPage() {
                 }
                 // src={defaultImg}
                 className="defaultImg"
-                alt="작성자 프로필"
-              ></img>
+                alt="작성자 프로필"></img>
               <p>{questionData.author_nickname}</p>
               {/* <p>작성자 닉네임</p> */}
             </div>
 
             <p className="qnaContent">{questionData.content}</p>
             {/* <p className="qnaContent">질문 내용</p> */}
-            <div className="qnaEditButtons">
+            <div className="qnaEditButtons" style={editButtonStyle}>
               <button onClick={startEdit} className="qnaModifyButton">
                 수정하기
               </button>
@@ -318,15 +324,13 @@ function QnAPage() {
               <textarea
                 className="answerInput"
                 value={answer}
-                onChange={handleAnswerChange}
-              ></textarea>
+                onChange={handleAnswerChange}></textarea>
               <button
                 onClick={() => {
                   submitAnswer();
                   openModal();
                 }}
-                className="answerRegister"
-              >
+                className="answerRegister">
                 등록
               </button>
             </div>
@@ -348,8 +352,7 @@ function QnAPage() {
                 <p className="answerContent">{answer.content}</p>
                 <button
                   className="CommentOnAnswer"
-                  onClick={() => toggleCommentInput(answer.answer_id)}
-                >
+                  onClick={() => toggleCommentInput(answer.answer_id)}>
                   댓글 달기
                 </button>
                 {commentInputs[answer.answer_id] && (
