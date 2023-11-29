@@ -263,6 +263,7 @@ function QnAPage() {
       console.log(localStorage.getItem("user_id"), questionData.author_id);
       console.log("-------", questionData);
       console.log("제발", isAuthor);
+      // const disableButton = isAuthor ? {} : { disabled: "disabled" };
       const editButtonStyle = isAuthor ? {} : { display: "none" };
       return (
         <div>
@@ -276,7 +277,10 @@ function QnAPage() {
                 onClick={onBackClick}></img>
               <div className="qnaTitleLayout">
                 <h2>{questionData.title}</h2>
-                <button className={buttonStyle} onClick={toggleResolveStatus}>
+                <button
+                  className={buttonStyle}
+                  onClick={toggleResolveStatus}
+                  disabled={!isAuthor ? true : false}>
                   {buttonText}
                 </button>
                 <button

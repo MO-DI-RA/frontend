@@ -215,7 +215,10 @@ function GroupPage() {
 
           <div className="groupTitleLayout">
             <h2> {groupInfo.title} </h2>
-            <button className={buttonStyle} onClick={toggleRecruitmentStatus}>
+            <button
+              className={buttonStyle}
+              onClick={toggleRecruitmentStatus}
+              disabled={!isAuthor ? true : false}>
               {buttonText}
             </button>
             <button
