@@ -23,6 +23,7 @@ function GroupPage() {
     };
 
     let headersString = token ? `Bearer ${token}` : "";
+
     //소모임 상세 정보
     const [groupInfo, setGroupInfo] = useState({});
 
@@ -61,6 +62,7 @@ function GroupPage() {
                     contact,
                     summary,
                     like_status,
+                    period,
                 } = res.data;
                 setGroupInfo({
                     id: id, //id
@@ -79,6 +81,7 @@ function GroupPage() {
                     method: method, //진행방식
                     contact: contact, // 연락 방법
                     like_status: like_status, //관심등록
+                    period : period,// 진행 기간
                 });
                 setRecruiting(res.data.status); // 서버로부터 받은 status 값으로 recruiting 상태 업데이트
                 setLiked(res.data.like_status);
@@ -95,23 +98,24 @@ function GroupPage() {
     const newStatus = !recruiting;
     setRecruiting(newStatus);
 
-    axios({
-      method: "PUT",
-      url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
-      data: {
-        status: newStatus,
-      },
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        console.log("Status updated successfully:", res);
-      })
-      .catch((err) => {
-        console.error("Error updating status:", err);
-      });
-  };
+        axios({
+            method: "PUT",
+            url: `http://127.0.0.1:8000/gathering/posts/${id}/toggle/`,
+            // data: {
+            //     status: newStatus,
+            // },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization : `Bearer ${token}`,
+            },
+        })
+            .then(res => {
+                console.log("Status updated successfully:", res);
+            })
+            .catch(err => {
+                console.error("Error updating status:", err);
+            });
+    };
 
   // 모집중 버튼
   const buttonStyle = recruiting
@@ -218,38 +222,38 @@ function GroupPage() {
           <p> {groupInfo.created_at} </p>
         </div>
 
-        <div className="groupInfo">
-          <div className="rowLayout">
-            <p className="groupInfoLabel">모집 구분</p>
-            <p className="groupInfoValue">{groupInfo.division}</p>
-          </div>
-          <div className="rowLayout">
-            <p className="groupInfoLabel">분야</p>
-            <div className="rowLayout">
-              <p className="groupInfoValue"> #{groupInfo.tag}</p>
-            </div>
-          </div>
-          <div className="rowLayout">
-            <p className="groupInfoLabel">모집 인원</p>
-            <p className="groupInfoValue">{groupInfo.max_people}</p>
-          </div>
-          <div className="rowLayout">
-            <p className="groupInfoLabel">연락 방법</p>
-            <p className="groupInfoValue">{groupInfo.contact}</p>
-          </div>
-          <div className="rowLayout">
-            <p className="groupInfoLabel">진행 방식</p>
-            <p className="groupInfoValue">{groupInfo.method}</p>
-          </div>
-          <div className="rowLayout">
-            <p className="groupInfoLabel">모집 마감일</p>
-            <p className="groupInfoValue"> {groupInfo.deadline} </p>
-          </div>
-          <div className="rowLayout">
-            <p className="groupInfoLabel">진행 기간</p>
-            <p className="groupInfoValue">{groupInfo.period}</p>
-          </div>
-        </div>
+                <div className="groupInfo">
+                    <div className="rowLayout">
+                        <p className="groupInfoLabel">모집 구분</p>
+                        <p className="groupInfoValue">{groupInfo.division}</p>
+                    </div>
+                    <div className="rowLayout">
+                        <p className="groupInfoLabel">분야</p>
+                        <div className="rowLayout">
+                            <p className="groupInfoValue"> #{groupInfo.tag}</p>
+                        </div>
+                    </div>
+                    <div className="rowLayout">
+                        <p className="groupInfoLabel">모집 인원</p>
+                        <p className="groupInfoValue">{groupInfo.max_people}명</p>
+                    </div>
+                    <div className="rowLayout">
+                        <p className="groupInfoLabel">연락 방법</p>
+                        <p className="groupInfoValue">{groupInfo.contact}</p>
+                    </div>
+                    <div className="rowLayout">
+                        <p className="groupInfoLabel">진행 방식</p>
+                        <p className="groupInfoValue">{groupInfo.method}</p>
+                    </div>
+                    <div className="rowLayout">
+                        <p className="groupInfoLabel">모집 마감일</p>
+                        <p className="groupInfoValue"> {groupInfo.deadline} </p>
+                    </div>
+                    <div className="rowLayout">
+                        <p className="groupInfoLabel">진행 기간</p>
+                        <p className="groupInfoValue">{groupInfo.period}개월</p>
+                    </div>
+                </div>
 
         <h3 className="groupIntro">소모임 소개</h3>
         <p className="groupContent"> {groupInfo.content}</p>

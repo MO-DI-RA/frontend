@@ -124,12 +124,12 @@ function QnAContainer({ method, url, headers, modify }) {
                                     </div>
                                     <div className="summary">
                                         {" "}
-                                        {qna.summary}{" "}
+                                        {qna.content}{" "}
                                     </div>
                                     <div className="QnA_content">
                                         <img
                                             src={
-                                                "http://localhost:8000" +
+                                                "http://localhost:8000/" +
                                                     qna.author_profile_image ||
                                                 defaultImg
                                             }

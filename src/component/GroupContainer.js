@@ -17,19 +17,24 @@ function GroupContainer({ method, url, headers, modify}) {
     const [selectedGID, setSelectedGID] = useState([]); //소모임 아이디 배열
 
     useEffect(() => {
-        console.log("url : ", url);
+        console.log("group컨테이너 url :", url);
         axios({
             method: method,
             url: url,
             headers: headers,
         })
             .then(res => {
-                console.log(res.data);
+                console.log("get : ", res.data);
                 // 데이터가 없으면 setExistList == false
                 if (res.data.length === 0) {
+                    console.log("없음");
                     setExistList(false);
                 } else {
+                    console.log("있음");
+                    setExistList(true);
+                    console.log("list : ", existList);
                     setGroupList(res.data);
+                    console.log("groupList:",groupList);
                 }
             })
             .then(err => {
@@ -132,7 +137,7 @@ function GroupContainer({ method, url, headers, modify}) {
                                         <div className="profileINFO">
                                             <img
                                                 src={
-                                                    "http://localhost:8000" +
+                                                    "http://localhost:8000/" +
                                                         group.author_profile_image ||
                                                     defaultImg
                                                 }

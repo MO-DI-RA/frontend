@@ -58,7 +58,7 @@
 }
 
 /* 키워드 검색 */
-.keyword_search > .keyword {
+.group_search > .keyword {
     padding: 9px 50px;
     background: #F1F1F1;
     border: none;
@@ -83,4 +83,46 @@
 .QnAList{
     display : flex;
     flex-direction: column;
+}
+
+/* 소모임 검색 */
+.group_search{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin : 60px;
+}
+
+.search-form{
+    display: flex;
+    gap: 50px;
+}
+
+.search-group > .all{
+    background-color: #ffffff;
+    border: none;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    color : #1f1f1f;
+}
+
+/* 소모임 검색 모집중 */
+.search-form > .ingTrue {
+    background-color: #ffffff;
+    border: none;
+    font-size: 25px;
+    font-weight: bold;
+    color: #879186;
+    cursor: pointer;
+}
+
+/* 소모임 검색 모집완료 */
+.search-form > .ingFalse {
+    background-color: #ffffff;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: #B9B6B6;
+    cursor: pointer;
 }
