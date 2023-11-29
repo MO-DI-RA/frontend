@@ -96,7 +96,7 @@
 }
 
 .answerInput {
-    height: 50px;
+    height: 103px;
     border-color: #d9d9d9;
     border-radius: 10px;
     resize: none;
@@ -105,8 +105,8 @@
 }
 
 .answerRegister {
-    height: 55px;
-    width: 60px;
+    height: 103px;
+    width: 103px;
     border-radius: 10px;
     border: none;
 }

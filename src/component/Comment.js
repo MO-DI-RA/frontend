@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import comment_mark from "../asset/comment_mark.png";
 
 function Comment({ url, type }) {
   const [comments, setComments] = useState([]);
@@ -32,45 +33,68 @@ function Comment({ url, type }) {
     }
   };
 
-  const containerStyle = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    gap: "10px",
+  const commentContainerStyle = {
     backgroundColor: getBackgroundColor(),
+    borderRadius: "16px",
+    boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.16)",
+    padding: "16px",
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "10px",
+    width: "1400px",
+    height: "103px",
+    marginLeft: "30px",
   };
 
-  const commentInputStyle = {
+  const profileImgStyle = {
+    width: "50px",
     height: "50px",
-    borderColor: "#D9D9D9",
-    borderRadius: "10px",
-    resize: "none",
-    fontSize: "20px",
-    flexGrow: 1,
+    borderRadius: "50%",
+    marginRight: "12px",
+  };
+
+  const commentInfoStyle = {
+    flex: 1,
+  };
+
+  const commentWriterStyle = {
+    fontWeight: "bold",
+    marginBottom: "4px",
   };
 
   const commentContentStyle = {
-    marginLeft: "40px",
-    marginBottom: "50px",
+    backgroundColor: "white",
+    borderRadius: "8px",
+    padding: "8px",
+    fontSize: "14px",
+    color: "black",
+    wordBreak: "break-word",
   };
-
   return (
     <div>
       {comments.map((comment, index) => (
-        <div className="comment" key={index} style={containerStyle}>
-          <div className="userInfo">
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginLeft: type === "group" ? "60px" : "40px",
+          }}
+          key={index}
+        >
+          {type !== "group" && <img src={comment_mark}></img>}
+          <div className="comment" key={index} style={commentContainerStyle}>
             <img
               src={"http://localhost:8000" + comment.author_profile_image}
               className="profileImg"
               alt="profileImg"
-              style={commentInputStyle}
+              style={profileImgStyle}
             />
-            <p>{comment.writer}</p>
+            <div style={commentInfoStyle}>
+              <div style={commentWriterStyle}>{comment.writer}</div>
+              <div>{comment.created_at}</div>
+              <div style={commentContentStyle}>{comment.content}</div>
+            </div>
           </div>
-          <p className="commentContent" style={commentContentStyle}>
-            {comment.content}
-          </p>
         </div>
       ))}
     </div>

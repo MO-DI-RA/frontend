@@ -6,22 +6,24 @@ function CommentInput({ postUrl }) {
   const token = localStorage.getItem("access-token");
 
   const containerStyle = {
-    display: "flex", // enables flexbox
-    justifyContent: "center", // centers items horizontally in the container
-    alignItems: "center", // centers items vertically in the container
+    display: "flex",
+    alignItems: "center",
     marginTop: "18px",
     marginBottom: "54px",
+    marginLeft: "93px",
   };
   const textareaStyle = {
     resize: "none",
-    width: "869px",
+    width: "1400px",
     height: "103px",
     border: "1px solid #E5E5E5",
     fontSize: "20px",
+    borderRadius: "30px",
+    padding: "20px",
   };
 
   const buttonStyle = {
-    backgroundColor: "#E5E5E5",
+    backgroundColor: "#CCD4C9",
     width: "121px",
     height: "103px",
     fontSize: "20px",

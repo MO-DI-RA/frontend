@@ -297,16 +297,16 @@ function QnAPage() {
                 >
                   댓글 달기
                 </button>
+                <Comment
+                  url={`http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/${answer.answer_id}/reply/`}
+                />
+                {/* 댓글 내용 불러오는 컴포넌트 */}
                 {commentInputs[answer.answer_id] && (
                   <CommentInput
                     postUrl={`http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/${answer.answer_id}/reply/`}
                     type="qna"
                   /> // 댓글 입력 컴포넌트
                 )}
-                <Comment
-                  url={`http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/${answer.answer_id}/reply/`}
-                />
-                {/* 댓글 내용 불러오는 컴포넌트 */}
               </div>
             ))}
           </div>
