@@ -27,7 +27,7 @@ function QnAPage() {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/qna/posts/${id}`)
+      .get(`http://127.0.0.1:8000/qna/posts/${id}/`)
       .then((response) => {
         setQuestionData(response.data);
         setResolve(response.data.status); //서버에서 받은 status가 참이면 해결 상태로 설정

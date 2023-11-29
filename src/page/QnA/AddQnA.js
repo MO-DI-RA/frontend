@@ -29,7 +29,11 @@ function AddQnA() {
     };
 
     axios(options)
-      .then((response) => console.log(response))
+      .then((response) => {
+        // 서버가 준 새 Q&A의 ID
+        console.log(response);
+        navigate(`/QnAPage/${response.data.id}`); // 새 Q&A의 상세 페이지로 이동
+      })
       .catch((error) => console.error(error));
   };
 
