@@ -3,40 +3,45 @@ import { NavLink } from "react-router-dom";
 import headerLogo from "../asset/headerLogo.png";
 import dropdownImg from "../asset/dropdownImg.png";
 import { useAuth } from "../redux/AuthContext";
-import {actionCreators} from "../redux/user";
+import { actionCreators } from "../redux/user";
 import "../css/Header.css";
 import { useDispatch } from "react-redux";
+import Modal from "../page/Modal";
 
 function Header() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const dispatch = useDispatch();
-  
+
   const { isLoggedIn } = useAuth();
 
-    const [isNewPostDropdownOpen, setIsNewPostDropdownOpen] = useState(false);
-    const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const [isNewPostDropdownOpen, setIsNewPostDropdownOpen] = useState(false);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
-    //새글쓰기 드롭다운
-    const toggleNewPostDropdown = () => {
-        setIsNewPostDropdownOpen(!isNewPostDropdownOpen);
-        setIsUserDropdownOpen(false);
-    };
+  //새글쓰기 드롭다운
+  const toggleNewPostDropdown = () => {
+    setIsNewPostDropdownOpen(!isNewPostDropdownOpen);
+    setIsUserDropdownOpen(false);
+  };
 
-    //유저 드롭다운
-    const toggleUserDropdown = () => {
-        setIsUserDropdownOpen(!isUserDropdownOpen);
-        setIsNewPostDropdownOpen(false);
-    };
+  //유저 드롭다운
+  const toggleUserDropdown = () => {
+    setIsUserDropdownOpen(!isUserDropdownOpen);
+    setIsNewPostDropdownOpen(false);
+  };
 
-    const closeDropdowns = () => {
-        setIsNewPostDropdownOpen(false);
-        setIsUserDropdownOpen(false);
-    };
+  const closeDropdowns = () => {
+    setIsNewPostDropdownOpen(false);
+    setIsUserDropdownOpen(false);
+  };
 
   //로그아웃
   const LogOut = () => {
     dispatch(actionCreators.logoutDB());
-  }
+  };
 
   return (
     <header className="header">
@@ -90,16 +95,22 @@ function Header() {
                 >
                   내가 작성한 글
                 </a>
-                <button className="logoutButton" onClick={LogOut}>로그아웃</button>
+                <button className="logoutButton" onClick={LogOut}>
+                  로그아웃
+                </button>
               </div>
             )}
           </>
         ) : (
           // 로그인되지 않은 상태일 때
           <>
-            <a href="/login" className="link">
+            {/* <a href="/login" className="link">
               로그인
-            </a>
+            </a> */}
+            <button onClick={openModal} className="link modalButton">
+              로그인
+            </button>
+            {isModalOpen && <Modal closeModal={closeModal} />}
             <a href="/Signup" className="link">
               회원가입
             </a>

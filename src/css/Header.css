@@ -23,6 +23,12 @@
     font-size: 20px;
 }
 
+.modalButton {
+    border: none;
+    background-color: #FAFAFA;
+    cursor: pointer;
+}
+
 .newPostButton {
     background-color: transparent;
     border: none;
