@@ -1,7 +1,9 @@
 import "./App.css";
 import React from "react";
+import { Navigate } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./redux/AuthContext";
+import { useAuth } from "./redux/AuthContext";
 
 import Login from "./page/Login";
 import SignUp from "./page/SignUp";
@@ -17,26 +19,46 @@ import Redirect from "./page/Redirect";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
 
+const PrivateRoute = ({ element }) => {
+  const { isLoggedIn } = useAuth();
+
+  return isLoggedIn ? element : <Navigate to="/login" />;
+};
+
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <Header />
         <Routes>
-          <Route path="/" Component={Home} />
-          {/* <Route path="/login" Component={Login} /> */}
-          <Route path="/signup" Component={SignUp} />
-          <Route path="/mypage" Component={Mypage} />
-          <Route path="/home" Component={Home} />
-          <Route path="/AddGroup" Component={AddGroup} />
-          <Route path="/AddGroup/:id" Component={AddGroup} />
-          <Route path="/user/kakao/callback/" Component={Redirect} />
-          <Route path="/addqna" Component={AddQnA} />
-          <Route path="/mypost" Component={MyPost} />
-          <Route path="/grouppage/:id" Component={GroupPage} />
-          <Route path="/qnapage/:id" Component={QnAPage} />
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/user/kakao/callback/" element={<Redirect />} />
+          <Route
+            path="/mypage"
+            element={<PrivateRoute element={<Mypage />} />}
+          />
+          <Route
+            path="/AddGroup"
+            element={<PrivateRoute element={<AddGroup />} />}
+          />
+          <Route
+            path="/AddGroup/:id"
+            element={<PrivateRoute element={<AddGroup />} />}
+          />
+          <Route
+            path="/addqna"
+            element={<PrivateRoute element={<AddQnA />} />}
+          />
+          <Route
+            path="/mypost"
+            element={<PrivateRoute element={<MyPost />} />}
+          />
+          <Route path="/grouppage/:id" element={<GroupPage />} />
+          <Route path="/qnapage/:id" element={<QnAPage />} />
         </Routes>
-
         <Footer />
       </AuthProvider>
     </BrowserRouter>
