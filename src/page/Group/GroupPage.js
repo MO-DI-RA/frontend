@@ -35,6 +35,7 @@ function GroupPage() {
                 // 분야 추가 필요
                 const {
                     id,
+                    author_id,
                     author_nickname,
                     author_profile_image,
                     deadline,
@@ -52,6 +53,7 @@ function GroupPage() {
                 } = res.data;
                 setGroupInfo({
                     id: id, //id
+                    author_id: author_id, // 작성자 ID
                     profile: author_profile_image, //작성자 프사
                     nickname: author_nickname, //작성자 닉네임
                     deadline: deadline, //마감기한
@@ -117,11 +119,10 @@ function GroupPage() {
 
     // 관심 설정
     const handleLikedChange = () => {
-        if(liked){
+        if (liked) {
             setLiked(false);
             alert("관심 해제 되었습니다.");
-        }
-        else{
+        } else {
             setLiked(true);
             alert("관심 등록 되었습니다.");
         }
@@ -133,7 +134,6 @@ function GroupPage() {
                 Authorization: `Bearer ${token}`,
             },
         });
-        
     };
 
     const handleDelete = () => {
@@ -157,7 +157,12 @@ function GroupPage() {
                 });
         }
     };
-
+    const isAuthor =
+        Number(localStorage.getItem("user_id")) === groupInfo.author_id;
+    console.log(localStorage.getItem("user_id"), groupInfo.author_id);
+    console.log("-------", groupInfo);
+    console.log("제발", isAuthor);
+    const editButtonStyle = isAuthor ? {} : { display: "none" };
     return (
         <div>
             <div className="groupPage">
@@ -178,11 +183,7 @@ function GroupPage() {
                             {buttonText}
                         </button>
                         <button
-                            className={
-                                liked
-                                    ? "LikedSetBtnYes"
-                                    : "LikedSetBtn"
-                            }
+                            className={liked ? "LikedSetBtnYes" : "LikedSetBtn"}
                             onClick={handleLikedChange}
                         >
                             {" "}
@@ -240,7 +241,7 @@ function GroupPage() {
                 <h3 className="groupIntro">소모임 소개</h3>
                 <p className="groupContent"> {groupInfo.content}</p>
 
-                <div className="groupEditButtons">
+                <div className="groupEditButtons" style={editButtonStyle}>
                     <button className="groupModifyButton" onClick={handleEdit}>
                         수정하기
                     </button>
