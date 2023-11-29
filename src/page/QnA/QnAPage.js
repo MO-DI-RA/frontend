@@ -149,7 +149,7 @@ function QnAPage() {
       return; // 함수 실행 중단
     }
     const options = {
-      url: "http://127.0.0.1:8000/qna/answers/", // 답변 등록 URL
+      url: `http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/`, // 답변 등록 URL
       method: "POST",
       headers: {
         Accept: "application/json",
