@@ -33,6 +33,19 @@ function GroupPage() {
   //관심설정 표시
   const [liked, setLiked] = useState();
 
+  const formatDate = (dateString) => {
+    if (!dateString) return ""; // 빈 문자열 혹은 null/undefined 처리
+
+    const date = new Date(dateString);
+    if (!isNaN(date.getTime())) {
+      // 유효한 날짜 값인 경우
+      return date.toISOString().split("T")[0];
+    } else {
+      // 유효하지 않은 날짜 값인 경우
+      return "";
+    }
+  };
+
   useEffect(() => {
     axios({
       method: "GET",
@@ -134,13 +147,6 @@ function GroupPage() {
 
   // 관심 설정
   const handleLikedChange = () => {
-    if (liked) {
-      setLiked(false);
-      alert("관심 해제 되었습니다.");
-    } else {
-      setLiked(true);
-      alert("관심 등록 되었습니다.");
-    }
     axios({
       method: "POST",
       url: `http://127.0.0.1:8000/gathering/posts/${id}/like/`,
@@ -148,7 +154,23 @@ function GroupPage() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    });
+    })
+      .then((response) => {
+        console.log(response);
+        if (liked) {
+          setLiked(false);
+          alert("관심 해제 되었습니다.");
+        } else {
+          setLiked(true);
+          alert("관심 등록 되었습니다.");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        if (error.response && error.response.status === 401) {
+          openModal(); // 401 오류시(로그인 안하고 관심 등록 누르면) 모달을 띄움
+        }
+      });
   };
 
   const handleDelete = () => {
@@ -198,7 +220,8 @@ function GroupPage() {
             </button>
             <button
               className={liked ? "LikedSetBtnYes" : "LikedSetBtn"}
-              onClick={handleLikedChange}>
+              onClick={handleLikedChange}
+            >
               {" "}
               ♥
             </button>
@@ -211,7 +234,8 @@ function GroupPage() {
           <img
             src={"http://localhost:8000" + groupInfo.profile}
             className="profileImg"
-            alt="profileImg"></img>
+            alt="profileImg"
+          ></img>
 
           <p> {groupInfo.nickname} </p>
           <p> {groupInfo.created_at} </p>
@@ -242,7 +266,7 @@ function GroupPage() {
           </div>
           <div className="rowLayout">
             <p className="groupInfoLabel">모집 마감일</p>
-            <p className="groupInfoValue"> {groupInfo.deadline} </p>
+            <p className="groupInfoValue"> {formatDate(groupInfo.deadline)} </p>
           </div>
           <div className="rowLayout">
             <p className="groupInfoLabel">진행 기간</p>

@@ -6,6 +6,7 @@ import goBack from "../../asset/goBack.png";
 import axios from "axios";
 import CommentInput from "../../component/CommentInput";
 import Comment from "../../component/Comment";
+import Modal from "../Modal";
 
 function QnAPage() {
   const navigate = useNavigate();
@@ -27,6 +28,28 @@ function QnAPage() {
 
   // 댓글 입력창 상태 관리
   const [commentInputs, setCommentInputs] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const formatDate = (dateString) => {
+    if (!dateString) return ""; // 빈 문자열 혹은 null/undefined 처리
+
+    const date = new Date(dateString);
+    if (!isNaN(date.getTime())) {
+      // 유효한 날짜 값인 경우
+      return date.toISOString().split("T")[0];
+    } else {
+      // 유효하지 않은 날짜 값인 경우
+      return "";
+    }
+  };
 
   useEffect(() => {
     axios({
@@ -172,13 +195,7 @@ function QnAPage() {
   // 관심 설정
   const handleLikedChange = () => {
     const token = localStorage.getItem("access-token");
-    if (liked) {
-      setLiked(false);
-      alert("관심 해제 되었습니다.");
-    } else {
-      setLiked(true);
-      alert("관심 등록 되었습니다.");
-    }
+
     axios({
       method: "POST",
       url: `http://127.0.0.1:8000/qna/posts/${id}/like/`,
@@ -186,7 +203,23 @@ function QnAPage() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    });
+    })
+      .then((response) => {
+        console.log(response);
+        if (liked) {
+          setLiked(false);
+          alert("관심 해제 되었습니다.");
+        } else {
+          setLiked(true);
+          alert("관심 등록 되었습니다.");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        if (error.response && error.response.status === 401) {
+          openModal(); // 401 오류시(로그인 안하고 관심 등록 누르면) 모달을 띄움
+        }
+      });
   };
 
   // 뒤로가기 버튼
@@ -217,7 +250,8 @@ function QnAPage() {
             <textarea
               className="qusetionContentEdit"
               value={editedContent}
-              onChange={(e) => setEditedContent(e.target.value)}></textarea>
+              onChange={(e) => setEditedContent(e.target.value)}
+            ></textarea>
             <button onClick={submitEdit} className="qnaEditCompleteButton">
               수정완료
             </button>
@@ -227,13 +261,15 @@ function QnAPage() {
     } else {
       return (
         <div>
+          {isModalOpen && <Modal closeModal={closeModal} />}
           <div className="qnaPage">
             <div className="qnaEditContainer">
               <img
                 src={goBack}
                 className="goBack"
                 alt="뒤로가기"
-                onClick={onBackClick}></img>
+                onClick={onBackClick}
+              ></img>
               <div className="qnaTitleLayout">
                 <h2>{questionData.title}</h2>
                 <button className={buttonStyle} onClick={toggleResolveStatus}>
@@ -241,14 +277,15 @@ function QnAPage() {
                 </button>
                 <button
                   className={liked ? "LikedSetBtnYes" : "LikedSetBtn"}
-                  onClick={handleLikedChange}>
+                  onClick={handleLikedChange}
+                >
                   {" "}
                   ♥
                 </button>
               </div>
             </div>
             <div className="userInfo">
-              <p>{questionData.created_at}</p>
+              <p>{formatDate(questionData.created_at)}</p>
               {/* <p>작성일자</p> */}
             </div>
             <div className="userInfo">
@@ -259,7 +296,8 @@ function QnAPage() {
                 }
                 // src={defaultImg}
                 className="defaultImg"
-                alt="작성자 프로필"></img>
+                alt="작성자 프로필"
+              ></img>
               <p>{questionData.author_nickname}</p>
               {/* <p>작성자 닉네임</p> */}
             </div>
@@ -280,7 +318,8 @@ function QnAPage() {
               <textarea
                 className="answerInput"
                 value={answer}
-                onChange={handleAnswerChange}></textarea>
+                onChange={handleAnswerChange}
+              ></textarea>
               <button onClick={submitAnswer} className="answerRegister">
                 등록
               </button>
@@ -298,12 +337,13 @@ function QnAPage() {
                     alt="Profile"
                   />
                   <p>{answer.author_nickname}</p>
-                  <p>{answer.created_at}</p>
+                  <p>{formatDate(answer.created_at)}</p>
                 </div>
                 <p className="answerContent">{answer.content}</p>
                 <button
                   className="CommentOnAnswer"
-                  onClick={() => toggleCommentInput(answer.answer_id)}>
+                  onClick={() => toggleCommentInput(answer.answer_id)}
+                >
                   댓글 달기
                 </button>
                 {commentInputs[answer.answer_id] && (

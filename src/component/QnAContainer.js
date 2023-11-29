@@ -77,6 +77,19 @@ function QnAContainer({ method, url, headers, modify }) {
     setModifyList(false); //삭제->수정 버튼 변경
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return ""; // 빈 문자열 혹은 null/undefined 처리
+
+    const date = new Date(dateString);
+    if (!isNaN(date.getTime())) {
+      // 유효한 날짜 값인 경우
+      return date.toISOString().split("T")[0];
+    } else {
+      // 유효하지 않은 날짜 값인 경우
+      return "";
+    }
+  };
+
   return (
     <div>
       {existList ? (
@@ -119,7 +132,7 @@ function QnAContainer({ method, url, headers, modify }) {
                     <div className="nickname"> {qna.author_nickname} </div>
                     <div className="created_at">
                       {" "}
-                      등록일 : {qna.created_at}{" "}
+                      등록일 : {formatDate(qna.created_at)}{" "}
                     </div>
                   </div>
                 </div>
