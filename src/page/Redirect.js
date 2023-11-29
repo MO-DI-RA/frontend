@@ -14,7 +14,7 @@ const Redirect = () => {
       .then((res) => {
         console.log(res);
         const ACCESS_TOKEN = res.data.access;
-        localStorage.setItem("access_token", ACCESS_TOKEN);
+        localStorage.setItem("access-token", ACCESS_TOKEN);
         window.location.href = "/home";
       })
       .catch((err) => {
