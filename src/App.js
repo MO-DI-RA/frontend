@@ -36,6 +36,7 @@ function App() {
         <BrowserRouter>
             <AuthProvider>
                 <Header openLoginModal={openLoginModal} />
+                {modalOpen && <Login onClose={closeLoginModal} />}
                 <Routes>
                     <Route path="/" Component={Home} />
                     <Route path="/login" Component={Login} />
@@ -50,7 +51,7 @@ function App() {
                     <Route path="/grouppage/:id" Component={GroupPage} />
                     <Route path="/qnapage/:id" Component={QnAPage} />
                 </Routes>
-                {modalOpen && <Login onClose={closeLoginModal} />}
+                
                 <Footer />
             </AuthProvider>
         </BrowserRouter>

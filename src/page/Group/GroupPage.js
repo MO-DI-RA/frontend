@@ -17,7 +17,7 @@ function GroupPage() {
     const [recruiting, setRecruiting] = useState(true);
 
     //관심설정 표시
-    // const [liked, setLiked] = useState(false);
+    const [liked, setLiked] = useState(false);
 
     useEffect(() => {
         axios({
@@ -69,6 +69,7 @@ function GroupPage() {
             .catch(err => {
                 console.log("error : ", err);
             });
+        console.log("관심 등록:", groupInfo.like_status);
         console.log(recruiting ? "모집중" : "모집완료");
     }, [id, recruiting]);
 
