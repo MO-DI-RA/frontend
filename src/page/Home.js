@@ -11,8 +11,10 @@ function Home() {
     const [isGroup, setIsGroup] = useState(true);
     // 타입 검색 드롭다운
     const [typeDropdownOpen, setTypeDropdownOpen] = useState(false);
+
+    //검색 변수
     const [type, setType] = useState(""); //분야 선택
-    const [recruiting, setRecruiting] = useState(false); //모집중
+    const [recruiting, setRecruiting] = useState(""); //모집중==false, 모집 완료==true
     const [keyword, setKeyword] = useState(""); //키워드 검색
 
     const method = "GET"; //method
@@ -20,6 +22,7 @@ function Home() {
     const headers = {
         "Content-Type": "application/json",
     }; //axios 요청 header
+
 
     //드롭 다운
     const typeListDropdown = () => {
@@ -52,13 +55,15 @@ function Home() {
     };
 
     //모집중
-    const recruitSearch = () => {
-        setRecruiting(!recruiting);
-        console.log(recruiting);
-    };
+    // const recruitSearch = () => {
+    //     setRecruiting(!recruiting);
+    //     console.log(recruiting);
+    // };
 
     const recruitSubmit = e => {
         e.preventDefault();
+        setRecruiting(!recruiting);
+        console.log(recruiting);
         setUrl(
             `http://localhost:8000/gathering/posts/search?title=${keyword}&tag=${type}&status=${recruiting}`
         );
@@ -79,11 +84,12 @@ function Home() {
             );
         } else {
             setUrl(
-                `http://localhost:8000/qna/posts/search?title=${keyword}&tag=&status=`
+                `http://localhost:8000/qna/posts/search?title=${keyword}`
             );
         }
         console.log(url);
     };
+
 
     return (
         <div className="home_page">
@@ -131,13 +137,10 @@ function Home() {
                                     </div>
                                 </button>
                                 {/* 모집중 검색 */}
-                                <button
-                                    className="recruit_search"
-                                    onClick={recruitSubmit}
-                                >
+                                
                                     <button
                                         type="button"
-                                        onClick={recruitSearch}
+                                        onClick={recruitSubmit}
                                         className={
                                             recruiting ? "true" : "false"
                                         }
@@ -145,7 +148,6 @@ function Home() {
                                         {" "}
                                         모집중{" "}
                                     </button>
-                                </button>
                             </div>
                             {/* 키워드 검색 */}
                             <form
