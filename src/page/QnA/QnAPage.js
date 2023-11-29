@@ -9,12 +9,12 @@ import Comment from "../../component/Comment";
 import Modal from "../Modal";
 
 function QnAPage() {
-  const navigate = useNavigate();
-  const [questionData, setQuestionData] = useState(null);
-  const [answer, setAnswer] = useState("");
-  const [resolve, setResolve] = useState(false);
-  const token = localStorage.getItem("access-token");
-  const { id } = useParams();
+    const navigate = useNavigate();
+    const [questionData, setQuestionData] = useState(null);
+    const [answer, setAnswer] = useState("");
+    const [resolve, setResolve] = useState(false);
+    const token = localStorage.getItem("access-token");
+    const { id } = useParams();
 
   const [editMode, setEditMode] = useState(false); // 수정 모드 상태
   const [editedTitle, setEditedTitle] = useState(""); // 수정된 제목
@@ -31,11 +31,11 @@ function QnAPage() {
     setIsModalOpen(false);
   };
 
-  //관심설정 표시
-  const [liked, setLiked] = useState(false);
+    //관심설정 표시
+    const [liked, setLiked] = useState(false);
 
-  // 댓글 입력창 상태 관리
-  const [commentInputs, setCommentInputs] = useState({});
+    // 댓글 입력창 상태 관리
+    const [commentInputs, setCommentInputs] = useState({});
 
   useEffect(() => {
     axios
@@ -47,39 +47,39 @@ function QnAPage() {
       .catch((error) => console.error(error));
   }, [id]);
 
-  const handleAnswerChange = (event) => {
-    setAnswer(event.target.value);
-  };
+    const handleAnswerChange = event => {
+        setAnswer(event.target.value);
+    };
 
-  const toggleResolveStatus = () => {
-    const newResolveStatus = !resolve;
-    setResolve(newResolveStatus);
+    const toggleResolveStatus = () => {
+        const newResolveStatus = !resolve;
+        setResolve(newResolveStatus);
 
-    axios
-      .put(
-        `http://127.0.0.1:8000/qna/posts/${id}/`,
-        {
-          title: questionData.title,
-          content: questionData.content,
-          status: newResolveStatus,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-        setResolve(resolve); // 오류 발생 시 상태 되돌리기
-      });
-  };
+        axios
+            .put(
+                `http://127.0.0.1:8000/qna/posts/${id}/`,
+                {
+                    title: questionData.title,
+                    content: questionData.content,
+                    status: newResolveStatus,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error(error);
+                setResolve(resolve); // 오류 발생 시 상태 되돌리기
+            });
+    };
 
-  const buttonStyle = resolve ? "qnaState resolve" : "qnaState";
-  const buttonText = resolve ? "해결" : "미해결";
+    const buttonStyle = resolve ? "qnaState resolve" : "qnaState";
+    const buttonText = resolve ? "해결" : "미해결";
 
   const startEdit = () => {
     //수정 시작할때 초기 값(원래 내용)
@@ -136,69 +136,69 @@ function QnAPage() {
       },
     };
 
-    axios(options)
-      .then((response) => {
-        console.log(response);
-        // 새로운 답변을 questionData.answers 배열에 추가
-        setQuestionData({
-          ...questionData,
-          answers: [...questionData.answers, response.data],
-        });
-        // 입력란을 비워주기
-        setAnswer("");
-      })
-      .catch((error) => console.error(error));
-  };
+        axios(options)
+            .then(response => {
+                console.log(response);
+                // 새로운 답변을 questionData.answers 배열에 추가
+                setQuestionData({
+                    ...questionData,
+                    answers: [...questionData.answers, response.data],
+                });
+                // 입력란을 비워주기
+                setAnswer("");
+            })
+            .catch(error => console.error(error));
+    };
 
-  const deleteQuestion = () => {
-    if (window.confirm("이 Q&A를 삭제하시겠습니까?")) {
-      axios
-        .delete(`http://127.0.0.1:8000/qna/posts/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          window.location.href = "/Home"; // 삭제 후 홈으로
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+    const deleteQuestion = () => {
+        if (window.confirm("이 Q&A를 삭제하시겠습니까?")) {
+            axios
+                .delete(`http://127.0.0.1:8000/qna/posts/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                .then(response => {
+                    console.log(response);
+                    window.location.href = "/Home"; // 삭제 후 홈으로
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    };
+
+    if (!questionData) {
+        return <div>Loading...</div>;
     }
-  };
 
-  if (!questionData) {
-    return <div>Loading...</div>;
-  }
+    // 관심 설정
+    const handleLikedChange = () => {
+        const token = localStorage.getItem("access-token");
+        setLiked(true);
+        axios({
+            method: "POST",
+            url: `http://127.0.0.1:8000/qna/posts/${id}/like/`,
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        alert("관심 등록되었습니다.");
+    };
 
-  // 관심 설정
-  const handleLikedChange = () => {
-    const token = localStorage.getItem("access-token");
-    setLiked(true);
-    axios({
-      method: "POST",
-      url: `http://127.0.0.1:8000/qna/posts/${id}/like/`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    alert("관심 등록되었습니다.");
-  };
+    // 뒤로가기 버튼
+    const onBackClick = () => {
+        navigate(-1);
+    };
 
-  // 뒤로가기 버튼
-  const onBackClick = () => {
-    navigate(-1);
-  };
-
-  // 댓글 입력창 표시/숨김 처리
-  const toggleCommentInput = (answerId) => {
-    setCommentInputs({
-      ...commentInputs,
-      [answerId]: !commentInputs[answerId],
-    });
-  };
+    // 댓글 입력창 표시/숨김 처리
+    const toggleCommentInput = answerId => {
+        setCommentInputs({
+            ...commentInputs,
+            [answerId]: !commentInputs[answerId],
+        });
+    };
 
   function renderContent() {
     if (editMode) {
@@ -230,7 +230,17 @@ function QnAPage() {
         </div>
       );
     } else {
+      const isAuthor =
+      Number(localStorage.getItem("user_id")) ===
+      questionData.author_id;
+  console.log(
+      localStorage.getItem("user_id"),
+      questionData.author_id
+  );
+  console.log("제발", isAuthor);
+  const editButtonStyle = isAuthor ? {} : { display: "none" }
       return (
+        
         <div>
           {isModalOpen && <Modal closeModal={closeModal} />}
           <div className="qnaPage">
@@ -273,16 +283,23 @@ function QnAPage() {
               {/* <p>작성자 닉네임</p> */}
             </div>
 
-            <p className="qnaContent">{questionData.content}</p>
-            {/* <p className="qnaContent">질문 내용</p> */}
-            <div className="qnaEditButtons">
-              <button onClick={startEdit} className="qnaModifyButton">
-                수정하기
-              </button>
-              <button onClick={deleteQuestion} className="qnaDeleteButton">
-                삭제하기
-              </button>
-            </div>
+                        <p className="qnaContent">{questionData.content}</p>
+                        {/* <p className="qnaContent">질문 내용</p> */}
+
+                        <div className="qnaEditButtons" style={editButtonStyle}>
+                            <button
+                                onClick={startEdit}
+                                className="qnaModifyButton"
+                            >
+                                수정하기
+                            </button>
+                            <button
+                                onClick={deleteQuestion}
+                                className="qnaDeleteButton"
+                            >
+                                삭제하기
+                            </button>
+                        </div>
 
             <h3 className="answerTitle">답변 등록하기</h3>
             <div className="answerInputLayout" style={{ marginBottom: "50px" }}>
@@ -342,6 +359,6 @@ function QnAPage() {
     }
   }
 
-  return renderContent();
+    return renderContent();
 }
 export default QnAPage;
