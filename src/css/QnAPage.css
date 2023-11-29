@@ -172,7 +172,7 @@ input#qnaTitleEdit::placeholder {
 .qnaEditCompleteButton {
   background-color: #aec0ac;
   color: #ffffff;
-  height: 36px;
+  height: 50px;
   width: 110px;
   border-radius: 15px;
   border: none;
@@ -184,7 +184,7 @@ input#qnaTitleEdit::placeholder {
 
 .qnaEditContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 20px;
