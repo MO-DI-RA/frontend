@@ -6,6 +6,7 @@ import goBack from "../../asset/goBack.png";
 import axios from "axios";
 import CommentInput from "../../component/CommentInput";
 import Comment from "../../component/Comment";
+import Modal from "../Modal";
 
 function QnAPage() {
   const navigate = useNavigate();
@@ -19,6 +20,16 @@ function QnAPage() {
   const [editedTitle, setEditedTitle] = useState(""); // 수정된 제목
   const [editedSummary, setEditedSummary] = useState(""); // 수정된 요약
   const [editedContent, setEditedContent] = useState(""); // 수정된 내용
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   //관심설정 표시
   const [liked, setLiked] = useState(false);
@@ -221,6 +232,7 @@ function QnAPage() {
     } else {
       return (
         <div>
+          {isModalOpen && <Modal closeModal={closeModal} />}
           <div className="qnaPage">
             <div className="qnaEditContainer">
               <img
@@ -279,7 +291,13 @@ function QnAPage() {
                 value={answer}
                 onChange={handleAnswerChange}
               ></textarea>
-              <button onClick={submitAnswer} className="answerRegister">
+              <button
+                onClick={() => {
+                  submitAnswer();
+                  openModal();
+                }}
+                className="answerRegister"
+              >
                 등록
               </button>
             </div>
@@ -313,6 +331,7 @@ function QnAPage() {
                   <CommentInput
                     postUrl={`http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/${answer.answer_id}/reply/`}
                     type="qna"
+                    openModal={openModal}
                   /> // 댓글 입력 컴포넌트
                 )}
               </div>

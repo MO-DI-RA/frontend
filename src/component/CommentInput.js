@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function CommentInput({ postUrl }) {
+function CommentInput({ postUrl, openModal }) {
   const [comment, setComment] = useState("");
   const token = localStorage.getItem("access-token");
 
@@ -50,7 +50,12 @@ function CommentInput({ postUrl }) {
 
     axios(options)
       .then((response) => console.log(response))
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        if (error.response && error.response.status === 401) {
+          openModal(); // 401 오류시(로그인 안하고 댓글 등록 누르면) 모달을 띄움
+        }
+      });
   };
 
   return (
