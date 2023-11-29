@@ -6,7 +6,7 @@ import "../css/GroupContainer.css";
 import defaultImg from "../asset/defaultImg.png";
 import { Link } from "react-router-dom";
 
-function GroupContainer({ method, url, headers, modify }) {
+function GroupContainer({ method, url, headers, modify}) {
     const token = localStorage.getItem("access-token");
 
     const [existList, setExistList] = useState(true); //관심 설정한 소모임이 있을때
@@ -17,6 +17,7 @@ function GroupContainer({ method, url, headers, modify }) {
     const [selectedGID, setSelectedGID] = useState([]); //소모임 아이디 배열
 
     useEffect(() => {
+        console.log("url : ", url);
         axios({
             method: method,
             url: url,
