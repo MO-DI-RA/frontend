@@ -1,196 +1,198 @@
 .qnaPage {
-    padding: 0 200px;
+  padding: 0 200px;
 }
 
 .qnaPageContainer {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-left: -70px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: -70px;
 }
 
 .goBack {
-    height: 50px;
-    cursor: pointer;
+  height: 50px;
+  cursor: pointer;
 }
 
 .qnaTitleLayout {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex-grow: 1;
 }
 
 .qnaState {
-    background-color: #d9d9d9;
-    color: #ffffff;
-    border: none;
-    border-radius: 15px;
-    padding: 10px 20px;
-    cursor: pointer;
-    outline: none;
-    font-size: 15px;
-    transition: background-color 0.3s;
+  background-color: #d9d9d9;
+  color: #ffffff;
+  border: none;
+  border-radius: 15px;
+  padding: 10px 20px;
+  cursor: pointer;
+  outline: none;
+  font-size: 15px;
+  transition: background-color 0.3s;
 }
 
 .qnaState.resolve {
-    background-color: #aec0ac;
+  background-color: #aec0ac;
 }
 
 .userInfo {
-    display: flex;
-    justify-content: flex-start;
-    gap: 20px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
 }
 
 .defaultImg {
-    height: 20px;
-    margin: auto 0;
+  width: 50px;
+  height: 50px;
+  margin: auto 0;
+  border-radius: 50%;
 }
 
 .qnaIntro {
-    border-bottom: 1px solid #000000;
-    padding: 25px 0px 15px 0px;
+  border-bottom: 1px solid #000000;
+  padding: 25px 0px 15px 0px;
 }
 
 .qnaContent {
-    height: 500px;
-    width: 100%;
-    border-color: #d9d9d9;
-    resize: none;
-    font-size: 20px;
-    border-top: 1px solid #000000;
-    padding-top: 20px;
+  height: 500px;
+  width: 100%;
+  border-color: #d9d9d9;
+  resize: none;
+  font-size: 20px;
+  border-top: 1px solid #000000;
+  padding-top: 20px;
 }
 
 .qnaEditButtons {
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 10px;
 }
 
 .qnaModifyButton,
 .qnaDeleteButton {
-    background-color: #aec0ac;
-    color: #ffffff;
-    height: 36px;
-    width: 110px;
-    border-radius: 15px;
-    border: none;
-    font-size: 20px;
-    border-color: #aec0ac;
-    margin: 50px 0px 80px 30px;
-    cursor: pointer;
+  background-color: #aec0ac;
+  color: #ffffff;
+  height: 36px;
+  width: 110px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  border-color: #aec0ac;
+  margin: 50px 0px 80px 30px;
+  cursor: pointer;
 }
 
 .answerTitle {
-    border-top: 1px solid #000000;
-    padding-top: 20px;
+  border-top: 1px solid #000000;
+  padding-top: 20px;
 }
 
 .answerInputLayout {
-    display: flex;
-    width: 100%;
-    gap: 10px;
+  display: flex;
+  width: 100%;
+  gap: 10px;
 }
 
 .answerInput {
-    height: 103px;
-    border-color: #d9d9d9;
-    border-radius: 10px;
-    resize: none;
-    font-size: 20px;
-    flex-grow: 1;
+  height: 103px;
+  border-color: #d9d9d9;
+  border-radius: 10px;
+  resize: none;
+  font-size: 20px;
+  flex-grow: 1;
 }
 
 .answerRegister {
-    height: 103px;
-    width: 103px;
-    border-radius: 10px;
-    border: none;
+  height: 103px;
+  width: 103px;
+  border-radius: 10px;
+  border: none;
 }
 
 .answerLayout {
-    background-color: #eaf1e9;
-    margin: 20px 0px;
-    padding: 20px;
-    border-radius: 10px;
-    position: relative;
+  background-color: #eaf1e9;
+  margin: 20px 0px;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
 }
 
 .answerContent {
-    margin-left: 40px;
-    margin-bottom: 20px;
+  margin-left: 40px;
+  margin-bottom: 20px;
 }
 
 .CommentOnAnswer {
-    background-color: #ffffff;
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    cursor: pointer;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
 }
 
 input#qnaTitleEdit::placeholder {
-    color: #87ad83;
-    font-size: 20px;
+  color: #87ad83;
+  font-size: 20px;
 }
 
 .qnaTitleEdit {
-    color: #87ad83;
-    border: none;
-    border-bottom: 1px solid #87ad83;
-    margin-bottom: 30px;
-    height: 50px;
-    font-size: 20px;
+  color: #87ad83;
+  border: none;
+  border-bottom: 1px solid #87ad83;
+  margin-bottom: 30px;
+  height: 50px;
+  font-size: 20px;
 }
 
 .qnaSummaryEdit {
-    color: #9D9D9D;
-    border: none;
-    border-bottom: 1px solid #87ad83;
-    margin-bottom: 30px;
-    height: 50px;
-    font-size: 20px;
-    width: 80%;
+  color: #9d9d9d;
+  border: none;
+  border-bottom: 1px solid #87ad83;
+  margin-bottom: 30px;
+  height: 50px;
+  font-size: 20px;
+  width: 80%;
 }
 
 .qusetionContentEdit {
-    height: 500px;
-    border-color: #d9d9d9;
-    border-radius: 10px;
-    resize: none;
-    font-size: 20px;
+  height: 500px;
+  border-color: #d9d9d9;
+  border-radius: 10px;
+  resize: none;
+  font-size: 20px;
 }
 
 .qnaEditCompleteButton {
-    background-color: #aec0ac;
-    color: #ffffff;
-    height: 36px;
-    width: 110px;
-    border-radius: 15px;
-    border: none;
-    font-size: 20px;
-    border-color: #aec0ac;
-    margin: 30px 0px 80px 0px;
-    cursor: pointer;
+  background-color: #aec0ac;
+  color: #ffffff;
+  height: 36px;
+  width: 110px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  border-color: #aec0ac;
+  margin: 30px 0px 80px 0px;
+  cursor: pointer;
 }
 
 .qnaEditContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
 }
 
 .qnaTitleEdit,
 .qusetionContentEdit,
 .qnaEditCompleteButton {
-    width: 80%;
+  width: 80%;
 }
