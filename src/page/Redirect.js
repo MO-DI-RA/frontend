@@ -1,6 +1,7 @@
 //카카오 로그인 리다이렉트 화면
 import React from "react";
 import axios from "axios";
+import base64 from "base-64";
 
 const Redirect = () => {
     // 인가 코드
@@ -17,6 +18,16 @@ const Redirect = () => {
                 const REFRESH_TOKEN = res.data.refresh;
                 localStorage.setItem("access-token", ACCESS_TOKEN);
                 localStorage.setItem("refresh-token", REFRESH_TOKEN);
+
+                let token = ACCESS_TOKEN;
+                let payload = token.substring(
+                    token.indexOf(".") + 1,
+                    token.lastIndexOf(".")
+                );
+                let dec = JSON.parse(base64.decode(payload));
+                console.log(dec);
+                console.log("decode : ", dec["user_id"]);
+                localStorage.setItem("user_id", dec["user_id"]); //user_id 토큰 까봐야함
                 window.location.href = "/home";
             })
             .catch(err => {
