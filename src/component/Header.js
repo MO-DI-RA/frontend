@@ -7,7 +7,7 @@ import {actionCreators} from "../redux/user";
 import "../css/Header.css";
 import { useDispatch } from "react-redux";
 
-function Header({openLoginModal}) {
+function Header() {
 
   const dispatch = useDispatch();
   
@@ -97,7 +97,7 @@ function Header({openLoginModal}) {
         ) : (
           // 로그인되지 않은 상태일 때
           <>
-            <div href="/login" className="link" onClick={openLoginModal}>
+            <div href="/login" className="link">
               로그인
             </div>
             <a href="/Signup" className="link">

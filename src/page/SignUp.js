@@ -29,7 +29,7 @@ function SignUp() {
     const { email, password, nickname } = data;
 
     let body = {
-      eamil: email,
+      email: email,
       password: password,
       nickname: nickname,
     };

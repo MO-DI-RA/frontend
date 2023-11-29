@@ -8,7 +8,7 @@ import "../css/Login.css";
 import kakaoLogo from "../asset/kakaoLogo.png";
 import { useDispatch } from "react-redux";
 
-function Login({onClose}) {
+function Login() {
     const {changedLoggedIn} = useAuth();
     //react-hook-form 사용
     const navigate = useNavigate();
@@ -30,7 +30,6 @@ function Login({onClose}) {
 
         dispatch(actionCreators.loginDB(body));
         changedLoggedIn(true);
-        onClose(); //로그인 성공 시 모달창 닫기
         navigate("/Home");
     };
 
@@ -90,7 +89,6 @@ function Login({onClose}) {
                         회원가입 하러 가기{" "}
                     </NavLink>
                 </div>
-                <div className="closeBtn" onClick={onClose}> x     창 닫기 </div>
             </form>
         </div>
     );
