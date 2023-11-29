@@ -27,24 +27,38 @@ function AddGroup() {
   const groupInfo = location.state?.groupInfo;
   const [isEditMode, setIsEditMode] = useState(false);
 
+  const formatDate = (dateString) => {
+    if (!dateString) return ""; // 빈 문자열 혹은 null/undefined 처리
+
+    const date = new Date(dateString);
+    if (!isNaN(date.getTime())) {
+      // 유효한 날짜 값인 경우
+      return date.toISOString().split("T")[0];
+    } else {
+      // 유효하지 않은 날짜 값인 경우
+      return "";
+    }
+  };
+
   useEffect(() => {
     if (groupInfo) {
+      console.log(groupInfo);
       // 폼 필드를 groupInfo 데이터로 초기화
-      setDivision(groupInfo.division);
-      setHeadcnt(groupInfo.max_people);
-      setMethod(groupInfo.method);
-      setPeriod(groupInfo.period);
-      setType(groupInfo.tag);
-      setContact(groupInfo.contact);
-      setDeadline(groupInfo.deadline);
-      setTitle(groupInfo.title);
-      setSummary(groupInfo.summary);
-      setIntroduce(groupInfo.content);
+      setDivision(groupInfo.division || "");
+      setHeadcnt(groupInfo.max_people || "");
+      setMethod(groupInfo.method || "");
+      setPeriod(groupInfo.period || "0");
+      setType(groupInfo.tag || "");
+      setContact(groupInfo.contact || "");
+      setDeadline(groupInfo.deadline || "");
+      setTitle(groupInfo.title || "");
+      setSummary(groupInfo.summary || "");
+      setIntroduce(groupInfo.content || "");
 
       // 선택된 항목을 나타내는 상태도 업데이트
-      setActiveDivision(groupInfo.division);
-      setActiveMethod(groupInfo.method);
-      setActiveType(groupInfo.tag);
+      setActiveDivision(groupInfo.division || "");
+      setActiveMethod(groupInfo.method || "");
+      setActiveType(groupInfo.tag || "");
 
       setIsEditMode(true);
     }
@@ -233,7 +247,11 @@ function AddGroup() {
             </div>
             <div className="infoPost">
               <label htmlFor="headcnt"> 모집 인원 </label>
-              <select id="headcnt" onChange={handleHeadcntChange}>
+              <select
+                id="headcnt"
+                value={headcnt}
+                onChange={handleHeadcntChange}
+              >
                 {/* 인원 수 옵션 수정 필요 */}
                 <option value={0}> 인원미정 </option>
                 <option value={1}> 1명 </option>
@@ -267,12 +285,12 @@ function AddGroup() {
             </div>
             <div className="infoPost">
               <label htmlFor="period"> 진행 기간 </label>
-              <select id="period" onChange={handlePeriodChange}>
+              <select id="period" value={period} onChange={handlePeriodChange}>
                 {/* 기간 옵션 수정 필요 */}
-                <option value={0}> 기간 미정 </option>
-                <option value={1}> 1개월 </option>
-                <option value={2}> 2개월 </option>
-                <option value={12}> 12개월 </option>
+                <option value={"0"}> 기간 미정 </option>
+                <option value={"1"}> 1개월 </option>
+                <option value={"2"}> 2개월 </option>
+                <option value={"12"}> 12개월 </option>
               </select>
             </div>
             <div className="infoPost">
@@ -287,7 +305,11 @@ function AddGroup() {
             </div>
             <div className="infoPost">
               <label htmlFor="contact"> 연락 방법 </label>
-              <select id="contact" onChange={handleContactChange}>
+              <select
+                id="contact"
+                value={contact}
+                onChange={handleContactChange}
+              >
                 <option value={"카카오톡 오픈채팅"}> 카카오톡 오픈채팅 </option>
                 <option value={"이메일"}> 이메일 </option>
                 <option value={"네이버 폼"}> 네이버 폼 </option>
@@ -301,7 +323,7 @@ function AddGroup() {
                 id="deadline"
                 type="date"
                 onChange={handleDeadlineChange}
-                value={deadline}
+                value={formatDate(deadline)}
               />
             </div>
           </div>
@@ -314,6 +336,7 @@ function AddGroup() {
                   id="title"
                   type="text"
                   className="text"
+                  value={title}
                   placeholder="제목을 입력해주세요"
                   onChange={handleTitleChange}
                 />
@@ -324,6 +347,7 @@ function AddGroup() {
                   id="summary"
                   type="text"
                   className="text"
+                  value={summary}
                   placeholder="소모임을 한 줄로 설명해주세요"
                   onChange={handleSummaryChange}
                 />
@@ -337,7 +361,11 @@ function AddGroup() {
                 }}
               >
                 <label htmlFor="introduce"> 소모임 소개 </label>
-                <textarea id="introduce" onChange={handleIntroduceChange} />
+                <textarea
+                  id="introduce"
+                  value={introduce}
+                  onChange={handleIntroduceChange}
+                />
               </div>
             </div>
           </div>
