@@ -263,7 +263,7 @@ function QnAPage() {
         <div>
           {isModalOpen && <Modal closeModal={closeModal} />}
           <div className="qnaPage">
-            <div className="qnaEditContainer">
+            <div className="qnaInfoContainer">
               <img
                 src={goBack}
                 className="goBack"

@@ -196,3 +196,12 @@ input#qnaTitleEdit::placeholder {
 .qnaEditCompleteButton {
   width: 80%;
 }
+
+.qnaInfoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
