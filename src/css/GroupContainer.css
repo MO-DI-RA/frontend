@@ -1,99 +1,98 @@
 .Main_Group {
-    display: flex;
-    margin-left: 50px;
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 40px;
 }
 
 /* 컨테이너 모음 박스 */
 .Liked_Group {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 /* 각 컨테이너 박스 */
 .Group_Link > .groupContainer {
-    position: relative;
-    border-radius: 30px;
-    border: 1px solid #979292;
-    width: 300px;
-    height: 350px;
-    padding: 30px 20px;
-    margin: 10px 20px 10px 0px;
-    cursor: pointer;
+  position: relative;
+  border-radius: 30px;
+  border: 1px solid #979292;
+  width: 300px;
+  height: 350px;
+  padding: 30px 20px;
+  margin: 10px 20px 10px 0px;
+  cursor: pointer;
 }
 
 .Group_Link > .groupContainer:hover {
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 .title_INFO {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0px 10px 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0px 10px 10px;
 }
 
 /* 소모임 명 */
 .titleINFO > .title {
-    font-size: 22px;
-    font-weight: bold;
+  font-size: 22px;
+  font-weight: bold;
 }
 /* 마감기한 */
 .titleINFO > .deadline {
-    font-size: 13px;
-    margin-top: 10px;
-    color: #7b7b7b;
+  font-size: 13px;
+  margin-top: 10px;
+  color: #7b7b7b;
 }
 /* 분야 태그 */
 .title_INFO > .type {
-    background-color: #ffe4e4;
-    height: fit-content;
-    padding: 7px 15px;
-    border-radius: 30px;
+  background-color: #ffe4e4;
+  height: fit-content;
+  padding: 7px 15px;
+  border-radius: 30px;
 }
 /* 한 줄 요약 */
 .groupContainer > .summary {
-    padding: 30px 10px;
-    margin-bottom: 20px;
+  padding: 30px 10px;
+  margin-bottom: 20px;
 }
 
 .groupContainer > .profileINFO {
-    position: absolute;
-    bottom: 20px;
-    left: 30px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 /* 프로필 이미지 */
 .profileINFO > .profile_IMG {
-    width: 30px;
-    width: 30px;
-    border-radius: 50%;
-    object-fit: cover;
+  width: 30px;
+  width: 30px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 /* 선택된 소모임 컴포넌트 */
 .groupContainer.selected {
-    /* 선택된 컴포넌트에 대한 스타일 지정 */
-    box-shadow: 0px 0px 10px 0px #343434;
-    color: #000000;
-    background-color: #dfeedc59;
+  /* 선택된 컴포넌트에 대한 스타일 지정 */
+  box-shadow: 0px 0px 10px 0px #343434;
+  color: #000000;
+  background-color: #dfeedc59;
 }
 
 /* 수정하기 버튼 */
 .LikeModifyBtn {
-    background-color: #aec0ac;
-    color: #ffffff;
-    height: 65px;
-    width: 295px;
-    border-radius: 15px;
-    font-size: 20px;
-    border: none;
-    margin: 30px auto;
-    cursor: pointer;
+  background-color: #aec0ac;
+  color: #ffffff;
+  height: 65px;
+  width: 295px;
+  border-radius: 15px;
+  font-size: 20px;
+  border: none;
+  margin: 30px auto;
+  cursor: pointer;
 }
