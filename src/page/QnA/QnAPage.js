@@ -9,11 +9,14 @@ import Comment from "../../component/Comment";
 
 function QnAPage() {
   const navigate = useNavigate();
+  
+  const token = localStorage.getItem("access-token");
+  const { id } = useParams();
+  let headersString = token ? `Bearer ${token}` : "";
+
   const [questionData, setQuestionData] = useState(null);
   const [answer, setAnswer] = useState("");
   const [resolve, setResolve] = useState(false);
-  const token = localStorage.getItem("access-token");
-  const { id } = useParams();
 
   const [editMode, setEditMode] = useState(false); // 수정 모드 상태
   const [editedTitle, setEditedTitle] = useState(""); // 수정된 제목
@@ -26,8 +29,14 @@ function QnAPage() {
   const [commentInputs, setCommentInputs] = useState({});
 
   useEffect(() => {
-    axios
-      .get(`http://127.0.0.1:8000/qna/posts/${id}`)
+    axios({
+      method : "GET",
+      url : `http://127.0.0.1:8000/qna/posts/${id}/`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: headersString,
+    },
+    })
       .then((response) => {
         setQuestionData(response.data);
         setResolve(response.data.status); //서버에서 받은 status가 참이면 해결 상태로 설정

@@ -11,7 +11,9 @@ function GroupPage() {
     const navigate = useNavigate();
     const { id } = useParams();
     const commentUrl = `http://127.0.0.1:8000/gathering/posts/${id}/comments/`;
+
     let headersString = token ? `Bearer ${token}` : "";
+
     //소모임 상세 정보
     const [groupInfo, setGroupInfo] = useState({});
 
@@ -49,6 +51,7 @@ function GroupPage() {
                     contact,
                     summary,
                     like_status,
+                    period,
                 } = res.data;
                 setGroupInfo({
                     id: id, //id
@@ -66,6 +69,7 @@ function GroupPage() {
                     method: method, //진행방식
                     contact: contact, // 연락 방법
                     like_status: like_status, //관심등록
+                    period : period,// 진행 기간
                 });
                 setRecruiting(res.data.status); // 서버로부터 받은 status 값으로 recruiting 상태 업데이트
                 setLiked(res.data.like_status);
@@ -84,12 +88,13 @@ function GroupPage() {
 
         axios({
             method: "PUT",
-            url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
-            data: {
-                status: newStatus,
-            },
+            url: `http://127.0.0.1:8000/gathering/posts/${id}/toggle/`,
+            // data: {
+            //     status: newStatus,
+            // },
             headers: {
                 "Content-Type": "application/json",
+                Authorization : `Bearer ${token}`,
             },
         })
             .then(res => {
@@ -217,7 +222,7 @@ function GroupPage() {
                     </div>
                     <div className="rowLayout">
                         <p className="groupInfoLabel">모집 인원</p>
-                        <p className="groupInfoValue">{groupInfo.max_people}</p>
+                        <p className="groupInfoValue">{groupInfo.max_people}명</p>
                     </div>
                     <div className="rowLayout">
                         <p className="groupInfoLabel">연락 방법</p>
@@ -233,7 +238,7 @@ function GroupPage() {
                     </div>
                     <div className="rowLayout">
                         <p className="groupInfoLabel">진행 기간</p>
-                        <p className="groupInfoValue">{groupInfo.period}</p>
+                        <p className="groupInfoValue">{groupInfo.period}개월</p>
                     </div>
                 </div>
 
