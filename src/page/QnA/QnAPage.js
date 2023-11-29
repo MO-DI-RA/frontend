@@ -38,6 +38,19 @@ function QnAPage() {
     setIsModalOpen(false);
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return ""; // 빈 문자열 혹은 null/undefined 처리
+
+    const date = new Date(dateString);
+    if (!isNaN(date.getTime())) {
+      // 유효한 날짜 값인 경우
+      return date.toISOString().split("T")[0];
+    } else {
+      // 유효하지 않은 날짜 값인 경우
+      return "";
+    }
+  };
+
   useEffect(() => {
     axios({
       method: "GET",
@@ -272,7 +285,7 @@ function QnAPage() {
               </div>
             </div>
             <div className="userInfo">
-              <p>{questionData.created_at}</p>
+              <p>{formatDate(questionData.created_at)}</p>
               {/* <p>작성일자</p> */}
             </div>
             <div className="userInfo">
@@ -324,7 +337,7 @@ function QnAPage() {
                     alt="Profile"
                   />
                   <p>{answer.author_nickname}</p>
-                  <p>{answer.created_at}</p>
+                  <p>{formatDate(answer.created_at)}</p>
                 </div>
                 <p className="answerContent">{answer.content}</p>
                 <button

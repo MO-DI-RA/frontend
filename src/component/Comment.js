@@ -70,6 +70,20 @@ function Comment({ url, type }) {
     color: "black",
     wordBreak: "break-word",
   };
+
+  const formatDate = (dateString) => {
+    if (!dateString) return ""; // 빈 문자열 혹은 null/undefined 처리
+
+    const date = new Date(dateString);
+    if (!isNaN(date.getTime())) {
+      // 유효한 날짜 값인 경우
+      return date.toISOString().split("T")[0];
+    } else {
+      // 유효하지 않은 날짜 값인 경우
+      return "";
+    }
+  };
+
   return (
     <div>
       {comments.map((comment, index) => (
@@ -91,7 +105,7 @@ function Comment({ url, type }) {
             />
             <div style={commentInfoStyle}>
               <div style={commentWriterStyle}>{comment.writer}</div>
-              <div>{comment.created_at}</div>
+              <div>{formatDate(comment.created_at)}</div>
               <div style={commentContentStyle}>{comment.content}</div>
             </div>
           </div>

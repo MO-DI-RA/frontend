@@ -33,6 +33,19 @@ function GroupPage() {
   //관심설정 표시
   const [liked, setLiked] = useState();
 
+  const formatDate = (dateString) => {
+    if (!dateString) return ""; // 빈 문자열 혹은 null/undefined 처리
+
+    const date = new Date(dateString);
+    if (!isNaN(date.getTime())) {
+      // 유효한 날짜 값인 경우
+      return date.toISOString().split("T")[0];
+    } else {
+      // 유효하지 않은 날짜 값인 경우
+      return "";
+    }
+  };
+
   useEffect(() => {
     axios({
       method: "GET",
@@ -253,7 +266,7 @@ function GroupPage() {
           </div>
           <div className="rowLayout">
             <p className="groupInfoLabel">모집 마감일</p>
-            <p className="groupInfoValue"> {groupInfo.deadline} </p>
+            <p className="groupInfoValue"> {formatDate(groupInfo.deadline)} </p>
           </div>
           <div className="rowLayout">
             <p className="groupInfoLabel">진행 기간</p>
