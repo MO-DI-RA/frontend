@@ -70,7 +70,7 @@ const signupDB = body => {
             })
             .catch(error => {
                 console.log(error);
-                console.log("body :" , body);
+                console.log("body :", body);
             });
     };
 };
@@ -88,7 +88,7 @@ const logoutDB = () => {
 // 로그인 유지
 const loginCheckDB = () => {
     return function (dispatch) {
-        const token = localStorage.getItem("access-token");
+        const token = localStorage.getItem("refresh-token");
         console.log(token);
         const body = { token: token };
         axios
