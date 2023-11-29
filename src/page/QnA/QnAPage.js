@@ -17,6 +17,7 @@ function QnAPage() {
 
   const [editMode, setEditMode] = useState(false); // 수정 모드 상태
   const [editedTitle, setEditedTitle] = useState(""); // 수정된 제목
+  const [editedSummary, setEditedSummary] = useState(""); // 수정된 요약
   const [editedContent, setEditedContent] = useState(""); // 수정된 내용
 
   //관심설정 표시
@@ -72,11 +73,9 @@ function QnAPage() {
   const startEdit = () => {
     //수정 시작할때 초기 값(원래 내용)
     setEditedTitle(questionData.title);
+    setEditedSummary(questionData.summary);
     setEditedContent(questionData.content);
     setEditMode(true);
-    // setEditedTitle("원래 제목");
-    // setEditedContent("원래 내용");
-    // setEditMode(true);
   };
 
   const submitEdit = () => {
@@ -91,6 +90,7 @@ function QnAPage() {
       data: {
         title: editedTitle,
         content: editedContent,
+        summary: editedSummary,
       },
     };
 
@@ -101,8 +101,10 @@ function QnAPage() {
         setQuestionData({
           ...questionData,
           title: editedTitle,
+          summary: editedSummary,
           content: editedContent,
         });
+        navigate(`/QnAPage/${id}/`);
         setEditMode(false); // 수정 모드 종료
       })
       .catch((error) => console.error(error));
@@ -198,6 +200,12 @@ function QnAPage() {
               type="text"
               value={editedTitle}
               onChange={(e) => setEditedTitle(e.target.value)}
+            />
+            <input
+              className="qnaSummaryEdit"
+              type="text"
+              value={editedSummary}
+              onChange={(e) => setEditedSummary(e.target.value)}
             />
             <textarea
               className="qusetionContentEdit"
