@@ -110,7 +110,7 @@ function QnAPage() {
 
   const submitAnswer = () => {
     const options = {
-      url: "http://127.0.0.1:8000/qna/answers/", // 답변 등록 URL
+      url: `http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/`, // 답변 등록 URL
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -118,7 +118,7 @@ function QnAPage() {
         Authorization: `Bearer ${token}`,
       },
       data: {
-        questionId: questionData.id,
+        // questionId: questionData.id,
         content: answer,
       },
     };
