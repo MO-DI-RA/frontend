@@ -149,6 +149,7 @@ function AddGroup() {
       axios(options)
         .then((response) => {
           console.log("Update successful", response);
+          navigate(`/GroupPage/${groupInfo.id}/`);
         })
         .catch((error) => {
           console.error("Error updating data", error);
