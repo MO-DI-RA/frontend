@@ -97,9 +97,9 @@ function Header() {
         ) : (
           // 로그인되지 않은 상태일 때
           <>
-            <div href="/login" className="link">
+            <a href="/login" className="link">
               로그인
-            </div>
+            </a>
             <a href="/Signup" className="link">
               회원가입
             </a>
