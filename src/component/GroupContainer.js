@@ -30,7 +30,7 @@ function GroupContainer({ method, url, headers, modify }) {
   };
 
   useEffect(() => {
-    // console.log("group컨테이너 url :", url);
+    console.log("group컨테이너 url :", url);
     axios({
       method: method,
       url: url,
