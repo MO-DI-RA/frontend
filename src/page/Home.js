@@ -7,223 +7,210 @@ import QnAContainer from "../component/QnAContainer";
 import "../css/Home.css";
 
 function Home() {
-  //소모임, Q&A 화면 렌더링 -> 소모임이면 true, Q&A이면 false
-  const [isGroup, setIsGroup] = useState(true);
+    //소모임, Q&A 화면 렌더링 -> 소모임이면 true, Q&A이면 false
+    const [isGroup, setIsGroup] = useState(true);
 
-  //전송 데이터 폼
-  const method = "GET"; //method
-  const [url, setUrl] = useState("http://localhost:8000/gathering/posts/"); //url 설정
-  // axios 요청 header
-  const headers = {
-    "Content-Type": "application/json",
-  };
+    //전송 데이터 폼
+    const method = "GET"; //method
+    const [url, setUrl] = useState("http://localhost:8000/gathering/posts/"); //url 설정
+    // axios 요청 header
+    const headers = {
+        "Content-Type": "application/json",
+    };
 
-  //소모임 컨테이너
-  const clickGroup = () => {
-    setIsGroup(true);
-    setUrl("http://localhost:8000/gathering/posts/");
-  };
+    //소모임 컨테이너
+    const clickGroup = () => {
+        setIsGroup(true);
+        setUrl("http://localhost:8000/gathering/posts/");
+    };
 
-  // Q&A 컨테이너
-  const clickQnA = () => {
-    setIsGroup(false);
-    setUrl("http://localhost:8000/qna/posts/");
-  };
+    // Q&A 컨테이너
+    const clickQnA = () => {
+        setIsGroup(false);
+        setUrl("http://localhost:8000/qna/posts/");
+    };
 
-  //검색
-  const updateSearchURL = (newURL) => {
-    setUrl(newURL);
-  };
+    //검색
+    const updateSearchURL = newURL => {
+        setUrl(newURL);
+    };
 
-  return (
-    <div className="home_page">
-      <Banner />
-      <div className="nav">
-        <button
-          className="group"
-          onClick={clickGroup}
-          style={{ cursor: "pointer" }}>
-          {" "}
-          소모임{" "}
-        </button>
-        <button
-          href="/"
-          className="qna"
-          onClick={clickQnA}
-          style={{ cursor: "pointer" }}>
-          Q&A{" "}
-        </button>
-      </div>
-      <div className="groupList" style={{ marginTop: "30px" }}>
-        {isGroup ? (
-          <div className="home-Container">
-            <Search isGroup={isGroup} updateSearchURL={updateSearchURL} />
-            <div style={{ marginLeft: "3%", marginBottom: "100px" }}>
-              <GroupContainer
-                method={method}
-                url={url}
-                headers={headers}
-                modify={false}
-              />
+    return (
+        <div className="home_page">
+            <Banner />
+            <div className="nav">
+                <button
+                    className="group"
+                    onClick={clickGroup}
+                    style={{ cursor: "pointer" }}
+                >
+                    {" "}
+                    소모임{" "}
+                </button>
+                <button
+                    href="/"
+                    className="qna"
+                    onClick={clickQnA}
+                    style={{ cursor: "pointer" }}
+                >
+                    Q&A{" "}
+                </button>
             </div>
-          </div>
-        ) : (
-          <div className="home-Container">
-            <Search isGroup={isGroup} updateSearchURL={updateSearchURL} />
-            <div style={{ marginLeft: "10%" }}>
-              <QnAContainer
-                method={method}
-                url={url}
-                headers={headers}
-                modify={false}
-              />
+            <div className="groupList" style={{ marginTop: "30px" }}>
+                {isGroup ? (
+                    <div className="home-Container">
+                        <Search
+                            isGroup={isGroup}
+                            updateSearchURL={updateSearchURL}
+                        />
+                        <div
+                            style={{ marginLeft: "3%", marginBottom: "100px" }}
+                        >
+                            <GroupContainer
+                                method={method}
+                                url={url}
+                                headers={headers}
+                                modify={false}
+                            />
+                        </div>
+                    </div>
+                ) : (
+                    <div className="home-Container">
+                        <Search
+                            isGroup={isGroup}
+                            updateSearchURL={updateSearchURL}
+                        />
+                        <div style={{ marginLeft: "10%" }}>
+                            <QnAContainer
+                                method={method}
+                                url={url}
+                                headers={headers}
+                                modify={false}
+                            />
+                        </div>
+                    </div>
+                )}
             </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+        </div>
+    );
 }
 
 export default Home;
 
 export function Search({ isGroup, updateSearchURL }) {
-  const [all, setAll] = useState(true); // ALL 선택
-  const [title, setTitle] = useState(""); // 키워드 검색
-  const [ing, setIng] = useState(true); // 모집중 검색
-  const [tag, setTag] = useState(""); //태그 검색
-  const [typeDropdownOpen, setTypeDropdownOpen] = useState(false); // 타입 검색 드롭다운
-  const [activeType, setActiveType] = useState(""); //타입 버튼 선택 css
+    const [all, setAll] = useState(true);
+    const [title, setTitle] = useState("");
+    const [ing, setIng] = useState(true);
+    const [tag, setTag] = useState("");
+    const [typeDropdownOpen, setTypeDropdownOpen] = useState(false);
+    const [activeType, setActiveType] = useState("");
 
-  const [searchUrl, setSearchUrl] = useState(
-    `http://localhost:8000/gathering/posts/search?title=${title}&tag=${tag}&status=${!ing}`
-  );
+    // URL 업데이트 로직을 useEffect로 이동
+    useEffect(() => {
+        let statusUrl = ing ? "" : "false";
+        console.log(isGroup);
+        let newUrl = isGroup
+            ? `http://localhost:8000/gathering/posts/search?title=${title}&tag=${tag}&status=${statusUrl}`
+            : `http://localhost:8000/qna/posts/search?title=${title}`;
+        console.log(newUrl);
+        updateSearchURL(newUrl);
+    }, [ing, title, tag, isGroup, updateSearchURL]); // 의존성 배열에 isGroup, updateSearchURL 추가
 
-  useEffect(() => {}, [all, title, ing, tag, searchUrl]);
+    useEffect(() => {
+        setTitle("");
+        setTag("");
+        setAll(true);
+        setTypeDropdownOpen(false);
+        setActiveType("");
+        setIng(true);
+    }, [isGroup]);
 
-  // 폼 제출
-  const handleURLChange = (e) => {
-    e.preventDefault();
-    // console.log("실행");
-    // console.log("검색:", searchUrl);
-    updateSearchURL(searchUrl);
-    setTitle("");
-  };
+    const handleAllChange = e => {
+        e.preventDefault();
+        setAll(!all);
+        setTypeDropdownOpen(!typeDropdownOpen);
+        setTag(""); // 태그 상태 초기화
+        // setSearchUrl 로직 제거
+    };
 
-  //ALL 버튼 선택
-  const handleAllChange = (e) => {
-    e.preventDefault();
-    setAll(!all);
-    setTypeDropdownOpen(!typeDropdownOpen); //드롭다운
-    setSearchUrl(
-      `http://localhost:8000/gathering/posts/search?title=&tag=&status=`
-    );
-    // console.log("ALL 버튼 URL: ", searchUrl);
-    if (!all) {
-      // console.log("ALL(true) URL: ", searchUrl);
-      handleURLChange(e);
-    }
-  };
+    const handleTagChange = e => {
+        e.preventDefault();
+        const newTag = e.target.value;
+        setActiveType(newTag);
+        setTag(newTag);
+    };
 
-  //Type 버튼 선택
-  const handleTagChange = (e) => {
-    e.preventDefault();
-    const newTag = e.target.value;
-    // console.log("target value : ", newTag);
-    setActiveType(newTag);
-    setSearchUrl(
-      `http://localhost:8000/gathering/posts/search?title=&tag=${newTag}&status=`
-    );
-    // console.log("타겟 벨류:", tag);
-    // console.log("태그 검색 URL : ", searchUrl);
-    handleURLChange(e);
-  };
+    const handleTitleChange = e => {
+        // e.preventDefault();
+        const newTitle = e.target.value;
+        console.log("title", newTitle);
+        setTitle(newTitle);
+    };
 
-  // 키워드 검색
-  const handleTitleChange = (e) => {
-    e.preventDefault();
-    const newTitle = e.target.value;
-    setTitle(newTitle);
-    if (isGroup) {
-      setSearchUrl(
-        `http://localhost:8000/gathering/posts/search?title=${newTitle}&tag=&status=`
-      );
-    } else {
-      setSearchUrl(
-        `http://localhost:8000/qna/posts/search?title=${newTitle}&tag=&status=`
-      );
-    }
-  };
+    const handleStatusChange = e => {
+        e.preventDefault();
+        setIng(!ing);
+    };
 
-  // 모집중 검색
-  const handleStatusChange = async (e) => {
-    e.preventDefault();
-    let newStatus = !ing; // Toggle the value
-    setIng(newStatus);
-    console.log("상태", newStatus);
-    console.log("ing 상태", ing);
-    if (ing) {
-      setSearchUrl(
-        `http://localhost:8000/gathering/posts/search?title=&tag=&status=`
-      );
-    } else {
-      setSearchUrl(
-        `http://localhost:8000/gathering/posts/search?title=&tag=&status=false`
-      );
-    }
-    await handleURLChange(e);
-  };
+    const handleSubmit = e => {
+        e.preventDefault(); // 폼 제출 방지
+        // 필요한 경우, 여기에 추가적인 로직을 구현
+    };
 
-  return (
-    <div>
-      {isGroup ? (
-        <div className="search-container">
-          <form className="group_search" onSubmit={handleURLChange}>
-            <div className="search-form">
-              <div className="search-group">
-                <button type="button" onClick={handleAllChange} className="all">
-                  {" "}
-                  ALL{" "}
-                </button>
-                <div className="type-dropdown">
-                  {typeDropdownOpen ? (
-                    <TypeBtn
-                      handleChange={handleTagChange}
-                      activeType={activeType}
-                    />
-                  ) : null}
+    return (
+        <div>
+            {isGroup ? (
+                <div className="search-container">
+                    <form className="group_search" onSubmit={handleSubmit}>
+                        <div className="search-form">
+                            <div className="search-group">
+                                <button
+                                    type="button"
+                                    onClick={handleAllChange}
+                                    className="all"
+                                >
+                                    ALL
+                                </button>
+                                <div className="type-dropdown">
+                                    {typeDropdownOpen ? (
+                                        <TypeBtn
+                                            handleChange={handleTagChange}
+                                            activeType={activeType}
+                                        />
+                                    ) : null}
+                                </div>
+                            </div>
+                            <button
+                                onClick={handleStatusChange}
+                                className={!ing ? "ingTrue" : "ingFalse"}
+                                type="button"
+                            >
+                                모집중
+                            </button>
+                        </div>
+                        <input
+                            id="search-keyword"
+                            type="text"
+                            className="keyword"
+                            placeholder="원하는 소모임을 검색해보세요"
+                            onChange={handleTitleChange}
+                            value={title}
+                        />
+                    </form>
                 </div>
-              </div>
-              <button
-                onClick={handleStatusChange}
-                className={!ing ? "ingTrue" : "ingFalse"}>
-                {" "}
-                모집중
-              </button>
-            </div>
-            <input
-              id="search-keyword"
-              type="text"
-              className="keyword"
-              placeholder="원하는 소모임을 검색해보세요"
-              onChange={handleTitleChange}
-              value={title}
-            />
-          </form>
+            ) : (
+                <div className="QnAList">
+                    <form className="qna_serach" onSubmit={handleSubmit}>
+                        <input
+                            id="keyword"
+                            type="text"
+                            className="keyword"
+                            placeholder="궁금한 질문을 검색해보세요"
+                            onChange={handleTitleChange}
+                        />
+                    </form>
+                </div>
+            )}
         </div>
-      ) : (
-        <div className="QnAList">
-          <form className="qna_serach" onSubmit={handleURLChange}>
-            <input
-              id="keyword"
-              type="text"
-              className="keyword"
-              placeholder="궁금한 질문을 검색해보세요"
-              onChange={handleTitleChange}
-            />
-          </form>
-        </div>
-      )}
-    </div>
-  );
+    );
 }
