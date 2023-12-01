@@ -40,6 +40,12 @@ function Login() {
     window.location.href = link;
   };
 
+  //회원가입 하러 가기
+  const goSignup = () => {
+    navigate("/Signup");
+    window.location.reload();
+  };
+
   return (
     <div className="Login">
       <h2 className="welcome">
@@ -75,10 +81,10 @@ function Login() {
         </button>
         <div className="notUser">
           아직 회원이 아니신가요?{" "}
-          <NavLink to="/Signup" className="goSignup">
+          <button className="goSignup" type="button" onClick={goSignup}>
             {" "}
             회원가입 하러 가기
-          </NavLink>
+          </button>
         </div>
       </form>
     </div>
