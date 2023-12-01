@@ -93,7 +93,7 @@ function QnAPage() {
         }
       )
       .then((response) => {
-        console.log(response);
+        // console.log(response);
       })
       .catch((error) => {
         console.error(error);
@@ -131,7 +131,7 @@ function QnAPage() {
 
     axios(options)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         // 수정 후 필요한 동작 수행
         setQuestionData({
           ...questionData,
@@ -166,7 +166,7 @@ function QnAPage() {
 
     axios(options)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         // 새로운 답변을 questionData.answers 배열에 추가
         setQuestionData({
           ...questionData,
@@ -193,7 +193,7 @@ function QnAPage() {
           },
         })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           window.location.href = "/Home"; // 삭제 후 홈으로
         })
         .catch((error) => {
@@ -219,7 +219,7 @@ function QnAPage() {
       },
     })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         if (liked) {
           setLiked(false);
           alert("관심 해제 되었습니다.");
@@ -274,9 +274,8 @@ function QnAPage() {
     } else {
       const isAuthor =
         Number(localStorage.getItem("user_id")) === questionData.author_id;
-      console.log(localStorage.getItem("user_id"), questionData.author_id);
-      console.log("-------", questionData);
-      console.log("제발", isAuthor);
+      // console.log(localStorage.getItem("user_id"), questionData.author_id);
+      // console.log("-------", questionData);
       // const disableButton = isAuthor ? {} : { disabled: "disabled" };
       const editButtonStyle = isAuthor ? {} : { display: "none" };
       return (

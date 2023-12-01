@@ -51,7 +51,7 @@ function CommentInput({ postUrl, openModal }) {
 
     axios(options)
       .then((response) => {
-        console.log(response);
+        //    console.log (response);
         window.location.reload();
       })
       .catch((error) => {

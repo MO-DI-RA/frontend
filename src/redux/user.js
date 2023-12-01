@@ -40,7 +40,7 @@ const loginDB = (body, navigate) => {
           })
         );
         const is_login = res.data.token.access;
-        console.log("access-token : ", res.data.token.access);
+        // console.log("access-token : ", res.data.token.access);
         localStorage.setItem("access-token", res.data.token.access);
         localStorage.setItem("refresh-token", res.data.token.refresh);
         let token = res.data.token.access;
@@ -49,8 +49,8 @@ const loginDB = (body, navigate) => {
           token.lastIndexOf(".")
         );
         let dec = JSON.parse(base64.decode(payload));
-        console.log(dec);
-        console.log("decode : ", dec["user_id"]);
+        // console.log(dec);
+        // console.log("decode : ", dec["user_id"]);
         localStorage.setItem("user_id", dec["user_id"]); //user_id 토큰 까봐야함
         setCookie("is_login", `${is_login}`);
         // alert("로그인 성공");
@@ -70,9 +70,9 @@ const signupDB = (body, navigate) => {
     axios
       .post("http://localhost:8000/user/signup/", body)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         navigate("/Home");
-        console.log("body : ", body);
+        // console.log("body : ", body);
       })
       .catch((error) => {
         alert("Email 중복입니다.");
@@ -95,7 +95,7 @@ const logoutDB = () => {
 const loginCheckDB = () => {
   return function (dispatch) {
     const token = localStorage.getItem("refresh-token");
-    console.log(token);
+    // console.log(token);
     const body = { token: token };
     axios
       .post("http://127.0.0.1:8000/user/verify/", body, {
@@ -106,7 +106,7 @@ const loginCheckDB = () => {
       .then((res) => {
         const is_login = res.data.token.access;
         setCookie("is_login", `${is_login}`);
-        console.log("0-------------------");
+        // console.log("0-------------------");
       })
       .catch((error) => {
         if (
@@ -146,27 +146,6 @@ export default handleActions(
   initialState
 );
 
-//카카오 로그인
-// const kakaoLogin = async (code) => {
-//   return async function (dispatch, getState) {
-//     await axios({
-//       method: "GET",
-//       url: `http://localhost:8000/user/kakao/login/?code=${code}`,
-//     })
-//       .then((res) => {
-//         console.log("--------------------------------------------------", res); //콘솔 확인
-//         const ACCESS_TOKEN = res.data.accessToken;
-//         localStorage.setItem("ACCESS_token", ACCESS_TOKEN); //로컬에 토큰 저장
-//         // window.location.href = "/Home"; //홈화면으로 이동
-//       })
-//       .catch((err) => {
-//         console.log("소셜로그인 에러", err);
-//         window.alert("소셜로그인 실패");
-//         // window.location.href = "/login"; //로그인 화면으로 복귀
-//       });
-//   };
-// };
-
 export const actionCreators = {
   logOut,
   getUser,
@@ -174,5 +153,4 @@ export const actionCreators = {
   signupDB,
   loginCheckDB,
   logoutDB,
-  // kakaoLogin,
 };

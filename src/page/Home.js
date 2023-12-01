@@ -100,15 +100,15 @@ export function Search({ isGroup, updateSearchURL }) {
   );
 
   useEffect(() => {
-    console.log("Updated state values:", { all, title, ing, tag });
-    console.log("Updated searchUrl: ", searchUrl);
+    // console.log("Updated state values:", { all, title, ing, tag });
+    // console.log("Updated searchUrl: ", searchUrl);
   }, [all, title, ing, tag, searchUrl]);
 
   // 폼 제출
   const handleURLChange = (e) => {
     e.preventDefault();
-    console.log("실행");
-    console.log("검색:", searchUrl);
+    // console.log("실행");
+    // console.log("검색:", searchUrl);
     updateSearchURL(searchUrl);
     setTitle("");
   };
@@ -121,9 +121,9 @@ export function Search({ isGroup, updateSearchURL }) {
     setSearchUrl(
       `http://localhost:8000/gathering/posts/search?title=&tag=&status=`
     );
-    console.log("ALL 버튼 URL: ", searchUrl);
+    // console.log("ALL 버튼 URL: ", searchUrl);
     if (!all) {
-      console.log("ALL(true) URL: ", searchUrl);
+      // console.log("ALL(true) URL: ", searchUrl);
       handleURLChange(e);
     }
   };
@@ -132,13 +132,13 @@ export function Search({ isGroup, updateSearchURL }) {
   const handleTagChange = (e) => {
     e.preventDefault();
     const newTag = e.target.value;
-    console.log("target value : ", newTag);
+    // console.log("target value : ", newTag);
     setActiveType(newTag);
     setSearchUrl(
       `http://localhost:8000/gathering/posts/search?title=&tag=${newTag}&status=`
     );
-    console.log("타겟 벨류:", tag);
-    console.log("태그 검색 URL : ", searchUrl);
+    // console.log("타겟 벨류:", tag);
+    // console.log("태그 검색 URL : ", searchUrl);
     handleURLChange(e);
   };
 
@@ -163,7 +163,7 @@ export function Search({ isGroup, updateSearchURL }) {
     e.preventDefault();
     let newStatus = !ing; // Toggle the value
     setIng(newStatus);
-    console.log("상태", newStatus);
+    // console.log("상태", newStatus);
     if (ing) {
       setSearchUrl(
         `http://localhost:8000/gathering/posts/search?title=&tag=&status=`

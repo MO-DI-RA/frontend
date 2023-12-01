@@ -42,7 +42,7 @@ function AddGroup() {
 
   useEffect(() => {
     if (groupInfo) {
-      console.log(groupInfo);
+      // console.log(groupInfo);
       // 폼 필드를 groupInfo 데이터로 초기화
       setDivision(groupInfo.division || "");
       setHeadcnt(groupInfo.max_people || "");
@@ -134,16 +134,16 @@ function AddGroup() {
       content: introduce,
     };
 
-    console.log(division);
-    console.log(headcnt);
-    console.log(method);
-    console.log(period);
-    console.log(type);
-    console.log("여기 ", contact);
-    console.log(deadline);
-    console.log(title);
-    console.log(summary);
-    console.log(introduce);
+    // console.log(division);
+    // console.log(headcnt);
+    // console.log(method);
+    // console.log(period);
+    // console.log(type);
+    // console.log("여기 ", contact);
+    // console.log(deadline);
+    // console.log(title);
+    // console.log(summary);
+    // console.log(introduce);
     if (division === "") alert("구분을 입력하세요");
 
     // 토큰 가져오기
@@ -162,7 +162,7 @@ function AddGroup() {
       };
       axios(options)
         .then((response) => {
-          console.log("Update successful", response);
+          // console.log("Update successful", response);
           navigate(`/GroupPage/${groupInfo.id}/`);
         })
         .catch((error) => {
@@ -195,7 +195,7 @@ function AddGroup() {
       axios(options)
         .then((response) => {
           // 서버가 준 새 소모임의 ID
-          console.log(response);
+          // console.log(response);
           navigate(`/GroupPage/${response.data.id}/`); // 새 소모임의 상세 페이지로 이동
         })
         .catch((error) => {

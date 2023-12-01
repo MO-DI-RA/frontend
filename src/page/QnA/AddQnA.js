@@ -31,7 +31,7 @@ function AddQnA() {
     axios(options)
       .then((response) => {
         // 서버가 준 새 Q&A의 ID
-        console.log(response);
+        // console.log(response);
         navigate(`/QnAPage/${response.data.id}`); // 새 Q&A의 상세 페이지로 이동
       })
       .catch((error) => console.error(error));
@@ -56,14 +56,12 @@ function AddQnA() {
             placeholder="제목을 작성해주세요"
             required
             value={qnaTitle}
-            onChange={(e) => setQnaTitle(e.target.value)}
-          ></input>
+            onChange={(e) => setQnaTitle(e.target.value)}></input>
           <textarea
             className="qusetionContent"
             required
             value={questionContent}
-            onChange={(e) => setQuestionContent(e.target.value)}
-          ></textarea>
+            onChange={(e) => setQuestionContent(e.target.value)}></textarea>
           <div className="registerQnAButtons">
             <button className="cancelButton" onClick={handleCancel}>
               취소하기

@@ -14,9 +14,9 @@ function Comment({ url, type }) {
       },
     })
       .then((response) => {
-        console.log("데이터 : ", response.data);
+        // console.log("데이터 : ", response.data);
         setComments(response.data);
-        console.log("댓글 내용: ", comments);
+        // console.log("댓글 내용: ", comments);
       })
       .catch((error) => console.error(error));
   }, [url]);
@@ -93,8 +93,7 @@ function Comment({ url, type }) {
             alignItems: "center",
             marginLeft: type === "group" ? "60px" : "40px",
           }}
-          key={index}
-        >
+          key={index}>
           {type !== "group" && <img src={comment_mark}></img>}
           <div className="comment" key={index} style={commentContainerStyle}>
             <img
