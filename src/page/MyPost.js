@@ -39,13 +39,13 @@ function MyPost() {
     if (buttonName === "myPostGroup") {
       setUrl(`http://127.0.0.1:8000/gathering/posts/myposts/`);
       setIsGroup(true); //소모임 컨테이너 렌더링
-      console.log("내가 작성한 글 소모임");
-      console.log("내가 작성한 글 URL : ", url);
+      // console.log("내가 작성한 글 소모임");
+      // console.log("내가 작성한 글 URL : ", url);
     } else if (buttonName === "myPostQnA") {
       setUrl(`http://127.0.0.1:8000/qna/posts/myposts/`);
       setIsGroup(false); //QnA 컨테이너 렌더링
-      console.log("내가 작성한 글 QNA");
-      console.log("내가 작성한 글 URL : ", url);
+      // console.log("내가 작성한 글 QNA");
+      // console.log("내가 작성한 글 URL : ", url);
     }
   };
 

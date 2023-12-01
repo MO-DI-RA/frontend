@@ -9,7 +9,6 @@ import kakaoLogo from "../asset/kakaoLogo.png";
 import { useDispatch } from "react-redux";
 
 function Login() {
-    const {changedLoggedIn} = useAuth();
     //react-hook-form 사용
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -17,7 +16,7 @@ function Login() {
 
     //Submit
     const onSubmit = async data => {
-        console.log(data); //콘솔 확인
+        // console.log(data); //콘솔 확인
 
         const { email, password } = data;
 
@@ -26,11 +25,9 @@ function Login() {
             password: password,
         };
 
-        console.log("body", body);
+        // console.log("body", body);
 
-        dispatch(actionCreators.loginDB(body));
-        changedLoggedIn(true);
-        navigate("/Home");
+        dispatch(actionCreators.loginDB(body, navigate));
     };
 
     //kakao 로그인
@@ -41,6 +38,12 @@ function Login() {
     //kakao login
     const kakaoLogin = () => {
         window.location.href = link;
+    };
+
+    //회원가입 하러 가기
+    const goSignup = () => {
+        navigate("/Signup");
+        window.location.reload();
     };
 
     return (
@@ -67,7 +70,9 @@ function Login() {
                         required: true,
                     })}
                 />
-                <button id="loginButton">LOG IN</button>
+                <button id="loginButton" type="submit">
+                    LOG IN
+                </button>
                 <button
                     id="kakaoLoginButton"
                     type="button"
@@ -84,10 +89,14 @@ function Login() {
                 </button>
                 <div className="notUser">
                     아직 회원이 아니신가요?{" "}
-                    <NavLink to="/Signup" className="goSignup">
+                    <button
+                        className="goSignup"
+                        type="button"
+                        onClick={goSignup}
+                    >
                         {" "}
-                        회원가입 하러 가기{" "}
-                    </NavLink>
+                        회원가입 하러 가기
+                    </button>
                 </div>
             </form>
         </div>

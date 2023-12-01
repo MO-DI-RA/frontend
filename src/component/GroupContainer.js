@@ -37,21 +37,21 @@ function GroupContainer({ method, url, headers, modify }) {
       headers: headers,
     })
       .then((res) => {
-        console.log("get : ", res.data);
+        // console.log("get : ", res.data);
         // 데이터가 없으면 setExistList == false
         if (res.data.length === 0) {
-          console.log("없음");
+          // console.log("없음");
           setExistList(false);
         } else {
-          console.log("있음");
+          // console.log("있음");
           setExistList(true);
-          console.log("list : ", existList);
+          // console.log("list : ", existList);
           setGroupList(res.data);
-          console.log("groupList:", groupList);
+          // console.log("groupList:", groupList);
         }
       })
       .then((err) => {
-        console.log("error : ", err);
+        // console.log("error : ", err);
       });
   }, [method, url, headers, modifyList]);
 
@@ -78,7 +78,7 @@ function GroupContainer({ method, url, headers, modify }) {
 
   // 삭제하기 버튼 클릭
   const clickDelete = () => {
-    console.log("선택된 id", selectedGID);
+    // console.log("선택된 id", selectedGID);
     if (selectedGID.length === 0) {
       alert("삭제할 목록이 없습니다.");
     } else {
@@ -114,15 +114,13 @@ function GroupContainer({ method, url, headers, modify }) {
                     color: "#000000",
                   }}
                   className="Group_Link"
-                  onClick={(e) => modifyList && clickContainer(group.id, e)}
-                >
+                  onClick={(e) => modifyList && clickContainer(group.id, e)}>
                   <div
                     className={`groupContainer ${
                       modifyList && selectedGID.includes(group.id)
                         ? "selected"
                         : ""
-                    }`}
-                  >
+                    }`}>
                     <div className="title_INFO">
                       <div className="titleINFO">
                         <div className="title"> {group.title} </div>
@@ -168,8 +166,11 @@ function GroupContainer({ method, url, headers, modify }) {
         </div>
       ) : (
         <p
-          style={{ textAlign: "center", margin: "100px 0px", fontSize: "20px" }}
-        >
+          style={{
+            textAlign: "center",
+            margin: "100px 0px",
+            fontSize: "20px",
+          }}>
           {" "}
           등록된 소모임이 없습니다.
         </p>

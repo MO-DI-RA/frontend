@@ -1,5 +1,6 @@
 .qnaPage {
   padding: 0 200px;
+  margin-top: 50px;
 }
 
 .qnaPageContainer {
@@ -41,6 +42,7 @@
   display: flex;
   justify-content: flex-start;
   gap: 20px;
+  /* margin-bottom: 30px; */
 }
 
 .defaultImg {
@@ -105,13 +107,15 @@
   resize: none;
   font-size: 20px;
   flex-grow: 1;
+  padding: 15px;
 }
 
 .answerRegister {
-  height: 103px;
+  height: 133px;
   width: 103px;
   border-radius: 10px;
   border: none;
+  cursor: pointer;
 }
 
 .answerLayout {
@@ -123,8 +127,9 @@
 }
 
 .answerContent {
-  margin-left: 40px;
-  margin-bottom: 20px;
+  margin-left: 70px;
+  margin-bottom: 30px;
+  font-size: 20px;
 }
 
 .CommentOnAnswer {
@@ -204,5 +209,5 @@ input#qnaTitleEdit::placeholder {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  margin-top: 30px;
+  margin-bottom: 30px;
 }

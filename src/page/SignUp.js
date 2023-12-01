@@ -1,8 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
-import {actionCreators} from "../redux/user";
-
+import { actionCreators } from "../redux/user";
 
 import "../css/SignUp.css";
 import { useDispatch } from "react-redux";
@@ -20,11 +19,11 @@ function SignUp() {
   password.current = watch("password");
 
   const dispatch = useDispatch();
-
-  // 폼 제출
   const navigate = useNavigate();
+  // 폼 제출
+
   const onSubmit = async (data) => {
-    console.log("data: ", data); //콘솔 확인
+    // console.log("data: ", data); //콘솔 확인
 
     const { email, password, nickname } = data;
 
@@ -34,10 +33,9 @@ function SignUp() {
       nickname: nickname,
     };
 
-    console.log("전송할 body : " ,body);
+    console.log("전송할 body : ", body);
 
-    dispatch(actionCreators.signupDB(body));
-    navigate("/Home");
+    dispatch(actionCreators.signupDB(body, navigate));
   };
 
   return (

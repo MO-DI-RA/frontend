@@ -25,15 +25,16 @@ function CommentInput({ postUrl, openModal }) {
   const buttonStyle = {
     backgroundColor: "#CCD4C9",
     width: "121px",
-    height: "103px",
+    height: "133px",
     fontSize: "20px",
     borderRadius: "30px",
     border: "none",
     marginLeft: "33px",
+    cursor: "pointer",
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     const options = {
       url: postUrl,
@@ -49,7 +50,10 @@ function CommentInput({ postUrl, openModal }) {
     };
 
     axios(options)
-      .then((response) => console.log(response))
+      .then((response) => {
+        //    console.log (response);
+        window.location.reload();
+      })
       .catch((error) => {
         console.error(error);
         if (error.response && error.response.status === 401) {
@@ -63,8 +67,7 @@ function CommentInput({ postUrl, openModal }) {
       <textarea
         style={textareaStyle}
         value={comment}
-        onChange={(e) => setComment(e.target.value)}
-      ></textarea>
+        onChange={(e) => setComment(e.target.value)}></textarea>
       <button style={buttonStyle} onClick={handleSubmit}>
         등록
       </button>

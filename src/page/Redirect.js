@@ -13,7 +13,7 @@ const Redirect = () => {
             url: `http://localhost:8000/user/kakao/login/?code=${code}`,
         })
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 const ACCESS_TOKEN = res.data.access;
                 const REFRESH_TOKEN = res.data.refresh;
                 localStorage.setItem("access-token", ACCESS_TOKEN);
@@ -25,8 +25,8 @@ const Redirect = () => {
                     token.lastIndexOf(".")
                 );
                 let dec = JSON.parse(base64.decode(payload));
-                console.log(dec);
-                console.log("decode : ", dec["user_id"]);
+                // console.log(dec);
+                // console.log("decode : ", dec["user_id"]);
                 localStorage.setItem("user_id", dec["user_id"]); //user_id 토큰 까봐야함
                 window.location.href = "/home";
             })
@@ -37,7 +37,11 @@ const Redirect = () => {
             });
     }, []); // 의존성 배열에 dispatch와 code 추가
 
-    return 0;
+    return (
+        <div style={{ textAlign: "center", padding: "500px" }}>
+            카카오 로그인 중 ...
+        </div>
+    );
 };
 
 export default Redirect;

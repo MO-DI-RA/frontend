@@ -1,127 +1,129 @@
 @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
 }
 
 * {
-    font-family: Pretendard-Regular;
+  font-family: Pretendard-Regular;
 }
 
 .Login {
-    display: flex;
-    background-color: #ffffff;
-    flex-direction: column;
-    align-items: center;
-    width: fit-content;
-    position: relative;
-    left: 33%;
-    box-shadow: 0px 0px 0px 1000000px #00000075;
-    border-radius: 10%;
-    padding: 30px 50px;
-    z-index: 10000;
+  display: flex;
+  background-color: #ffffff;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  position: relative;
+  left: 50%;
+  box-shadow: 0px 0px 0px 1000000px #00000075;
+  border-radius: 10%;
+  padding: 30px 50px;
+  z-index: 10000;
 }
 
 .modira {
-    color: #87AD83;
+  color: #87ad83;
 }
 
 .welcome {
-    display: flex;
-    justify-content: center;
-    font-size: 30px;
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
 }
 
 .LoginForm > #email,
 .LoginForm > #password {
-    width: 438px;
-    background: #F9F9F9;
-    border: none;
-    border-bottom: 1px solid #A7A7A7;
-    margin-top: 50px;
-    padding: 5px;
+  width: 438px;
+  background: #f9f9f9;
+  border: none;
+  border-bottom: 1px solid #a7a7a7;
+  margin-top: 50px;
+  padding: 5px;
 }
 
 .LoginForm > #email::placeholder,
 .LoginForm > #password::placeholder {
-    color: #A7A7A7;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 100;
-    line-height: normal;
+  color: #a7a7a7;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: normal;
 }
 
 .goSignup {
-    color: #87AD83;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-decoration-line: none;
+  color: #87ad83;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  background-color: #f9f9f9;
+  border: none;
+  cursor: pointer;
 }
 
 .LoginForm > button {
-    width: 438px;
-    flex-shrink: 0;
-    border-radius: 20px;
-    margin-top: 31px;
+  width: 438px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  margin-top: 31px;
 }
 
 #loginButton {
-    height: 50px;
-    background: #F9F9F9;
-    border: 3px solid #87AD83;
-    color: #87AD83;
-    font-size: 18px;
-    font-weight: 800;
-    cursor: pointer;
+  height: 50px;
+  background: #f9f9f9;
+  border: 3px solid #87ad83;
+  color: #87ad83;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
 }
 
 #kakaoLoginButton {
-    height: 55px;
-    background: #FDDC3F;
-    border: #FDDC3F;
-    color: #2C2C2C;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 40px;
-    cursor: pointer;
+  height: 55px;
+  background: #fddc3f;
+  border: #fddc3f;
+  color: #2c2c2c;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+  cursor: pointer;
 }
 
 #kakaoLogin {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.LoginForm{
-    width: 513px;
-    height: 433px;
-    flex-shrink: 0;
-    border-radius: 20px;
-    background: #F9F9F9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.LoginForm {
+  width: 513px;
+  height: 433px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .kakaoLogo {
-    width: 30px;
-    height: 30px;
-    flex-shrink: 0;
-    margin-right: 13px;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  margin-right: 13px;
 }
 
 .notUser {
-    margin-top: 31px;
+  margin-top: 31px;
 }
 
-.closeBtn{
-    margin: 20px;
-    border-radius: 10px;
-    border: solid 1px #979292;
-    padding: 5px;
-    cursor: pointer
+.closeBtn {
+  margin: 20px;
+  border-radius: 10px;
+  border: solid 1px #979292;
+  padding: 5px;
+  cursor: pointer;
 }

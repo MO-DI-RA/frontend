@@ -21,14 +21,11 @@ function GroupPage() {
     const closeModal = () => {
         setIsModalOpen(false);
     };
-
-    let headersString = token ? `Bearer ${token}` : "";
-
     //소모임 상세 정보
     const [groupInfo, setGroupInfo] = useState({});
 
     //모집중, 모집완료 표시
-    const [recruiting, setRecruiting] = useState(true);
+    const [recruiting, setRecruiting] = useState(false);
 
     //관심설정 표시
     const [liked, setLiked] = useState();
@@ -52,11 +49,14 @@ function GroupPage() {
             url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
             headers: {
                 "Content-Type": "application/json",
-                Authorization: headersString,
+                // Authorization: headersString,
+            },
+            params: {
+                user_id: localStorage.getItem("user_id"),
             },
         })
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 // 분야 추가 필요
                 const {
                     id,
@@ -98,13 +98,13 @@ function GroupPage() {
                 });
                 setRecruiting(res.data.status); // 서버로부터 받은 status 값으로 recruiting 상태 업데이트
                 setLiked(res.data.like_status);
-                console.log("관심등록 상태: ", res.data.like_status);
+                // console.log("관심등록 상태: ", res.data.like_status);
             })
             .catch(err => {
                 console.log("error : ", err);
             });
-        console.log("관심 등록:", liked);
-        console.log(recruiting ? "모집중" : "모집완료");
+        // console.log("관심 등록:", liked);
+        // console.log(recruiting ? "모집중" : "모집완료");
     }, [id, recruiting, token, liked]);
 
     const toggleRecruitmentStatus = () => {
@@ -123,7 +123,7 @@ function GroupPage() {
             },
         })
             .then(res => {
-                console.log("Status updated successfully:", res);
+                // console.log("Status updated successfully:", res);
             })
             .catch(err => {
                 console.error("Error updating status:", err);
@@ -134,7 +134,7 @@ function GroupPage() {
     const buttonStyle = recruiting
         ? "groupState"
         : "groupState recruitingComplete";
-    const buttonText = recruiting ? "모집중" : "모집완료";
+    const buttonText = !recruiting ? "모집중" : "모집완료";
 
     // 뒤로가기 버튼
     const onBackClick = () => {
@@ -156,7 +156,7 @@ function GroupPage() {
             },
         })
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 if (liked) {
                     setLiked(false);
                     alert("관심 해제 되었습니다.");
@@ -181,10 +181,11 @@ function GroupPage() {
                 url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
             })
                 .then(res => {
-                    console.log("Post deleted successfully");
+                    // console.log("Post deleted successfully");
                     window.confirm("성공적으로 삭제되었습니다.");
                     navigate("/Home");
                 })
@@ -196,9 +197,8 @@ function GroupPage() {
     };
     const isAuthor =
         Number(localStorage.getItem("user_id")) === groupInfo.author_id;
-    console.log(localStorage.getItem("user_id"), groupInfo.author_id);
-    console.log("-------", groupInfo);
-    console.log("제발", isAuthor);
+    // console.log(localStorage.getItem("user_id"), groupInfo.author_id);
+    // console.log("-------", groupInfo);
     const editButtonStyle = isAuthor ? {} : { display: "none" };
 
     return (
