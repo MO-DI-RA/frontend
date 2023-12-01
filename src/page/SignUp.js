@@ -33,7 +33,7 @@ function SignUp() {
       nickname: nickname,
     };
 
-    // console.log("전송할 body : ", body);
+    console.log("전송할 body : ", body);
 
     dispatch(actionCreators.signupDB(body, navigate));
   };
