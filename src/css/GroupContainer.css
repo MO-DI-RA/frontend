@@ -71,7 +71,7 @@
 /* 프로필 이미지 */
 .profileINFO > .profile_IMG {
   width: 30px;
-  width: 30px;
+  height: 30px;
   border-radius: 50%;
   object-fit: cover;
 }
