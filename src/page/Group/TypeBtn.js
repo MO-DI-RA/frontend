@@ -2,7 +2,6 @@
 // 분야 태그 내용 정하기
 
 const btnValue = [
-  { id: "분야태그" },
   { id: "공부" },
   { id: "맛집" },
   { id: "IT" },
@@ -32,8 +31,7 @@ function TypeBtn({ handleChange, activeType }) {
           style={{
             ...btnStyle,
             backgroundColor: activeType === button.id ? "#D1DDD0" : "#E5E5E5", //선택시 연두색 아니면 회색
-          }}
-        >
+          }}>
           #{button.id}
         </button>
       ))}

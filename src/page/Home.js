@@ -52,7 +52,7 @@ function Home() {
         {isGroup ? (
           <div className="home-Container">
             <Search isGroup={isGroup} updateSearchURL={updateSearchURL} />
-            <div style={{ marginLeft: "10%", marginBottom: "100px" }}>
+            <div style={{ marginLeft: "3%", marginBottom: "100px" }}>
               <GroupContainer
                 method={method}
                 url={url}

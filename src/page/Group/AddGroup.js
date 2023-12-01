@@ -250,8 +250,7 @@ function AddGroup() {
               <select
                 id="headcnt"
                 value={headcnt}
-                onChange={handleHeadcntChange}
-              >
+                onChange={handleHeadcntChange}>
                 {/* 인원 수 옵션 수정 필요 */}
                 <option value={0}> 인원미정 </option>
                 <option value={1}> 1명 </option>
@@ -308,8 +307,7 @@ function AddGroup() {
               <select
                 id="contact"
                 value={contact}
-                onChange={handleContactChange}
-              >
+                onChange={handleContactChange}>
                 <option value={"카카오톡 오픈채팅"}> 카카오톡 오픈채팅 </option>
                 <option value={"이메일"}> 이메일 </option>
                 <option value={"네이버 폼"}> 네이버 폼 </option>
@@ -358,8 +356,7 @@ function AddGroup() {
                   gap: "20px",
                   flexDirection: "column",
                   alignItems: "normal",
-                }}
-              >
+                }}>
                 <label htmlFor="introduce"> 소모임 소개 </label>
                 <textarea
                   id="introduce"
@@ -374,8 +371,7 @@ function AddGroup() {
             <button
               type="button"
               style={{ backgroundColor: "#d9d9d9" }}
-              onClick={handleCancel}
-            >
+              onClick={handleCancel}>
               취소하기
             </button>
             {isEditMode ? (
