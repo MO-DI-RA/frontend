@@ -19,9 +19,9 @@ function SignUp() {
     password.current = watch("password");
 
     const dispatch = useDispatch();
-
-    // 폼 제출
     const navigate = useNavigate();
+    // 폼 제출
+
     const onSubmit = async data => {
         console.log("data: ", data); //콘솔 확인
 
@@ -35,8 +35,7 @@ function SignUp() {
 
         console.log("전송할 body : ", body);
 
-        dispatch(actionCreators.signupDB(body));
-        navigate("/Home");
+        dispatch(actionCreators.signupDB(body, navigate));
     };
 
     return (

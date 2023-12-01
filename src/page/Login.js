@@ -9,7 +9,6 @@ import kakaoLogo from "../asset/kakaoLogo.png";
 import { useDispatch } from "react-redux";
 
 function Login() {
-    const { changedLoggedIn } = useAuth();
     //react-hook-form 사용
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -28,9 +27,7 @@ function Login() {
 
         console.log("body", body);
 
-        dispatch(actionCreators.loginDB(body));
-        changedLoggedIn(true);
-        navigate("/Home");
+        dispatch(actionCreators.loginDB(body, navigate));
     };
 
     //kakao 로그인
@@ -67,7 +64,9 @@ function Login() {
                         required: true,
                     })}
                 />
-                <button id="loginButton">LOG IN</button>
+                <button id="loginButton" type="submit">
+                    LOG IN
+                </button>
                 <button
                     id="kakaoLoginButton"
                     type="button"

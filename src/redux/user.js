@@ -2,6 +2,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { setCookie, removeCookie } from "../config/cookie";
+
 import axios from "axios";
 import base64 from "base-64";
 
@@ -24,7 +25,7 @@ const getUser = createAction(GET_USER, user => ({ user }));
 //middleware actions
 
 //Login
-const loginDB = body => {
+const loginDB = (body, navigate) => {
     return function (dispatch) {
         axios
             .post("http://localhost:8000/user/login/", body, {
@@ -52,25 +53,32 @@ const loginDB = body => {
                 console.log("decode : ", dec["user_id"]);
                 localStorage.setItem("user_id", dec["user_id"]); //user_id 토큰 까봐야함
                 setCookie("is_login", `${is_login}`);
+                alert("로그인 성공");
+                navigate("/Home");
+                // setIsModalOpen(false);
             })
             .catch(error => {
-                console.log(error);
+                alert(
+                    "등록 되지 않은 Eamil 혹은 비밀번호가 일치하지 않습니다."
+                );
+                console.log("----------------error");
+                // window.location.reload(); // 페이지 새로고침
             });
     };
 };
 
 // SignUp
-const signupDB = body => {
-    return function () {
+const signupDB = (body, navigate) => {
+    return function (dispatch) {
         axios
             .post("http://localhost:8000/user/signup/", body)
             .then(res => {
                 console.log(res);
+                navigate("/Home");
                 console.log("body : ", body);
             })
             .catch(error => {
-                console.log(error);
-                console.log("body :", body);
+                alert("Email 중복입니다.");
             });
     };
 };
@@ -103,11 +111,15 @@ const loginCheckDB = () => {
                 console.log("0-------------------");
             })
             .catch(error => {
-                if (error.response && error.response.status === 401) {
+                if (
+                    error.response &&
+                    (error.response.status === 401) |
+                        (error.response.status === 400)
+                ) {
                     dispatch(logOut());
                     window.localStorage.clear();
                     removeCookie("is_login");
-                    window.location.href = "/Home";
+                    // window.location.href = "/Home";
                 } else {
                     // Handle other types of errors or log them
                     console.error("Error occurred:", error);
