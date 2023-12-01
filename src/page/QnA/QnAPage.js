@@ -144,6 +144,12 @@ function QnAPage() {
     };
 
     const submitAnswer = () => {
+        const token = localStorage.getItem("access-token");
+        if (!token) {
+            // 토큰이 없으면 로그인하지 않은 것 -> 모달을 열어 로그인을 유도
+            openModal();
+            return; // 함수 실행 중단
+        }
         const options = {
             url: `http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/`, // 답변 등록 URL
             method: "POST",
@@ -153,7 +159,7 @@ function QnAPage() {
                 Authorization: `Bearer ${token}`,
             },
             data: {
-                // questionId: ,
+                questionId: questionData.id,
                 content: answer,
             },
         };
