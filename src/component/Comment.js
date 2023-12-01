@@ -40,7 +40,7 @@ function Comment({ url, type }) {
     padding: "16px",
     display: "flex",
     alignItems: "center",
-    marginBottom: "10px",
+    marginBottom: "20px",
     width: "1400px",
     height: "103px",
     marginLeft: "30px",
@@ -50,7 +50,8 @@ function Comment({ url, type }) {
     width: "50px",
     height: "50px",
     borderRadius: "50%",
-    marginRight: "12px",
+    marginRight: "24px",
+    marginLeft: "20px",
   };
 
   const commentInfoStyle = {
@@ -65,8 +66,8 @@ function Comment({ url, type }) {
   const commentContentStyle = {
     backgroundColor: "white",
     borderRadius: "8px",
-    padding: "8px",
-    fontSize: "14px",
+    padding: "8px 0px",
+    fontSize: "20px",
     color: "black",
     wordBreak: "break-word",
   };
@@ -85,7 +86,7 @@ function Comment({ url, type }) {
   };
 
   return (
-    <div>
+    <div style={{ marginBottom: "50px" }}>
       {comments.map((comment, index) => (
         <div
           style={{
