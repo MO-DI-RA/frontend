@@ -39,12 +39,18 @@ function Home() {
     <div className="home_page">
       <Banner />
       <div className="nav">
-        <button className="group" onClick={clickGroup}>
+        <button
+          className="group"
+          onClick={clickGroup}
+          style={{ cursor: "pointer" }}>
           {" "}
           소모임{" "}
         </button>
-        <button href="/" className="qna" onClick={clickQnA}>
-          {" "}
+        <button
+          href="/"
+          className="qna"
+          onClick={clickQnA}
+          style={{ cursor: "pointer" }}>
           Q&A{" "}
         </button>
       </div>
