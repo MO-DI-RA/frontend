@@ -1,30 +1,31 @@
 .myPost {
-    padding: 0 200px;
+  padding: 0 200px;
+  margin-top: 70px;
 }
 
 .myPostIntro {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .myPostGroup,
 .myPostQnA {
-    background-color: white;
-    color: #8D8D8D;
-    border: 1px solid #8A8A8A;
-    border-radius: 15px;
-    padding: 10px 20px;
-    cursor: pointer;
-    outline: none;
-    font-size: 15px;
-    margin-right: 20px;
-    margin-bottom: 60px;
+  background-color: white;
+  color: #8d8d8d;
+  border: 1px solid #8a8a8a;
+  border-radius: 15px;
+  padding: 10px 20px;
+  cursor: pointer;
+  outline: none;
+  font-size: 15px;
+  margin-right: 20px;
+  margin-bottom: 60px;
 }
 
 .selected {
-    background-color: #DFEEDB;
-    color: #87AD83;
+  background-color: #dfeedb;
+  color: #87ad83;
 }
 
-.myPostContent > .groupContainer{
-    margin-left : 15%;
+.myPostContent > .groupContainer {
+  margin-left: 11%;
 }

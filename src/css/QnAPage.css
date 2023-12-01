@@ -1,5 +1,6 @@
 .qnaPage {
   padding: 0 200px;
+  margin-top: 50px;
 }
 
 .qnaPageContainer {
@@ -41,6 +42,7 @@
   display: flex;
   justify-content: flex-start;
   gap: 20px;
+  margin-bottom: 30px;
 }
 
 .defaultImg {
@@ -204,5 +206,5 @@ input#qnaTitleEdit::placeholder {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  margin-top: 30px;
+  margin-bottom: 30px;
 }
