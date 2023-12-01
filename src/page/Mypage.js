@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import "../css/Mypage.css";
 import editImg from "../asset/editImg.png";
@@ -8,6 +8,8 @@ import GroupContainer from "../component/GroupContainer";
 function Mypage() {
     const token = localStorage.getItem("access-token");
     console.log(token);
+
+    const fileInputRef = useRef(null);
 
     const [profile, setProfile] = useState(); //프로필 사진
     const [nickname, setNickname] = useState(""); //닉네임
@@ -49,6 +51,8 @@ function Mypage() {
         const selectedImg = e.target.files[0];
         const reader = new FileReader();
 
+        console.log("???????????????????????????????????????????", selectedImg);
+
         formData.append("files", selectedImg);
 
         //이미지 미리보기
@@ -59,6 +63,11 @@ function Mypage() {
         if (selectedImg) {
             reader.readAsDataURL(selectedImg);
         }
+    };
+
+    const handleImageClick = () => {
+        // 숨겨진 파일 입력을 클릭합니다.
+        fileInputRef.current.click();
     };
 
     // 닉네임 변경
@@ -83,16 +92,26 @@ function Mypage() {
                 nickname: nickname,
                 profile_image: profile,
             },
+        }).then(res => {
+            window.location.reload();
         });
     };
 
+    const profileImageUrl =
+        profile && profile.startsWith("/")
+            ? `http://localhost:8000${profile}`
+            : profile;
+    console.log("0----------------", profile);
     return (
         <div>
             <div className="Mypage">
                 <form className="profileForm" onSubmit={onSubmit}>
                     <div className="info">
                         <img
-                            src={"http://localhost:8000" + profile}
+                            src={
+                                profileImageUrl ||
+                                "http://localhost:8000" + profile
+                            }
                             className="defaultImgMyPage"
                             alt="defaultImg"
                         ></img>
@@ -100,12 +119,15 @@ function Mypage() {
                             src={editImg}
                             className="editImg"
                             alt="editImg"
-                        ></img>
+                            onClick={handleImageClick} // 이미지 클릭 시 파일 입력 활성화
+                        />
                         <input
                             type="file"
                             accept="image/*"
                             className="profileEditBtn"
                             onChange={changeProfile}
+                            ref={fileInputRef}
+                            style={{ display: "none" }} // 숨김 처리
                         />
                         <h2 className="userWelcome">{nickname}님 환영해요.</h2>
                     </div>
