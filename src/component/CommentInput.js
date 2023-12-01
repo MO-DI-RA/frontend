@@ -25,7 +25,7 @@ function CommentInput({ postUrl, openModal }) {
   const buttonStyle = {
     backgroundColor: "#CCD4C9",
     width: "121px",
-    height: "103px",
+    height: "133px",
     fontSize: "20px",
     borderRadius: "30px",
     border: "none",
