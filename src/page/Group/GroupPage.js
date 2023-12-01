@@ -21,9 +21,6 @@ function GroupPage() {
     const closeModal = () => {
         setIsModalOpen(false);
     };
-
-    let headersString = token ? `Bearer ${token}` : "";
-
     //소모임 상세 정보
     const [groupInfo, setGroupInfo] = useState({});
 
@@ -52,7 +49,10 @@ function GroupPage() {
             url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
             headers: {
                 "Content-Type": "application/json",
-                Authorization: headersString,
+                // Authorization: headersString,
+            },
+            params: {
+                user_id: localStorage.getItem("user_id"),
             },
         })
             .then(res => {
@@ -181,6 +181,7 @@ function GroupPage() {
                 url: `http://127.0.0.1:8000/gathering/posts/${id}/`,
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
             })
                 .then(res => {

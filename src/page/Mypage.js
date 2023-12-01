@@ -111,7 +111,7 @@ function Mypage() {
                     </div>
                     <label htmlFor="nickname">*닉네임</label>
                     <input
-                        id="nickname"
+                        id="mypage_nickname"
                         name="nickname"
                         required
                         placeholder={nickname}

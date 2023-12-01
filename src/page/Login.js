@@ -9,7 +9,7 @@ import kakaoLogo from "../asset/kakaoLogo.png";
 import { useDispatch } from "react-redux";
 
 function Login() {
-    const {changedLoggedIn} = useAuth();
+    const { changedLoggedIn } = useAuth();
     //react-hook-form 사용
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -86,7 +86,7 @@ function Login() {
                     아직 회원이 아니신가요?{" "}
                     <NavLink to="/Signup" className="goSignup">
                         {" "}
-                        회원가입 하러 가기{" "}
+                        회원가입 하러 가기
                     </NavLink>
                 </div>
             </form>
