@@ -22,21 +22,23 @@ function QnAPage() {
   const [editedTitle, setEditedTitle] = useState(""); // 수정된 제목
   const [editedContent, setEditedContent] = useState(""); // 수정된 내용
 
-  //댓글
-  const [comments, setComments] = useState([]);
-
   //관심설정 표시
   const [liked, setLiked] = useState(false);
+
+  //댓글
+  const [comments, setComments] = useState([]);
 
   // 댓글 입력창 상태 관리
   const [commentInputs, setCommentInputs] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
+    // 로그인 모달창 열기
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
+    //로그인 모달창 닫기
     setIsModalOpen(false);
   };
 
@@ -92,7 +94,7 @@ function QnAPage() {
   };
 
   useEffect(() => {
-    // Call fetchComments when component mounts or id changes
+    // id 바뀔 때마다 fetchComments 호출
     fetchComments();
   }, [id]);
 
@@ -154,9 +156,10 @@ function QnAPage() {
 
     axios(options)
       .then((response) => {
+        //수정 성공시
         // console.log(response);
-        // 수정 후 필요한 동작 수행
         setQuestionData({
+          //제목, 내용 set
           ...questionData,
           title: editedTitle,
           content: editedContent,
@@ -302,7 +305,7 @@ function QnAPage() {
       // console.log("-------", questionData);
       // const disableButton = isAuthor ? {} : { disabled: "disabled" };
       const editButtonStyle = isAuthor ? {} : { display: "none" };
-      console.log("뭔데", questionData.answers);
+      console.log(questionData.answers);
       return (
         <div>
           {isModalOpen && <Modal closeModal={closeModal} />}
@@ -338,17 +341,14 @@ function QnAPage() {
                   "http://localhost:8000/" +
                     questionData.author_profile_image || defaultImg
                 }
-                // src={defaultImg}
                 className="defaultImg"
                 alt="작성자 프로필"
               ></img>
               <p>{questionData.author_nickname}</p>
-              {/* <p>작성자 닉네임</p> */}
               <p> 등록일 : {formatDate(questionData.created_at)}</p>
             </div>
 
             <p className="qnaContent">{questionData.content}</p>
-            {/* <p className="qnaContent">질문 내용</p> */}
             <div className="qnaEditButtons" style={editButtonStyle}>
               <button onClick={startEdit} className="qnaModifyButton">
                 수정하기
@@ -397,15 +397,16 @@ function QnAPage() {
                   댓글 달기
                 </button>
                 {commentInputs[answer.id] && (
+                  // 댓글 입력창 컴포넌트
                   <CommentInput
                     postUrl={`http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/${answer.id}/reply/`}
                     type="qna"
-                  /> // 댓글 입력 컴포넌트
+                  />
                 )}
+                {/* 댓글 내용 불러오는 컴포넌트 */}
                 <Comment
                   url={`http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/${answer.id}/reply/`}
                 />
-                {/* 댓글 내용 불러오는 컴포넌트 */}
               </div>
             ))}
           </div>
