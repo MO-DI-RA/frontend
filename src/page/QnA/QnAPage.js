@@ -23,7 +23,7 @@ function QnAPage() {
     const [editedContent, setEditedContent] = useState(""); // 수정된 내용
 
     //댓글
-    const [comments, setComments] = useState();
+    const [comments, setComments] = useState([]);
 
     //관심설정 표시
     const [liked, setLiked] = useState(false);
@@ -75,7 +75,7 @@ function QnAPage() {
     }, [id, liked]);
 
     //Q&A 댓글
-    useEffect(() => {
+    const fetchComments = () => {
         axios({
             method: "GET",
             url: `http://127.0.0.1:8000/qna/posts/${id}/comments/`,
@@ -89,7 +89,12 @@ function QnAPage() {
             .catch(err => {
                 console.log("Q&A 댓글 error : ", err);
             });
-    });
+    };
+
+    useEffect(() => {
+        // Call fetchComments when component mounts or id changes
+        fetchComments();
+    }, [id]);
 
     const handleAnswerChange = event => {
         setAnswer(event.target.value);
@@ -417,12 +422,12 @@ function QnAPage() {
                                 </button>
                                 {commentInputs[answer.answer_id] && (
                                     <CommentInput
-                                        postUrl={`http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/${answer.answer_id}/reply/`}
+                                        postUrl={`http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/${answer.id}/reply/`}
                                         type="qna"
                                     /> // 댓글 입력 컴포넌트
                                 )}
                                 <Comment
-                                    url={`http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/${answer.answer_id}/reply/`}
+                                    url={`http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/${answer.id}/reply/`}
                                 />
                                 {/* 댓글 내용 불러오는 컴포넌트 */}
                             </div>
