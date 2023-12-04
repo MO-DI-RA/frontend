@@ -400,12 +400,13 @@ function QnAPage() {
                   // 댓글 입력창 컴포넌트
                   <CommentInput
                     postUrl={`http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/${answer.id}/reply/`}
-                    type="qna"
+                    openModal={openModal}
                   />
                 )}
                 {/* 댓글 내용 불러오는 컴포넌트 */}
                 <Comment
                   url={`http://127.0.0.1:8000/qna/posts/${questionData.id}/comments/${answer.id}/reply/`}
+                  type="qna"
                 />
               </div>
             ))}
