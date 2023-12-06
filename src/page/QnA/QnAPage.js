@@ -166,7 +166,12 @@ function QnAPage() {
         });
         setEditMode(false); // 수정 모드 종료
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        if (error.response && error.response.status === 400) {
+          alert("내용을 입력하세요.");
+        }
+      });
   };
 
   const submitAnswer = () => {
