@@ -207,6 +207,9 @@ function QnAPage() {
         if (error.response && error.response.status === 401) {
           openModal(); // 401 오류시(로그인 안하고 댓글 등록 누르면) 모달을 띄움
         }
+        if (error.response && error.response.status === 400) {
+          alert("답변 내용을 입력하세요.");
+        }
       });
   };
 
