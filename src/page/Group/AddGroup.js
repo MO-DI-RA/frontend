@@ -144,16 +144,28 @@ function AddGroup() {
     // console.log(title);
     // console.log(summary);
     // console.log(introduce);
-    if (division === "") alert("모집 구분을 입력하세요");
-    if (headcnt === "") alert("모집 인원을 입력하세요");
-    if (method === "") alert("진행 방식을 입력하세요");
-    if (period === "") alert("진행 기간을 입력하세요");
-    if (type === "") alert("분야를 입력하세요");
-    if (contact === "") alert("연락 방법을 입력하세요");
-    if (deadline === "") alert("모집 마감을 입력하세요");
-    if (title === "") alert("제목을 입력하세요");
-    if (summary === "") alert("요약을 입력하세요");
-    if (introduce === "") alert("소개를 입력하세요");
+
+    if (division === "") {
+      alert("모집 구분을 입력하세요");
+    } else if (headcnt === "") {
+      alert("모집 인원을 입력하세요");
+    } else if (method === "") {
+      alert("진행 방식을 입력하세요");
+    } else if (period === "") {
+      alert("진행 기간을 입력하세요");
+    } else if (type === "") {
+      alert("분야를 입력하세요");
+    } else if (contact === "") {
+      alert("연락 방법을 입력하세요");
+    } else if (deadline === "") {
+      alert("모집 마감을 입력하세요");
+    } else if (title === "") {
+      alert("제목을 입력하세요");
+    } else if (summary === "") {
+      alert("요약을 입력하세요");
+    } else if (introduce === "") {
+      alert("소개를 입력하세요");
+    }
 
     // 토큰 가져오기
     const token = localStorage.getItem("access-token");
