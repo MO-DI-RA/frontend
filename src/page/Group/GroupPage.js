@@ -189,7 +189,7 @@ function GroupPage() {
         })
         .catch((err) => {
           console.error("Error during deletion:", err);
-          window.confirm("삭제 실패!ㅋㅋ");
+          window.confirm("삭제 실패하였습니다.");
         });
     }
   };
